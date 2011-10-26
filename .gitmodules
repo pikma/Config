@@ -1,0 +1,33 @@
+[submodule "vim/bundle/clang_complete"]
+	path = vim/bundle/clang_complete
+	url = https://github.com/Rip-Rip/clang_complete.git
+[submodule "vim/bundle/supertab"]
+	path = vim/bundle/supertab
+	url = https://github.com/ervandew/supertab.git
+[submodule "vim/bundle/command-t"]
+	path = vim/bundle/command-t
+	url = https://github.com/wincent/Command-T.git
+[submodule "vim/bundle/EnhancedCommentify"]
+	path = vim/bundle/EnhancedCommentify
+	url = https://github.com/hrp/EnhancedCommentify.git
+[submodule "vim/bundle/TagBar"]
+	path = vim/bundle/TagBar
+	url = https://github.com/Rip-Rip/clang_complete.git
+[submodule "vim/bundle/fugitive"]
+	path = vim/bundle/fugitive
+	url = http://github.com/tpope/vim-fugitive.git
+[submodule "vim/bundle/surround"]
+	path = vim/bundle/surround
+	url = https://github.com/tpope/vim-surround.git
+[submodule "vim/bundle/XmlEdit"]
+	path = vim/bundle/XmlEdit
+	url = https://github.com/sukima/xmledit.git
+[submodule "vim/bundle/pyflakes"]
+	path = vim/bundle/pyflakes
+	url = https://github.com/mitechie/pyflakes-pathogen.git
+[submodule "vim/bundle/pydoc"]
+	path = vim/bundle/pydoc
+	url = https://github.com/fs111/pydoc.vim.git
+[submodule "vim/bundle/pep8"]
+	path = vim/bundle/pep8
+	url = https://github.com/vim-scripts/pep8.git
