@@ -25,9 +25,6 @@
 [submodule "vim/bundle/pyflakes"]
 	path = vim/bundle/pyflakes
 	url = http://github.com/mitechie/pyflakes-pathogen.git
-[submodule "vim/bundle/pydoc"]
-	path = vim/bundle/pydoc
-	url = http://github.com/fs111/pydoc.vim.git
 [submodule "vim/bundle/pep8"]
 	path = vim/bundle/pep8
 	url = http://github.com/vim-scripts/pep8.git
