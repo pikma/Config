@@ -10,9 +10,6 @@
 [submodule "vim/bundle/EnhancedCommentify"]
 	path = vim/bundle/EnhancedCommentify
 	url = http://github.com/hrp/EnhancedCommentify.git
-[submodule "vim/bundle/TagBar"]
-	path = vim/bundle/TagBar
-	url = http://github.com/Rip-Rip/clang_complete.git
 [submodule "vim/bundle/fugitive"]
 	path = vim/bundle/fugitive
 	url = http://github.com/tpope/vim-fugitive.git
@@ -28,3 +25,6 @@
 [submodule "vim/bundle/pep8"]
 	path = vim/bundle/pep8
 	url = http://github.com/vim-scripts/pep8.git
+[submodule "vim/bundle/TagBar"]
+	path = vim/bundle/TagBar
+	url = https://github.com/majutsushi/tagbar.git
