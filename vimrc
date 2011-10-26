@@ -20,8 +20,10 @@ set nocompatible
 set ttyfast
 
 " Set persistent undo (v7.3 only)
-set undodir=~/.vim/undodir
-set undofile
+if version >= 703
+    set undodir=~/.vim/undodir
+    set undofile
+endif
 
 "La première ligne réduit automatiquement les fonction et blocs.
 "On utilise notre fonction (optionnel).
