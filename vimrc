@@ -15,7 +15,7 @@ set nocompatible
 
 " Convince Vim it can use 256 colors inside Gnome Terminal.
 " Needs CSApprox plugin
-" set t_Co=256
+set t_Co=256
 
 set ttyfast
 
