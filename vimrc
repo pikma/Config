@@ -41,7 +41,6 @@ set foldtext =MyFoldFunction()
 set foldlevel=99
 set foldenable
 
-
 " This shows what you are typing as a command.  I love this!
 set showcmd
 
@@ -73,6 +72,10 @@ endif
 
 " Enable mouse support in console
 set mouse=a
+
+" Disable click (leaves only scrolling)
+map <LeftMouse>  <Nop>
+imap <LeftMouse> <Nop>
 
 set backspace=indent,eol,start
 
