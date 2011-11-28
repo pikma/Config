@@ -245,3 +245,14 @@ nnoremap <leader>l :TagbarToggle<CR>
 " This will look in the current directory for "tags", and work up the tree towards root until one is found.
 set tags=tags;/
 map <F8> :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+
+
+"makes Vim insert these preprocessor gates automatically, when a new header file is created:
+function! s:insert_gates()
+  let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
+  execute "normal! i#ifndef " . gatename
+  execute "normal! o#define " . gatename . " "
+  execute "normal! Go#endif /* " . gatename . " */"
+  normal! kk
+endfunction
+autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
