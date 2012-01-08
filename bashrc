@@ -113,3 +113,7 @@ CDPATH=:/home/pierre/Documents/Stanford/
 #~/Documents/Programmation/Scripts/mpwd.sh | ~/Documents/Programmation/Scripts/shortPwd
 PS1="${debian_chroot:+($debian_chroot)}\u@\h:\$(~/Documents/Programmation/Scripts/mpwd.sh | ~/Documents/Programmation/Scripts/shortPwd)\$ "
 PATH=$PATH:/home/pierre/Documents/Programmation/Scripts/
+
+
+# alias for doing a recursive grep in C source
+alias cgr="find . -name '*.h' -or -name '*.c' -or -name '*.cpp' -or -name '*.cc' | xargs grep --color "

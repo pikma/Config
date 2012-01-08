@@ -173,7 +173,7 @@ let g:clang_hl_errors = 1
 "       same way clang does it.
 "       Default: 1
 
-let g:clang_periodic_quickfix = 1
+let g:clang_periodic_quickfix = 0
 "       if equal to 1, it will periodically update the quickfix window
 "       Note: You could use the g:ClangUpdateQuickFix() to do the same
 "             with a mapping.
