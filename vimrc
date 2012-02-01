@@ -256,3 +256,7 @@ function! s:insert_gates()
   normal! kk
 endfunction
 autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
+
+" au BufRead,BufNewFile *.cpp set formatprg="uncrustify --frag -l CPP -q"
+au BufRead,BufNewFile *.cpp set formatprg=uncrustify\ --frag\ -l\ CPP\ -q
+" map <F7> myggVG!uncrustify -l cpp<CR>dd'y
