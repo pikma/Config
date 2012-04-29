@@ -261,3 +261,12 @@ autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
 au BufRead,BufNewFile *.cpp set formatprg=uncrustify\ --frag\ -l\ CPP\ -q
 " map <F7> myggVG!uncrustify -l cpp<CR>dd'y
 
+" Ctrl P settings:
+let g:ctrlp_map = '<c-p>' "Changes the mapping
+let g:ctrlp_working_path_mode = 2
+" 0 - don’t manage working directory.
+" 1 - the parent directory of the current file.
+" 2 - the nearest ancestor that contains one of these directories or files:
+"     .git/ .hg/ .svn/ .bzr/ _darcs/
+
+
