@@ -28,3 +28,6 @@
 [submodule "vim/bundle/TagBar"]
 	path = vim/bundle/TagBar
 	url = https://github.com/majutsushi/tagbar.git
+[submodule "vim/bundle/ctrlp"]
+	path = vim/bundle/ctrlp
+	url = git://github.com/kien/ctrlp.vim.git

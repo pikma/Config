@@ -205,14 +205,14 @@ map <S-F9> :let g:clang_periodic_quickfix = 1 - g:clang_periodic_quickfix <bar> 
 "        Default: ''
 "        Example: '|| exit 0' (it will discard clang return value)
 
-" let g:clang_use_library = 1
+let g:clang_use_library = 1
 "    Instead of calling the clang/clang++ tool use libclang directly. This
 "    gives access to many more clang features. Furthermore it automatically
 "    caches all includes in memory. Updates after changes in the same file
 "    will therefore be a lot faster.
 "      Default : 0
 
-"    - g:clang_library_path:
+let g:clang_library_path = "/home/pierre/lib/"
 "    If libclang.[dll/so/dylib] is not in your library search path, set
 "    this to the absolute path where libclang is available.
 "    Default : ''
@@ -260,3 +260,4 @@ autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
 " au BufRead,BufNewFile *.cpp set formatprg="uncrustify --frag -l CPP -q"
 au BufRead,BufNewFile *.cpp set formatprg=uncrustify\ --frag\ -l\ CPP\ -q
 " map <F7> myggVG!uncrustify -l cpp<CR>dd'y
+

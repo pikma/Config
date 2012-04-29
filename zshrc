@@ -35,4 +35,11 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 cdpath=( ~/Documents/Stanford )
+PATH=$PATH:/home/pierre/Documents/Programmation/Scripts/
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/pierre/lib/
 
+alias ll="ls -lh"
+
+if [ -e /etc/zsh_command_not_found ]; then
+  . /etc/zsh_command_not_found
+fi

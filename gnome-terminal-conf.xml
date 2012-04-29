@@ -383,6 +383,13 @@
       </value>
     </entry>
     <entry>
+      <key>profiles/Default/encoding</key>
+      <schema_key>/schemas/apps/gnome-terminal/profiles/Default/encoding</schema_key>
+      <value>
+        <string>current</string>
+      </value>
+    </entry>
+    <entry>
       <key>profiles/Default/exit_action</key>
       <schema_key>/schemas/apps/gnome-terminal/profiles/Default/exit_action</schema_key>
       <value>
@@ -571,7 +578,7 @@
     <entry>
       <key>profiles/Profile0/background_darkness</key>
       <value>
-        <float>0.94394618272781372</float>
+        <float>0.94394599999999995</float>
       </value>
     </entry>
     <entry>
@@ -661,7 +668,7 @@
     <entry>
       <key>profiles/Profile0/foreground_color</key>
       <value>
-        <string>#CAE9CAE9CAE9</string>
+        <string>#DB4DDB4DDB4D</string>
       </value>
     </entry>
     <entry>
