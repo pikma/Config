@@ -1,0 +1,12 @@
+1. Quit the Ubuntu One Preferences, if open
+2. Open Applications->Accessories->Passwords and Encryption Keys
+3. Click on the arrow next to "Passwords"
+4. Right-click on the Ubuntu One token and select "Delete"
+5. Go to https://one.ubuntu.com/account/machines/
+6. Click on the checkbox next to your computer
+7. Click the "Remove selected computers" button
+8. killall ubuntu-sso-login; u1sdtool -q; u1sdtool -c
+NOTE: (For Lucid): u1sdtool -q; killall ubuntuone-login; u1sdtool -c
+9. a web page, if in Lucid, or a window, in Maverick, should open,prompting you to add your computer to
+your Ubuntu One account
+10. Add your computer

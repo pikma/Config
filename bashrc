@@ -46,3 +46,7 @@ PATH=$PATH:$CONFIG_DIR/scripts
 # alias for doing a recursive grep in C source
 alias cgr="find . -name '*.h' -or -name '*.c' -or -name '*.cpp' -or -name '*.cc' | xargs grep --color "
 
+# other files
+for i in $(find $CONFIG_DIR -name "bash_custom_*") ; do
+    . $i
+done

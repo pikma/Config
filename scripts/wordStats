@@ -1,0 +1,159 @@
+#! /bin/bash
+
+# o: png/pdf/eps
+# r: reset
+# v: verbose
+# h: help
+
+s_printUsage() {
+   echo "$(basename $0) help you keep track of your work by saving the number of words and the number of lines of a document. It can also plot a graph of the evolution of those number in time (see -o).  A good idea is to use $(basename $0) in the Makefile of your project, so that the numbers of word and lines are frequently updated.  \n\nFor any questions, pierre[dot]kreitmann[at]gmail.com."
+   printf "Usage: %s [-hv] [-o value] [-r] [-s value] args\n" $(basename $0) >&2 ;
+   echo "Accepted options are :"; 
+   echo "  -h: help"; 
+   echo "  -r: reset"; 
+   echo "  -s: takes a regex as an argument. It is used only if the target is a directory. Only the files which match the regex will be counted."
+   echo "      Example : $(basename $0) -s '.*\.tex' myDir"
+   echo "      For more information on the regex supported, check the 'find' manpage."
+   echo "  -v: verbose mode"; 
+   echo "  -o: select an output format (eps, pdf, or png). A graph will be generated."; 
+   echo "      Example : $(basename $0) -o pdf myFile"
+}
+
+rflag=
+vflag=
+hflag=
+oflag=
+regexFlag=".*"
+
+while getopts 'ho:rs:v' OPTION ; do
+   case $OPTION in
+      r) 
+         rflag=1
+         ;;
+      v) 
+         vflag=1
+         ;;
+      s) if [ ! "$OPTARG" ] ; then
+            s_printUsage
+            exit 2
+         else
+            regexFlag="$OPTARG"
+         fi
+         ;;
+      o) 
+         if [ "$OPTARG" = "eps" -o "$OPTARG" = "png" -o "$OPTARG" = "pdf" ] ; then
+            oflag="$OPTARG"
+         else
+            echo "'-o' option : '$OPTARG' unsupported. Try 'eps', 'pdf', or 'png'."
+            exit 2
+         fi
+         ;;
+      h | ?)
+         s_printUsage
+         exit 2
+         ;;
+   esac
+done
+shift $(($OPTIND - 1))
+
+if [ ! -d $1 -a ! -f $1 ] ; then
+   s_printUsage
+   exit 2
+fi 
+
+DIR_NAME="$(dirname $1)"
+FILE_NAME="$(basename $1 | sed 's/\.[^.]*$//g')"
+STAT_FILE_NAME=".$FILE_NAME""Stats"
+
+# RESET #
+if [ "$rflag" ] ; then
+   echo "This is going to delete $DIR_NAME/$STAT_FILE_NAME : are you sure ? <y/n>"
+   read CONFIRM
+   if [ "$CONFIRM" = "yes" -o "$CONFIRM" = "y" ] ; then
+      rm $DIR_NAME/$STAT_FILE_NAME
+      if [ "$vflag" ] ; then
+         echo "$DIR_NAME/$STAT_FILE_NAME deleted."
+      fi
+   fi
+   if [ "$vflag" ] ; then
+      echo "Aborted. Your data was unchanged."
+   fi
+   exit 0
+fi
+
+# UPDATE THE STATS #
+
+if [ "$vflag" ] ; then
+   printf "Updating stat file : $DIR_NAME/$STAT_FILE_NAME ...\n"
+fi
+if [ -f $1 ] ; then
+   # File
+   echo "$(date -u '+%s') $(wc $1)" >> "$DIR_NAME/$STAT_FILE_NAME"
+elif [ -d $1 ] ; then
+   # Directory
+   if [ "$vflag" ] ; then
+      echo "$1 is a directory. This may take some time ..."
+   fi
+   echo "find $1 -regex \"$regexFlag\" -print0 | wc --files0-from=- >> $DIR_NAME/$STAT_FILE_NAME"
+   echo "$(date -u '+%s') $(find "$1" -regex "$regexFlag" -print0 | wc --files0-from=- 2>/dev/null |
+   grep total || echo "0 0 0 NoFilesFound")" >> "$DIR_NAME/$STAT_FILE_NAME"
+fi
+if [ "$vflag" ] ; then
+   printf "   Done !\n"
+fi
+
+# PLOT THE DATA #
+
+if [ "$oflag" ] ; then
+
+   OUTPUT_FILE="$DIR_NAME/$FILE_NAME""Stats.eps"
+   GNUPLOT_TERM="set term post eps color enhanced 'Helvetica'"
+   if [ "$oflag" = "png" ] ; then
+      OUTPUT_FILE="$DIR_NAME/$FILE_NAME""Stats.png"
+      GNUPLOT_TERM="set term png size 800 600"
+   fi
+
+
+   if [ "$vflag" ] ; then
+      printf "Plotting the data into $OUTPUT_FILE ...\n"
+   fi
+   gnuplot <<EOF
+   $GNUPLOT_TERM
+   set grid ytics xtics
+   #set yzeroaxis lt -1
+   set key right bottom
+   set key box
+   set xdata time
+   set timefmt "%s"
+   set bmargin 5
+   set y2tics
+   set ytics nomirror
+   set yrange [0:*]
+   set y2range [0:*]
+
+   set output "$OUTPUT_FILE"
+   plot "$DIR_NAME/$STAT_FILE_NAME" u 1:2 axis x1y1 w l title 'Lines', "$DIR_NAME/$STAT_FILE_NAME" using 1:3 axis x1y2 w l title 'Words'
+EOF
+
+   if [ "$vflag" ] ; then
+      printf "   Done !\n"
+   fi
+
+   if [ "$oflag" = "pdf" ] ; then
+      if [ "$vflag" ] ; then
+         printf "Converting $OUTPUT_FILE to pdf ...\n"
+      fi
+      epstopdf $OUTPUT_FILE
+      if [ "$vflag" ] ; then
+         printf "   Done !\n"
+      fi
+      if [ "$vflag" ] ; then
+         printf "Deleting $OUTPUT_FILE ...\n"
+      fi
+      rm -f $OUTPUT_FILE
+      if [ "$vflag" ] ; then
+         printf "   Done !\n"
+      fi
+   fi
+
+fi
