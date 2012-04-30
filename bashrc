@@ -46,6 +46,14 @@ PATH=$PATH:$CONFIG_DIR/scripts
 # alias for doing a recursive grep in C source
 alias cgr="find . -name '*.h' -or -name '*.c' -or -name '*.cpp' -or -name '*.cc' | xargs grep --color "
 
+# Source highlighting in less
+alias source-hilight="source-hilight --style-file=/usr/share/source-ghighlight/esc.style"
+export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
+export LESS=' -R '
+
+
+export EDITOR=vim
+
 # other files
 for i in $(find $CONFIG_DIR -name "bash_custom_*") ; do
     . $i
