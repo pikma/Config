@@ -173,15 +173,15 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 "SuperTab Completion
 let g:SuperTabDefaultCompletionType = "context"
 
-au BufRead,BufNewFile *.txt		set fo=tcoq
-au BufRead,BufNewFile *.tex		set fo=tcoq
-au BufRead,BufNewFile *.tex		set spell
-au BufRead,BufNewFile *.plt		set ft=gnuplot
-au BufRead,BufNewFile *.owl		set ft=xml
-au BufRead,BufNewFile *.xul		set ft=xml
-au BufRead,BufNewFile *.hrf		set ft=prolog
-au BufRead,BufNewFile *.flr		set ft=prolog " for flora2 (cs227)
-au BufRead,BufNewFile *.rdf		setfiletype xml
+au BufRead,BufNewFile *.txt set fo=tcoq
+au BufRead,BufNewFile *.tex set fo=tcoq
+au BufRead,BufNewFile *.tex set spell
+au BufRead,BufNewFile *.plt set ft=gnuplot
+au BufRead,BufNewFile *.owl set ft=xml
+au BufRead,BufNewFile *.xul set ft=xml
+au BufRead,BufNewFile *.hrf set ft=prolog
+au BufRead,BufNewFile *.flr set ft=prolog " for flora2 (cs227)
+au BufRead,BufNewFile *.rdf setfiletype xml
 
 let g:tagbar_usearrows = 1
 let g:tagbar_left = 1
@@ -214,5 +214,11 @@ let g:ctrlp_working_path_mode = 2
 " 2 - the nearest ancestor that contains one of these directories or files:
 "     .git/ .hg/ .svn/ .bzr/ _darcs/
 
+" Colors
+set background=dark
+colorscheme lucius256
+let g:lucius_style = "dark"
+
 source ~/.myConfig/vim_custom_google
+
 

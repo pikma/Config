@@ -25,7 +25,7 @@
       <key>global/default_profile</key>
       <schema_key>/schemas/apps/gnome-terminal/global/default_profile</schema_key>
       <value>
-        <string>Profile0</string>
+        <string>Profile1</string>
       </value>
     </entry>
     <entry>
@@ -38,6 +38,9 @@
             </value>
             <value>
               <string>Profile0</string>
+            </value>
+            <value>
+              <string>Profile1</string>
             </value>
         </list>
       </value>
@@ -578,7 +581,7 @@
     <entry>
       <key>profiles/Profile0/background_darkness</key>
       <value>
-        <float>0.94394599999999995</float>
+        <float>0.94394600391387939</float>
       </value>
     </entry>
     <entry>
@@ -787,6 +790,234 @@
     </entry>
     <entry>
       <key>profiles/Profile0/word_chars</key>
+      <value>
+        <string>-A-Za-z0-9,./?%&amp;#:_=+@~</string>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/allow_bold</key>
+      <value>
+        <bool>true</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/alternate_screen_scroll</key>
+      <value>
+        <bool>true</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/background_color</key>
+      <value>
+        <string>#303030303030</string>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/background_darkness</key>
+      <value>
+        <float>1</float>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/background_image</key>
+      <value>
+        <string></string>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/background_type</key>
+      <value>
+        <string>transparent</string>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/backspace_binding</key>
+      <value>
+        <string>ascii-del</string>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/bold_color</key>
+      <value>
+        <string>#000000000000</string>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/bold_color_same_as_fg</key>
+      <value>
+        <bool>true</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/cursor_blink_mode</key>
+      <value>
+        <string>system</string>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/cursor_shape</key>
+      <value>
+        <string>block</string>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/custom_command</key>
+      <value>
+        <string></string>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/default_show_menubar</key>
+      <value>
+        <bool>false</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/default_size_columns</key>
+      <value>
+        <int>80</int>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/default_size_rows</key>
+      <value>
+        <int>24</int>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/delete_binding</key>
+      <value>
+        <string>escape-sequence</string>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/exit_action</key>
+      <value>
+        <string>close</string>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/font</key>
+      <value>
+        <string>Monospace 12</string>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/foreground_color</key>
+      <value>
+        <string>#D7D7D7D7D7D7</string>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/login_shell</key>
+      <value>
+        <bool>false</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/palette</key>
+      <value>
+        <string>#303030303030:#CDCB00000000:#0000CDCB0000:#CDCBCDCB0000:#1E1A908FFFFF:#CDCB0000CDCB:#0000CDCBCDCB:#E5E2E5E2E5E2:#303030303030:#FFFF87878787:#AFAFD7D75F5F:#D7D7D7D75F5F:#8787D7D7FFFF:#D7D7AFAFD7D7:#8787D7D7AFAF:#FFFFFFFFFFFF</string>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/scroll_background</key>
+      <value>
+        <bool>true</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/scroll_on_keystroke</key>
+      <value>
+        <bool>true</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/scroll_on_output</key>
+      <value>
+        <bool>false</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/scrollback_lines</key>
+      <value>
+        <int>512</int>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/scrollback_unlimited</key>
+      <value>
+        <bool>true</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/scrollbar_position</key>
+      <value>
+        <string>right</string>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/silent_bell</key>
+      <value>
+        <bool>false</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/title</key>
+      <value>
+        <string>Terminal</string>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/title_mode</key>
+      <value>
+        <string>after</string>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/update_records</key>
+      <value>
+        <bool>true</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/use_custom_command</key>
+      <value>
+        <bool>false</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/use_skey</key>
+      <value>
+        <bool>true</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/use_system_font</key>
+      <value>
+        <bool>true</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/use_theme_background</key>
+      <value>
+        <bool>false</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/use_theme_colors</key>
+      <value>
+        <bool>false</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/visible_name</key>
+      <value>
+        <string>LessBlack</string>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/word_chars</key>
       <value>
         <string>-A-Za-z0-9,./?%&amp;#:_=+@~</string>
       </value>
