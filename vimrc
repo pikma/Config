@@ -159,63 +159,8 @@ function EnhCommentifyCallback(ft)
 endfunction
 let g:EnhCommentifyCallbackExists = 'Yes'
 
-" Clang++ options
-let g:clang_complete_auto = 0
-"       if equal to 1, automatically complete after ->, ., ::
-"       Default: 1
-
-let g:clang_complete_copen = 1
-"       if equal to 1, open quickfix window on error.
-"       Default: 0
-
-let g:clang_hl_errors = 1
-"       if equal to 1, it will highlight the warnings and errors the
-"       same way clang does it.
-"       Default: 1
-
-let g:clang_periodic_quickfix = 0
-"       if equal to 1, it will periodically update the quickfix window
-"       Note: You could use the g:ClangUpdateQuickFix() to do the same
-"             with a mapping.
-"       Default: 0
-map <F9> :call g:ClangUpdateQuickFix() <CR>
-map <S-F9> :let g:clang_periodic_quickfix = 1 - g:clang_periodic_quickfix <bar> echo "Periodic :" g:clang_periodic_quickfix <CR>
-
- " let g:clang_snippets = 0
-"       if equal to 1, it will do some snippets magic after a ( or a ,
-"       inside function call. Not currently fully working.
-"       Default: 0
-
-"   - g:clang_conceal_snippets:
-"        if equal to 1, vim will use vim 7.3 conceal feature to hide <#
-"        and #> which delimit a snippets.
-"        Note: See concealcursor and conceallevel for conceal configuration.
-"        Default: 1 (0 if conceal not available)
-
-"   - g:clang_exec:
-"        Name or path of clang executable.
-"        Note: Use this if clang has a non-standard name, or isn't in the
-"        path.
-"        Default: 'clang'
-
-"   - g:clang_user_options:
-"        Option added at the end of clang command. Useful if you want to
-"        filter the result, or if you want to ignore the error code
-"        returned by clang: on error, the completion is not shown.
-"        Default: ''
-"        Example: '|| exit 0' (it will discard clang return value)
-
-let g:clang_use_library = 1
-"    Instead of calling the clang/clang++ tool use libclang directly. This
-"    gives access to many more clang features. Furthermore it automatically
-"    caches all includes in memory. Updates after changes in the same file
-"    will therefore be a lot faster.
-"      Default : 0
-
-let g:clang_library_path = "/home/pierre/lib/"
-"    If libclang.[dll/so/dylib] is not in your library search path, set
-"    this to the absolute path where libclang is available.
-"    Default : ''
+" map <F9> :call g:ClangUpdateQuickFix() <CR>
+" map <S-F9> :let g:clang_periodic_quickfix = 1 - g:clang_periodic_quickfix <bar> echo "Periodic :" g:clang_periodic_quickfix <CR>
 
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
@@ -269,4 +214,5 @@ let g:ctrlp_working_path_mode = 2
 " 2 - the nearest ancestor that contains one of these directories or files:
 "     .git/ .hg/ .svn/ .bzr/ _darcs/
 
+source ~/.myConfig/vim_custom_google
 
