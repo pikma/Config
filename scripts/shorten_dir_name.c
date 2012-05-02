@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <ctype.h>
 
-#define LEN_INPUT (100)
+#define LEN_INPUT (500)
 #define MIN_DIR_SIZE (3)
 #define TERM_SIZE (3)
 
