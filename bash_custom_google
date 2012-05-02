@@ -1,0 +1,30 @@
+################################################################################
+#                       ____                   _                               #
+#                      / ___| ___   ___   __ _| | ___                          #
+#                     | |  _ / _ \ / _ \ / _` | |/ _ \                         #
+#                     | |_| | (_) | (_) | (_| | |  __/                         #
+#                      \____|\___/ \___/ \__, |_|\___|                         #
+#                                        |___/                                 #
+################################################################################
+
+################################################
+# P4 Configuration
+################################################
+
+export P4CONFIG=.p4config
+# export P4DIFF="/home/build/google3/devtools/scripts/p4diff -w"
+# export P4DIFF="vimdiff"
+export P4DIFF="meld"
+export P4MERGE=/home/build/eng/perforce/mergep4.tcl
+
+# GTags: jumps to function declaration etc. in vim
+alias gtags="/home/build/nonconf/google3/tools/tags/gtags.sh"
+
+# G4 Completion
+source /home/build/static/projects/bash/g4_complete.sh
+# Git5 Completion
+source /home/build/static/projects/bash/git5_complete.sh
+# Ganpati Completion
+source /home/build/static/projects/bash/ganpati_complete.sh
+
+PATH=$HOME/scripts:$PATH
