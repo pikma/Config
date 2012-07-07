@@ -214,5 +214,11 @@ let g:ctrlp_working_path_mode = 2
 " 2 - the nearest ancestor that contains one of these directories or files:
 "     .git/ .hg/ .svn/ .bzr/ _darcs/
 
-source ~/.myConfig/vim_custom_google
+if filereadable("~/.myConfig/vim_custom_google")
+    source ~/.myConfig/vim_custom_google
+endif
+
+" Replace the Escape key with the combination 'jk'
+inoremap jk <esc>
+inoremap <esc> <nop>
 
