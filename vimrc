@@ -151,7 +151,7 @@ let g:CommandTMatchWindowReverse = 1
 let g:EnhCommentifyRespectIndent = 'Yes'
 let g:EnhCommentifyPretty = 'Yes'
 
-function EnhCommentifyCallback(ft)
+function! EnhCommentifyCallback(ft)
     if a:ft == 'asm' || a:ft == 'gas'
         let b:ECcommentOpen = '#'
         let b:ECcommentClose = ''
@@ -221,4 +221,10 @@ endif
 " Replace the Escape key with the combination 'jk'
 inoremap jk <esc>
 inoremap <esc> <nop>
+
+nnoremap <leader>ev :split $MYVIMRC<cr>G
+nnoremap <leader>sv :source $MYVIMRC<cr>
+nnoremap H ^
+nnoremap L $
+
 

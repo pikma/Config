@@ -1,0 +1,9 @@
+[user]
+	email = kreitmann@google.com
+	name = Pierre Kreitmann
+[core]
+	editor = vim
+[color]
+	ui = true
+[diff]
+	tool = vimdiff
