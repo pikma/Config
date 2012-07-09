@@ -55,9 +55,9 @@ set expandtab
 set smarttab
 
 " Who wants an 8 character tab?  Not me!
-set tabstop =4
-set shiftwidth=4
-set softtabstop=4
+set tabstop =2
+set shiftwidth=2
+set softtabstop=2
 
 " Cool tab completion stuff
 set wildmenu
@@ -142,11 +142,6 @@ augroup JumpCursorOnEdit
             \ endif
 augroup END
 
-" Command-T remappings
-noremap <leader>e <Esc>:CommandT<CR>
-noremap <leader>E <Esc>:CommandTFlush<CR>
-let g:CommandTMatchWindowReverse = 1
-
 " EnhCommentify options
 let g:EnhCommentifyRespectIndent = 'Yes'
 let g:EnhCommentifyPretty = 'Yes'
@@ -193,21 +188,20 @@ map <F8> :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
 
 "makes Vim insert these preprocessor gates automatically, when a new header file is created:
-function! s:insert_gates()
-  let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
-  execute "normal! i#ifndef " . gatename
-  execute "normal! o#define " . gatename . " "
-  execute "normal! Go#endif /* " . gatename . " */"
-  normal! kk
-endfunction
-autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
+" function! s:insert_gates()
+  " let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
+  " execute "normal! i#ifndef " . gatename
+  " execute "normal! o#define " . gatename . " "
+  " execute "normal! Go#endif /* " . gatename . " */"
+  " normal! kk
+" endfunction
+" autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
 
-" au BufRead,BufNewFile *.cpp set formatprg="uncrustify --frag -l CPP -q"
-au BufRead,BufNewFile *.cpp set formatprg=uncrustify\ --frag\ -l\ CPP\ -q
+" au BufRead,BufNewFile *.cpp set formatprg=uncrustify\ --frag\ -l\ CPP\ -q
 " map <F7> myggVG!uncrustify -l cpp<CR>dd'y
 
 " Ctrl P settings:
-let g:ctrlp_map = '<c-p>' "Changes the mapping
+let g:ctrlp_map = ',e' "Changes the mapping
 let g:ctrlp_working_path_mode = 2
 " 0 - don’t manage working directory.
 " 1 - the parent directory of the current file.
@@ -215,10 +209,22 @@ let g:ctrlp_working_path_mode = 2
 "     .git/ .hg/ .svn/ .bzr/ _darcs/
 
 " Colors
-set background=dark
 colorscheme lucius256
-let g:lucius_style = "dark"
+" colorscheme desert256
+" set background=dark
+" let g:lucius_style = "dark"
 
-source ~/.myConfig/vim_custom_google
+source ~/.myConfig/vim_custom_*
 
+" Display a dark grey line on the right margin
+set colorcolumn=+1
+hi ColorColumn ctermbg=238
 
+" Switch between header and source file.
+map <M-F4> :e %:p:s,.h$,.X123X,:s,.cc$,.h,:s,.X123X$,.cc,<CR>
+map <F4> :vs %:p:s,.h$,.X123X,:s,.cc$,.h,:s,.X123X$,.cc,<CR>
+
+set hlsearch
+
+" Disable matching parenthesis
+let loaded_matchparen = 1

@@ -1,3 +1,4 @@
+" vim: ft=vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                       ____                   _                               "
 "                      / ___| ___   ___   __ _| | ___                          "
@@ -7,63 +8,16 @@
 "                                        |___/                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Google: for Perforce
-" perforce commands
-command! -nargs=* -complete=file PEdit :!g4 edit %
-command! -nargs=* -complete=file PRevert :!g4 revert %
-command! -nargs=* -complete=file PDiff :!g4 diff %
-
-function! s:CheckOutFile()
-    if filereadable(expand("%")) && ! filewritable(expand("%"))
-        let s:pos = getpos('.')
-        let option = confirm("Readonly file, do you want to checkout from p4?"
-                    \, "&Yes\n&No", 1, "Question")
-        if option == 1
-            PEdit
-        endif
-        edit!
-        call cursor(s:pos[1:3])
-    endif
-endfunction
-au FileChangedRO * nested :call <SID>CheckOutFile()
-
-
-function! G4Blame(on_file)
-    " Grab the filename from the argument, use expand() to expand '%'.
-    let file = expand(a:on_file)
-    " Lock scrolling in right pane
-    setl scb
-    " Create left pane
-    vnew
-    " It's 37 columns wide
-    vert res 37
-    " Get the output, split it on newline and keep empty lines, skip the first 5
-    " lines because they're headers we don't need, and put it in starting on line
-    " 1 of the left pane
-    call setline(1, split(system('g4 blame ' . file), '\n', 1)[5:])
-    " Lock scrolling in left pane, turn off word wrap, set the buffer as
-    " not-modified, remove any listchars highlighting (common in google code), set
-    " it readonly (to make modifications slightly more annoying.
-    setl scb nowrap nomod nolist ro
-    " Move back to the right pane (not sure if there's a better way to do this?)
-    exe "normal \<c-w>\<right>"
-    " Get the non-active pane scrolled to the same relative offset.
-    syncbind
-endfunction
-
-com! -nargs=1 Blame :call G4Blame(<args>)
-
 " GTags
 source /usr/share/vim/google/gtags.vim
 
-" Code Search
-source /google/src/head/depot/google3/tools/gsearch/contrib/csearch.vim
-
-
 " Two bindings for GTags: the first one jumps to the word under the cursor, the
 " second one also highlights it.
-" nmap <C-]> :exe 'Gtlist ' . expand('<cword>')<CR>
-nmap <C-]> :exe 'let searchtag= "' . expand('<cword>') . '"' \| :exe 'let @/= "' . searchtag . '"'<CR> \| :exe 'Gtlist ' . searchtag <CR>
+" nmap ,) :exe 'Gtlist ' . expand('<cword>')<CR>
+nmap g) :exe 'let searchtag= "' . expand('<cword>') . '"' \| :exe 'let @/= "' . searchtag . '"'<CR> \| :exe 'Gtlist ' . searchtag <CR>
+
+" Code Search
+" source /google/src/head/depot/google3/tools/gsearch/contrib/csearch.vim
 
 " Google Style
 source /usr/share/vim/google/google.vim
@@ -71,4 +25,31 @@ set expandtab
 set shiftwidth=2
 set softtabstop=2
 
-" End of Google
+" Custom shortcut: 'Gs' instead of 'Gtlist'
+command! -nargs=1 -complete=custom,Gtag_complete Gs
+      \ call GtagList("FindExactTag", "<args>")
+
+" Google3-custom find function
+source /usr/share/vim/google/runtime/findinc.vim
+map gf :call Google3FindRelatedFiles()<CR>
+
+" Blaze integration
+" The original script is at: /home/williasr/.vim.d/blaze.vim. Mine is modified
+" to work even out of the google3 directory.
+source ~/.vim/blaze.vim
+" Load Blaze errors into quickfix mode
+nmap ,m :call LoadBlazeErrors()<Cr>:cc<Cr>
+" Run the most appropriate blaze command on the target for the current file.
+nmap ,b :call BlazeDwim()<Cr>
+" Run update_deps on the target for the current file.
+nmap ,d :call UpdateDepsDwim()<Cr>
+
+" Mondrian
+command! Comments cexpr system('git5 comments --quickfix')
+" G5Lint
+command! Lint cexpr system('git5 lint --quickfix')
+
+" Open the current file in CodeSearch
+nmap gcs :!google-chrome --new-window https://cs.corp.google.com\\#%:p:s?.*./google3/?google3/?<CR> <CR>
+" Search for the word under the cursor in CodeSearch
+nmap gc) :!google-chrome --new-window https://cs.corp.google.com/'<cword>'<CR><CR>

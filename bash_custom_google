@@ -1,3 +1,4 @@
+# vim: ft=sh
 ################################################################################
 #                       ____                   _                               #
 #                      / ___| ___   ___   __ _| | ___                          #
@@ -28,3 +29,13 @@ source /home/build/static/projects/bash/git5_complete.sh
 source /home/build/static/projects/bash/ganpati_complete.sh
 
 PATH=$HOME/scripts:$PATH
+
+# Setup programmable completions (if supported by my bash)
+if complete -o nospace -C NOCOMMAND NOPROGRAM >/dev/null 2>&1 ; then
+  complete -o nospace -C '/home/sanjay/google/tools/g2filecomplete' \
+    gfsutil fileutil codex wqcopy gls grm
+fi
+
+# Aliases
+alias fl="fileutil ls -l --sharded"
+alias fixdeps="/home/build/devtools/blazeutils/fixdeps_main.par"
