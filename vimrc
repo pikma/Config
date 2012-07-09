@@ -146,7 +146,7 @@ augroup END
 let g:EnhCommentifyRespectIndent = 'Yes'
 let g:EnhCommentifyPretty = 'Yes'
 
-function EnhCommentifyCallback(ft)
+function! EnhCommentifyCallback(ft)
     if a:ft == 'asm' || a:ft == 'gas'
         let b:ECcommentOpen = '#'
         let b:ECcommentClose = ''
@@ -214,8 +214,6 @@ colorscheme lucius256
 " set background=dark
 " let g:lucius_style = "dark"
 
-source ~/.myConfig/vim_custom_*
-
 " Display a dark grey line on the right margin
 set colorcolumn=+1
 hi ColorColumn ctermbg=238
@@ -226,5 +224,19 @@ map <F4> :vs %:p:s,.h$,.X123X,:s,.cc$,.h,:s,.X123X$,.cc,<CR>
 
 set hlsearch
 
+" Replace the Escape key with the combination 'jk'
+inoremap jk <esc>
+inoremap <esc> <nop>
+
+nnoremap <leader>ev :split $MYVIMRC<cr>G
+nnoremap <leader>sv :source $MYVIMRC<cr>
+nnoremap H ^
+nnoremap L $
+
 " Disable matching parenthesis
-let loaded_matchparen = 1
+" let loaded_matchparen = 1
+
+if filereadable("~/.myConfig/vim_custom_google")
+    source ~/.myConfig/vim_custom_google
+endif
+
