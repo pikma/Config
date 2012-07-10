@@ -8,41 +8,47 @@
 "                                        |___/                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" GTags
-source /usr/share/vim/google/gtags.vim
+if !exists("s:includes_are_sourced")
+  let s:includes_are_sourced = 1
+  " GTags
+  source /usr/share/vim/google/gtags.vim
 
-" Two bindings for GTags: the first one jumps to the word under the cursor, the
-" second one also highlights it.
-" nmap ,) :exe 'Gtlist ' . expand('<cword>')<CR>
-nmap g) :exe 'let searchtag= "' . expand('<cword>') . '"' \| :exe 'let @/= "' . searchtag . '"'<CR> \| :exe 'Gtlist ' . searchtag <CR>
+  " Google3-custom find function
+  source /usr/share/vim/google/runtime/findinc.vim
 
-" Code Search
-" source /google/src/head/depot/google3/tools/gsearch/contrib/csearch.vim
+  " Blaze integration
+  " The original script is at: /home/williasr/.vim.d/blaze.vim. Mine is modified
+  " to work in subfolders of the google3 directory.
+  source ~/.vim/blaze.vim
 
-" Google Style
-source /usr/share/vim/google/google.vim
-set expandtab
-set shiftwidth=2
-set softtabstop=2
+
+  " Two bindings for GTags: the first one jumps to the word under the cursor, the
+  " second one also highlights it.
+  " nmap ,) :exe 'Gtlist ' . expand('<cword>')<CR>
+  nmap g) :exe 'let searchtag= "' . expand('<cword>') . '"' \| :exe 'let @/= "' . searchtag . '"'<CR> \| :exe 'Gtlist ' . searchtag <CR>
+
+  " Code Search
+  " source /google/src/head/depot/google3/tools/gsearch/contrib/csearch.vim
+
+  " Google Style
+  source /usr/share/vim/google/google.vim
+  set expandtab
+  set shiftwidth=2
+  set softtabstop=2
+endif
+
+map gf :call Google3FindRelatedFiles()<CR>
 
 " Custom shortcut: 'Gs' instead of 'Gtlist'
 command! -nargs=1 -complete=custom,Gtag_complete Gs
       \ call GtagList("FindExactTag", "<args>")
 
-" Google3-custom find function
-source /usr/share/vim/google/runtime/findinc.vim
-map gf :call Google3FindRelatedFiles()<CR>
-
-" Blaze integration
-" The original script is at: /home/williasr/.vim.d/blaze.vim. Mine is modified
-" to work even out of the google3 directory.
-source ~/.vim/blaze.vim
 " Load Blaze errors into quickfix mode
-nmap ,m :call LoadBlazeErrors()<Cr>:cc<Cr>
+nmap <leader>m :call LoadBlazeErrors()<Cr>:cc<Cr>
 " Run the most appropriate blaze command on the target for the current file.
-nmap ,b :call BlazeDwim()<Cr>
+nmap <leader>b :call BlazeDwim()<Cr>
 " Run update_deps on the target for the current file.
-nmap ,d :call UpdateDepsDwim()<Cr>
+nmap <leader>d :call UpdateDepsDwim()<Cr>
 
 " Mondrian
 command! Comments cexpr system('git5 comments --quickfix')
