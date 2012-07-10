@@ -55,6 +55,16 @@ export LESS=' -R '
 export EDITOR=vim
 
 # other files
-for i in $(find $CONFIG_DIR -name "bash_custom_*") ; do
-    . $i
-done
+source ~/.myConfig/bash_custom_*
+
+# Size of the history
+HISTFILESIZE=2000
+HISTSIZE=2000
+# Ignore commands that start with a space and duplicate commands in the history
+HISTIGNORE="&:[ ]*:exit"
+
+# Vim super-power mode
+set -o vi
+
+# Run xmodmap to change some keyboards mappings.
+# xmodmap ~/.xmodmap

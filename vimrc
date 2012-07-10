@@ -58,9 +58,9 @@ set expandtab
 set smarttab
 
 " Who wants an 8 character tab?  Not me!
-set tabstop =4
-set shiftwidth=4
-set softtabstop=4
+set tabstop =2
+set shiftwidth=2
+set softtabstop=2
 
 " Cool tab completion stuff
 set wildmenu
@@ -145,11 +145,6 @@ augroup JumpCursorOnEdit
             \ endif
 augroup END
 
-" Command-T remappings
-noremap <leader>e <Esc>:CommandT<CR>
-noremap <leader>E <Esc>:CommandTFlush<CR>
-let g:CommandTMatchWindowReverse = 1
-
 " EnhCommentify options
 let g:EnhCommentifyRespectIndent = 'Yes'
 let g:EnhCommentifyPretty = 'Yes'
@@ -176,15 +171,15 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 "SuperTab Completion
 let g:SuperTabDefaultCompletionType = "context"
 
-au BufRead,BufNewFile *.txt		set fo=tcoq
-au BufRead,BufNewFile *.tex		set fo=tcoq
-au BufRead,BufNewFile *.tex		set spell
-au BufRead,BufNewFile *.plt		set ft=gnuplot
-au BufRead,BufNewFile *.owl		set ft=xml
-au BufRead,BufNewFile *.xul		set ft=xml
-au BufRead,BufNewFile *.hrf		set ft=prolog
-au BufRead,BufNewFile *.flr		set ft=prolog " for flora2 (cs227)
-au BufRead,BufNewFile *.rdf		setfiletype xml
+au BufRead,BufNewFile *.txt set fo=tcoq
+au BufRead,BufNewFile *.tex set fo=tcoq
+au BufRead,BufNewFile *.tex set spell
+au BufRead,BufNewFile *.plt set ft=gnuplot
+au BufRead,BufNewFile *.owl set ft=xml
+au BufRead,BufNewFile *.xul set ft=xml
+au BufRead,BufNewFile *.hrf set ft=prolog
+au BufRead,BufNewFile *.flr set ft=prolog " for flora2 (cs227)
+au BufRead,BufNewFile *.rdf setfiletype xml
 
 let g:tagbar_usearrows = 1
 let g:tagbar_left = 1
@@ -196,17 +191,16 @@ map <F8> :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
 
 "makes Vim insert these preprocessor gates automatically, when a new header file is created:
-function! s:insert_gates()
-  let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
-  execute "normal! i#ifndef " . gatename
-  execute "normal! o#define " . gatename . " "
-  execute "normal! Go#endif /* " . gatename . " */"
-  normal! kk
-endfunction
-autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
+" function! s:insert_gates()
+  " let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
+  " execute "normal! i#ifndef " . gatename
+  " execute "normal! o#define " . gatename . " "
+  " execute "normal! Go#endif /* " . gatename . " */"
+  " normal! kk
+" endfunction
+" autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
 
-" au BufRead,BufNewFile *.cpp set formatprg="uncrustify --frag -l CPP -q"
-au BufRead,BufNewFile *.cpp set formatprg=uncrustify\ --frag\ -l\ CPP\ -q
+" au BufRead,BufNewFile *.cpp set formatprg=uncrustify\ --frag\ -l\ CPP\ -q
 " map <F7> myggVG!uncrustify -l cpp<CR>dd'y
 
 " Ctrl P settings:
@@ -216,6 +210,22 @@ let g:ctrlp_working_path_mode = 2
 " 1 - the parent directory of the current file.
 " 2 - the nearest ancestor that contains one of these directories or files:
 "     .git/ .hg/ .svn/ .bzr/ _darcs/
+
+" Colors
+colorscheme lucius256
+" colorscheme desert256
+" set background=dark
+" let g:lucius_style = "dark"
+
+" Display a dark grey line on the right margin
+set colorcolumn=+1
+hi ColorColumn ctermbg=238
+
+" Switch between header and source file.
+map <M-F4> :e %:p:s,.h$,.X123X,:s,.cc$,.h,:s,.X123X$,.cc,<CR>
+map <F4> :vs %:p:s,.h$,.X123X,:s,.cc$,.h,:s,.X123X$,.cc,<CR>
+
+set hlsearch
 
 " Replace the Escape key with the combination 'jk'
 inoremap jk <esc>
@@ -250,4 +260,5 @@ set showmatch
 if filereadable("/home/kreitmann/.myConfig/vim_custom_google")
     source /home/kreitmann/.myConfig/vim_custom_google
 endif
+
 
