@@ -5,8 +5,11 @@ syn on
 set syntax =on
 filetype indent plugin on
 
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+if !exists("s:pathogen_loaded")
+  let s:pathogen_loaded = 1
+  call pathogen#runtime_append_all_bundles()
+  call pathogen#helptags()
+endi
 
 set background=dark
 
@@ -207,16 +210,12 @@ au BufRead,BufNewFile *.cpp set formatprg=uncrustify\ --frag\ -l\ CPP\ -q
 " map <F7> myggVG!uncrustify -l cpp<CR>dd'y
 
 " Ctrl P settings:
-let g:ctrlp_map = '<c-p>' "Changes the mapping
+let g:ctrlp_map = '<leader>e' "Changes the mapping
 let g:ctrlp_working_path_mode = 2
 " 0 - don’t manage working directory.
 " 1 - the parent directory of the current file.
 " 2 - the nearest ancestor that contains one of these directories or files:
 "     .git/ .hg/ .svn/ .bzr/ _darcs/
-
-if filereadable("~/.myConfig/vim_custom_google")
-    source ~/.myConfig/vim_custom_google
-endif
 
 " Replace the Escape key with the combination 'jk'
 inoremap jk <esc>
@@ -226,5 +225,29 @@ nnoremap <leader>ev :split $MYVIMRC<cr>G
 nnoremap <leader>sv :source $MYVIMRC<cr>
 nnoremap H ^
 nnoremap L $
+nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
+nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
+vnoremap <leader>" <esc>a"<esc>`<i"<esc>lel
+vnoremap <leader>' <esc>a'<esc>`<i'<esc>lel
+inoremap :w<cr> <esc>:w<cr>
+nnoremap <c-h> <c-w>h
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-l> <c-w>l
+nnoremap <leader><space> :noh<cr>
+nnoremap <leader>w <c-w>v<c-w>l
 
+set relativenumber
+" Always keep 3 lines of context visible.
+set scrolloff=3
+" Substitutions are line-global by default. Use :s/foo/bar/g to substitute the
+" first occurrence only.
+set gdefault
+set showmatch
+" Disable matching parenthesis
+" let loaded_matchparen = 1
+
+if filereadable("/home/kreitmann/.myConfig/vim_custom_google")
+    source /home/kreitmann/.myConfig/vim_custom_google
+endif
 
