@@ -257,6 +257,11 @@ set showmatch
 " Disable matching parenthesis
 " let loaded_matchparen = 1
 
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
 if filereadable("/home/kreitmann/.myConfig/vim_custom_google")
     source /home/kreitmann/.myConfig/vim_custom_google
 endif
