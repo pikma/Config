@@ -247,7 +247,6 @@ nnoremap <c-l> <c-w>l
 nnoremap <leader><space> :noh<cr>
 nnoremap <leader>w <c-w>v<c-w>l
 
-set relativenumber
 " Always keep 3 lines of context visible.
 set scrolloff=3
 " Substitutions are line-global by default. Use :s/foo/bar/g to substitute the
