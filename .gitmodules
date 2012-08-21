@@ -19,9 +19,6 @@
 [submodule "vim/bundle/XmlEdit"]
 	path = vim/bundle/XmlEdit
 	url = http://github.com/sukima/xmledit.git
-[submodule "vim/bundle/pyflakes"]
-	path = vim/bundle/pyflakes
-	url = http://github.com/mitechie/pyflakes-pathogen.git
 [submodule "vim/bundle/pep8"]
 	path = vim/bundle/pep8
 	url = http://github.com/vim-scripts/pep8.git

@@ -39,3 +39,5 @@ fi
 # Aliases
 alias fl="fileutil ls -l --sharded"
 alias fixdeps="/home/build/devtools/blazeutils/fixdeps_main.par"
+alias bb="blaze build ..."
+alias btest="blaze test ..."

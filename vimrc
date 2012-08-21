@@ -91,11 +91,6 @@ set ignorecase
 " And so is Artificial Intellegence!
 set smartcase
 
-" This is totally awesome - remap fj to escape in insert mode.  You'll never type fj anyway, so it's great!
-inoremap fj <Esc>
-
-nnoremap JJJJ <Nop>
-
 " Incremental searching is sexy
 set incsearch
 
@@ -222,7 +217,7 @@ set colorcolumn=+1
 hi ColorColumn ctermbg=238
 
 " Switch between header and source file.
-map <M-F4> :e %:p:s,.h$,.X123X,:s,.cc$,.h,:s,.X123X$,.cc,<CR>
+map <F3> :e %:p:s,.h$,.X123X,:s,.cc$,.h,:s,.X123X$,.cc,<CR>
 map <F4> :vs %:p:s,.h$,.X123X,:s,.cc$,.h,:s,.X123X$,.cc,<CR>
 
 set hlsearch
@@ -231,8 +226,8 @@ set hlsearch
 inoremap jk <esc>
 inoremap <esc> <nop>
 
-nnoremap <leader>ev :split $MYVIMRC<cr>G
-nnoremap <leader>sv :source $MYVIMRC<cr>
+nnoremap <leader>ve :split $MYVIMRC<cr>G
+nnoremap <leader>vs :source $MYVIMRC<cr>
 nnoremap H ^
 nnoremap L $
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
@@ -245,25 +240,22 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l
 nnoremap <leader><space> :noh<cr>
-nnoremap <leader>w <c-w>v<c-w>l
+nnoremap <space> :set<space>hls<cr>:let @/='\V\<'.escape(expand('<cword>'), '\').'\>'<cr>
+vnoremap <space> "xy:set<space>hls<cr>:let<space>@/='\V<c-r>x'<cr>
+nnoremap <leader>= mx=i{'x
+nnoremap <leader>n I}  // <esc>f{xj
+nnoremap <leader>! :redraw!<cr>
 
-set relativenumber
 " Always keep 3 lines of context visible.
 set scrolloff=3
 " Substitutions are line-global by default. Use :s/foo/bar/g to substitute the
 " first occurrence only.
-set gdefault
+" set gdefault
+
 set showmatch
 " Disable matching parenthesis
-" let loaded_matchparen = 1
-
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+let loaded_matchparen = 0
 
 if filereadable("/home/kreitmann/.myConfig/vim_custom_google")
     source /home/kreitmann/.myConfig/vim_custom_google
 endif
-
-

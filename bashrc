@@ -58,10 +58,11 @@ export EDITOR=vim
 source ~/.myConfig/bash_custom_*
 
 # Size of the history
-HISTFILESIZE=2000
-HISTSIZE=2000
+HISTFILESIZE=20000
+HISTSIZE=20000
 # Ignore commands that start with a space and duplicate commands in the history
 HISTIGNORE="&:[ ]*:exit"
+shopt -s histappend
 
 # Vim super-power mode
 set -o vi
