@@ -11,6 +11,7 @@ export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 export HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
+export PROMPT_COMMAND="history -a; history -r"
 shopt -s histappend
 
 # check the window size after each command and, if necessary,
@@ -19,7 +20,6 @@ shopt -s checkwinsize
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
@@ -62,7 +62,6 @@ HISTFILESIZE=20000
 HISTSIZE=20000
 # Ignore commands that start with a space and duplicate commands in the history
 HISTIGNORE="&:[ ]*:exit"
-shopt -s histappend
 
 # Vim super-power mode
 set -o vi
