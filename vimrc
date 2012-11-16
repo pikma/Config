@@ -314,7 +314,6 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l
 nnoremap <leader><space> :noh<cr>
-<<<<<<< HEAD
 nnoremap <space> :set<space>hls<cr>:let @/='\V\<'.escape(expand('<cword>'), '\').'\>'<cr>
 vnoremap <space> "xy:set<space>hls<cr>:let<space>@/='\V<c-r>x'<cr>
 nnoremap <leader>= mx=i{'x
@@ -322,20 +321,10 @@ nnoremap <leader>n I}  // <esc>f{xj
 nnoremap <leader>! :redraw!<cr>
 nnoremap <leader>) A<backspace>,<esc>jA<backspace>)<esc>
 nnoremap <leader>sp vip!LC_ALL=C sort<cr>
-=======
-nnoremap <leader>w <c-w>v<c-w>l
->>>>>>> 3a8621d3c78a2b82e24b778f44fa0a5688c5bcd1
 
 " Always keep 3 lines of context visible.
 set scrolloff=3
-" Substitutions are line-global by default. Use :s/foo/bar/g to substitute the
-" first occurrence only.
-<<<<<<< HEAD
-" set gdefault
 
-=======
-set gdefault
->>>>>>> 3a8621d3c78a2b82e24b778f44fa0a5688c5bcd1
 set showmatch
 " Disable matching parenthesis
 let loaded_matchparen = 0
@@ -343,8 +332,3 @@ let loaded_matchparen = 0
 if filereadable("/home/kreitmann/.myConfig/vim_custom_google")
     source /home/kreitmann/.myConfig/vim_custom_google
 endif
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 3a8621d3c78a2b82e24b778f44fa0a5688c5bcd1
