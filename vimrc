@@ -164,7 +164,8 @@ autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
 
 "SuperTab Completion
-let g:SuperTabDefaultCompletionType = "context"
+" let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabDefaultCompletionType = "<c-x><c-u>"
 
 au BufRead,BufNewFile *.txt set fo=tcoq
 au BufRead,BufNewFile *.tex set fo=tcoq
@@ -173,7 +174,7 @@ au BufRead,BufNewFile *.plt set ft=gnuplot
 au BufRead,BufNewFile *.owl set ft=xml
 au BufRead,BufNewFile *.xul set ft=xml
 au BufRead,BufNewFile *.hrf set ft=prolog
-au BufRead,BufNewFile *.flr set ft=prolog " for flora2 (cs227)
+au BufRead,BufNewFile *.plot set ft=gnuplot
 au BufRead,BufNewFile *.rdf setfiletype xml
 
 let g:tagbar_usearrows = 1
@@ -216,9 +217,82 @@ colorscheme lucius256
 set colorcolumn=+1
 hi ColorColumn ctermbg=238
 
+" Functions to switch between header and implementation, across public /
+" internal directories.
+function! OtherExt(ext)
+  if a:ext == 'h'
+    return 'cc'
+  elseif a:ext == 'cc'
+    return 'h'
+  endif
+  return '-1'
+endfunction
+
+function! OtherDir(dir_name)
+  if a:dir_name == 'public'
+    return 'internal'
+  elseif a:dir_name == 'internal'
+    return 'public'
+  endif
+  return '-1'
+endfunction
+
+" Returns the header file if the current file is the implementation, and
+" vice-versa.
+fu! HeaderCcOtherFile()
+  " The extension, e.g. 'cc'.
+  let ext = expand('%:e')
+  " The filename, without extension, e.g. 'foo_test'
+  let root = expand('%:t:r')
+  " The path of the current file, e.g. '.'.
+  let path = expand('%:h')
+  " The directory name, e.g. 'public'.
+  let dir_name = expand('%:p:h:t')
+
+  let other_ext = OtherExt(ext)
+  if other_ext == '-1'
+    return '-1'
+  endif
+
+  let same_dir_file = simplify(path . '/' . root . '.' . other_ext)
+
+  " If there exists a file in the same directory, then we use it.
+  if filereadable(same_dir_file)
+    return same_dir_file
+  endif
+
+  " If this is an internal header, the .cc file should be in the same directory.
+  if ext == 'h' && dir_name == 'internal'
+    return same_dir_file
+  endif
+
+  let other_dir = OtherDir(dir_name)
+  if other_dir == '-1'
+    return simplify(same_dir_file)
+  endif
+
+  let other_path = path . '/../' . other_dir
+  let other_dir_file = other_path . '/' . root . '.' . other_ext
+  if filereadable(other_dir_file)
+    return simplify(other_dir_file)
+  endif
+
+  return simplify(other_dir_file)
+endfunction
+
+fu! ApplyCommandToHeaderCc(command)
+  " Command is the command to apply to the file, e.g. ':e' or ':vs'.
+  let other_file = HeaderCcOtherFile()
+  if other_file == '-1'
+    return ''
+  endif
+
+  return a:command . ' ' . other_file
+endfunction
+
 " Switch between header and source file.
-map <F3> :e %:p:s,.h$,.X123X,:s,.cc$,.h,:s,.X123X$,.cc,<CR>
-map <F4> :vs %:p:s,.h$,.X123X,:s,.cc$,.h,:s,.X123X$,.cc,<CR>
+nnoremap <F3> :execute ApplyCommandToHeaderCc(':e')<CR>
+nnoremap <F4> :execute ApplyCommandToHeaderCc(':vs')<CR>
 
 set hlsearch
 
@@ -245,6 +319,8 @@ vnoremap <space> "xy:set<space>hls<cr>:let<space>@/='\V<c-r>x'<cr>
 nnoremap <leader>= mx=i{'x
 nnoremap <leader>n I}  // <esc>f{xj
 nnoremap <leader>! :redraw!<cr>
+nnoremap <leader>) A<backspace>,<esc>jA<backspace>)<esc>
+nnoremap <leader>sp vip!LC_ALL=C sort<cr>
 
 " Always keep 3 lines of context visible.
 set scrolloff=3

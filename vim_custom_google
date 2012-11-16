@@ -19,15 +19,40 @@ if !exists("s:includes_are_sourced")
   " Blaze integration
   " The original script is at: /home/williasr/.vim.d/blaze.vim. Mine is modified
   " to work in subfolders of the google3 directory.
-  source ~/.vim/blaze.vim
+  " source ~/.vim/blaze.vim
+  source /usr/share/vim/google/runtime/blaze.vim
 
-
+  source /usr/share/vim/google/runtime/renaming_tool.vim
 
   " Code Search
   " source /google/src/head/depot/google3/tools/gsearch/contrib/csearch.vim
 
   " Google Style
   source /usr/share/vim/google/google.vim
+
+  " Grok support, provides the following commands:
+  "   - :Grok.        The "Grok" command looks up the identifier under the
+  "                   cursor in grok, opens a new tab window, and loads the grok
+  "                   results in the window's location list.
+  "   - :GrokV.       Same as :Grok but verbose
+  "   - :GrokDef.     Same as :Grok, but using a default set of edge kinds that
+  "                   should point to the definitions or declarations of the
+  "                   identifier.  - :GrokRef. Same as :Grok, but using a
+  "                   default set of edge kinds that should point to the
+  "                   references or usages of the identifier.
+  "   - :GrokCallers. Same as :Grok, but using the CALLGRAPH_FROM edge.
+  "   - :GrokCallees. Same as :Grok, but using the CALLGRAPH_TO edge.
+  " source /usr/share/vim/google/runtime/grok.vim
+
+  " Most used windows, provides the following shortcuts:
+  " Enter : Jump to the file
+  " T / t : Toggle between window views
+  "             (all - directories - source files - test files)
+  " d :     Delete a line from your cache
+  " K :     Clear your entire cache
+  " C :     Show the cache-counts
+  " G :     track the directory with g4 / git5 (doesn't apply to citc)
+  " source /usr/share/vim/google/runtime/mru.vim
 endif
 
 set expandtab
@@ -37,13 +62,19 @@ set softtabstop=2
 " Two bindings for GTags: the first one jumps to the word under the cursor, the
 " second one also highlights it.
 " nmap ,) :exe 'Gtlist ' . expand('<cword>')<CR>
-nmap g) :exe 'let searchtag= "' . expand('<cword>') . '"' \| :exe 'let @/= "' . searchtag . '"'<CR> \| :exe 'Gtlist ' . searchtag <CR>
-
-map gf :call Google3FindRelatedFiles()<CR>
+nmap g) :exe 'let searchtag= "' . expand('<cword>') . '"' \| :exe 'Gtlist ' . searchtag <CR> \| :exe 'let @/= "' . searchtag . '"'<CR>
 
 " Custom shortcut: 'Gs' instead of 'Gtlist'
 command! -nargs=1 -complete=custom,Gtag_complete Gs
       \ call GtagList("FindExactTag", "<args>")
+
+" Change the path so that gf opens #includes.
+let current_dir = fnamemodify('', ':p')
+let google3 = strpart(current_dir, 0, strridx(current_dir, "/google3/") ) . "/google3"
+let &path = &path . "," . google3
+let &path = &path . "," . google3 . "/../READONLY/google3"
+" this one comes after cause it takes longer to load
+let &path = &path . "," . google3 . "/blaze-genfiles"
 
 " Load Blaze errors into quickfix mode
 nmap <leader>m :call LoadBlazeErrors()<Cr>:cc<Cr>
@@ -61,3 +92,8 @@ command! Lint cexpr system('git5 lint --quickfix')
 nmap gcs :!google-chrome --new-window https://cs.corp.google.com\\#%:p:s?.*./google3/?google3/?<CR> <CR>
 " Search for the word under the cursor in CodeSearch
 nmap gc) :!google-chrome --new-window https://cs.corp.google.com/'<cword>'<CR><CR>
+
+" Automatically run Buildifier on BUILD files
+let g:auto_buildifier = 1
+
+" nnoremap ,mr :GoogleMruWindow<CR>
