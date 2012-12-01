@@ -55,7 +55,10 @@ export LESS=' -R '
 export EDITOR=vim
 
 # other files
-source ~/.myConfig/bash_custom_*
+other_bash_files=$(ls ~/.myConfig/ | grep bash_custom)
+for f in  $other_bash_files; do
+  source "$f"
+done
 
 # Size of the history
 HISTFILESIZE=20000
