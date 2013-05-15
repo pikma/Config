@@ -25,7 +25,7 @@
       <key>global/default_profile</key>
       <schema_key>/schemas/apps/gnome-terminal/global/default_profile</schema_key>
       <value>
-        <string>Profile1</string>
+        <string>Profile0</string>
       </value>
     </entry>
     <entry>
@@ -563,7 +563,7 @@
     <entry>
       <key>profiles/Profile0/allow_bold</key>
       <value>
-        <bool>true</bool>
+        <bool>false</bool>
       </value>
     </entry>
     <entry>
@@ -575,13 +575,13 @@
     <entry>
       <key>profiles/Profile0/background_color</key>
       <value>
-        <string>#000000000000</string>
+        <string>#212121212121</string>
       </value>
     </entry>
     <entry>
       <key>profiles/Profile0/background_darkness</key>
       <value>
-        <float>0.94394600391387939</float>
+        <float>0.94394599999999995</float>
       </value>
     </entry>
     <entry>
@@ -593,7 +593,7 @@
     <entry>
       <key>profiles/Profile0/background_type</key>
       <value>
-        <string>transparent</string>
+        <string>solid</string>
       </value>
     </entry>
     <entry>
@@ -665,13 +665,13 @@
     <entry>
       <key>profiles/Profile0/font</key>
       <value>
-        <string>Monospace 12</string>
+        <string>DejaVu Sans Mono 9</string>
       </value>
     </entry>
     <entry>
       <key>profiles/Profile0/foreground_color</key>
       <value>
-        <string>#DB4DDB4DDB4D</string>
+        <string>#EEEEEEEEECEC</string>
       </value>
     </entry>
     <entry>
@@ -683,7 +683,7 @@
     <entry>
       <key>profiles/Profile0/palette</key>
       <value>
-        <string>#000000000000:#EFEF29292929:#8A8AE2E23434:#FCFCE9E94F4F:#6F6F9B9BCACA:#ADAD7F7FA8A8:#3434E2E2E2E2:#D3D3D7D7CFCF:#555557575353:#EFEF29292929:#8A8AE2E23434:#FCFCE9E94F4F:#72729F9FCFCF:#ADAD7F7FA8A8:#3434E2E2E2E2:#EEEEEEEEECEC</string>
+        <string>#212121212121:#EFEF29292929:#8A8AE2E23434:#FCFCE9E94F4F:#ADCBCCE6EE13:#ADAD7F7FA8A8:#3434E2E2E2E2:#EEEEEEEEECEC:#555557575353:#C1B400000000:#8A8AE2E23434:#FCFCE9E94F4F:#9CDAC010E58B:#ADAD7F7FA8A8:#3434E2E2E2E2:#EEEEEEEEECEC</string>
       </value>
     </entry>
     <entry>
@@ -767,7 +767,7 @@
     <entry>
       <key>profiles/Profile0/use_system_font</key>
       <value>
-        <bool>true</bool>
+        <bool>false</bool>
       </value>
     </entry>
     <entry>
