@@ -42,4 +42,5 @@ alias fixdeps="/home/build/devtools/blazeutils/fixdeps_main.par"
 alias bb="blaze build ..."
 alias btest="blaze test ..."
 alias glaze=/google/src/head/depot/google3/third_party/go/bin/glaze
+alias gg='if [[ "$(pwd)" =~ google3 ]]; then while [[  "$(pwd)" != "/" && ! "$(basename $(pwd))" = google3 ]]; do cd ..; done; fi'
 

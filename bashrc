@@ -41,7 +41,7 @@ if [ -f /etc/bash_completion ]; then
 fi
 
 # PS1="${debian_chroot:+($debian_chroot)}\u@\h:\$(~/Documents/Programmation/Scripts/mpwd.sh | ~/Documents/Programmation/Scripts/shortPwd)\$ "
-PATH=$PATH:$CONFIG_DIR/scripts
+PATH=~/bin:$PATH:$CONFIG_DIR/scripts
 
 # alias for doing a recursive grep in C source
 alias cgr="find . -name '*.h' -or -name '*.c' -or -name '*.cpp' -or -name '*.cc' | xargs grep --color "
@@ -58,13 +58,12 @@ export EDITOR=vim
 source ~/.myConfig/bash_custom_*
 
 # Size of the history
-HISTFILESIZE=20000
-HISTSIZE=20000
+HISTFILESIZE=20000000
+HISTSIZE=20000000
 # Ignore commands that start with a space and duplicate commands in the history
 HISTIGNORE="&:[ ]*:exit"
 
 # Vim super-power mode
 set -o vi
 
-# Run xmodmap to change some keyboards mappings.
-# xmodmap ~/.xmodmap
+# f(){ if [ "$PWD" != "$LPWD" ];then LPWD="$PWD"; tmux rename-window ${PWD//*\//}; fi }; export PROMPT_COMMAND=f;

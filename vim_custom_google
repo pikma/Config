@@ -10,10 +10,14 @@
 
 if !exists("s:includes_are_sourced")
   let s:includes_are_sourced = 1
+
+  " Google Style
+  source /usr/share/vim/google/google.vim
+
   " GTags
   source /usr/share/vim/google/gtags.vim
 
-  " Google3-custom find function
+  " Google3-custom find function (go to file, etc.)
   source /usr/share/vim/google/runtime/findinc.vim
 
   " Blaze integration
@@ -21,14 +25,6 @@ if !exists("s:includes_are_sourced")
   " to work in subfolders of the google3 directory.
   " source ~/.vim/blaze.vim
   source /usr/share/vim/google/runtime/blaze.vim
-
-  source /usr/share/vim/google/runtime/renaming_tool.vim
-
-  " Code Search
-  " source /google/src/head/depot/google3/tools/gsearch/contrib/csearch.vim
-
-  " Google Style
-  source /usr/share/vim/google/google.vim
 
   " Grok support, provides the following commands:
   "   - :Grok.        The "Grok" command looks up the identifier under the
@@ -81,7 +77,7 @@ nmap <leader>m :call LoadBlazeErrors()<Cr>:cc<Cr>
 " Run the most appropriate blaze command on the target for the current file.
 nmap <leader>b :call BlazeDwim()<Cr>
 " Run update_deps on the target for the current file.
-nmap <leader>d :call UpdateDepsDwim()<Cr>
+" nmap <leader>d :call UpdateDepsDwim()<Cr>
 
 " Mondrian
 command! Comments cexpr system('git5 comments --quickfix')
@@ -96,4 +92,8 @@ nmap gc) :!google-chrome --new-window https://cs.corp.google.com/'<cword>'<CR><C
 " Automatically run Buildifier on BUILD files
 let g:auto_buildifier = 1
 
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 " nnoremap ,mr :GoogleMruWindow<CR>
+
+"Teach VIM about spitfire templates
+autocmd BufNewFile,BufRead *.spt set filetype=cheetah
