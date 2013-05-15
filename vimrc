@@ -5,13 +5,28 @@ syn on
 set syntax =on
 filetype indent plugin on
 
-if !exists("s:pathogen_loaded")
-  let s:pathogen_loaded = 1
-  call pathogen#runtime_append_all_bundles()
-  call pathogen#helptags()
-endi
+" Pathogen magic.
+" if !exists("s:pathogen_loaded")
+"   let s:pathogen_loaded = 1
+"   call pathogen#runtime_append_all_bundles()
+"   call pathogen#helptags()
+" endi
 
-set background=dark
+" Vundle magic.
+filetype off  " It is set back to 'indent plugin on' at the end.
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'EnhCommentify.vim'
+Bundle 'ctrlp.vim'
+Bundle 'fugitive.vim'
+Bundle 'gmarik/vundle'
+Bundle 'SuperTab-continued.'
+Bundle 'snipMate'
+" Bundle 'UltiSnips'
+" Bundle 'Valloric/YouCompleteMe'
+" Bundle 'Valloric/syntastic'
+" Bundle 'Syntastic'
+filetype indent plugin on
 
 " Necessary  for lots of cool vim things
 set nocompatible
@@ -34,7 +49,8 @@ function! MyFoldFunction()
     let line =getline(v:foldstart)
     let sub =substitute(line,'/\*\|\*/\|^\s+', '', 'g')
     let lines =v:foldend - v:foldstart + 1
-    return v:folddashes.sub.'...'.lines.' Lines...'.getline(v:foldend)
+    return line.' '.lines.' lines '.getline(v:foldend)
+    " return v:folddashes.sub.' '.lines.' lines '.getline(v:foldend)
 endfunction
 set foldmethod =syntax
 set foldtext =MyFoldFunction()
@@ -177,10 +193,6 @@ au BufRead,BufNewFile *.hrf set ft=prolog
 au BufRead,BufNewFile *.plot set ft=gnuplot
 au BufRead,BufNewFile *.rdf setfiletype xml
 
-let g:tagbar_usearrows = 1
-let g:tagbar_left = 1
-nnoremap <leader>l :TagbarToggle<CR>
-
 " This will look in the current directory for "tags", and work up the tree towards root until one is found.
 set tags=tags;/
 map <F8> :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
@@ -201,16 +213,17 @@ map <F8> :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
 " Ctrl P settings:
 let g:ctrlp_map = '<leader>e' "Changes the mapping
-let g:ctrlp_working_path_mode = 2
-" 0 - don’t manage working directory.
-" 1 - the parent directory of the current file.
-" 2 - the nearest ancestor that contains one of these directories or files:
-"     .git/ .hg/ .svn/ .bzr/ _darcs/
+let g:ctrlp_working_path_mode = '2'
+let g:ctrlp_dotfiles = 0
+" let g:ctrlp_follow_symlinks = 1
+" let g:ctrlp_use_caching = 1
+" let g:ctrlp_clear_cache_on_exit = 0
+" let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
 
 " Colors
+set background=dark
 colorscheme lucius256
 " colorscheme desert256
-" set background=dark
 " let g:lucius_style = "dark"
 
 " Display a dark grey line on the right margin
@@ -314,13 +327,19 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l
 nnoremap <leader><space> :noh<cr>
-nnoremap <space> :set<space>hls<cr>:let @/='\V\<'.escape(expand('<cword>'), '\').'\>'<cr>
+nnoremap <space> :set<space>hls<cr>:let @/='\C\V\<'.escape(expand('<cword>'), '\').'\>'<cr>
 vnoremap <space> "xy:set<space>hls<cr>:let<space>@/='\V<c-r>x'<cr>
 nnoremap <leader>= mx=i{'x
 nnoremap <leader>n I}  // <esc>f{xj
 nnoremap <leader>! :redraw!<cr>
 nnoremap <leader>) A<backspace>,<esc>jA<backspace>)<esc>
 nnoremap <leader>sp vip!LC_ALL=C sort<cr>
+vnoremap <leader>sp !LC_ALL=C sort<cr>
+" Copies the #include line that includes the current file in the Yank buffer.
+nnoremap <leader>i I<cr><esc>ki#include "<c-r>=substitute(substitute(expand("%:p"), ".*google3/", "", ""), "\.proto$", ".pb.h", "")<cr>"<esc>yyu
+nnoremap <leader>w :s/"$//e<cr>j:s/^\s*"//e<cr>^v$hdk$p079li"<cr>"<esc>:noh<cr>
+nnoremap <leader>o f,a<cr><esc>
+nnoremap <leader>; ,
 
 " Always keep 3 lines of context visible.
 set scrolloff=3
@@ -332,3 +351,4 @@ let loaded_matchparen = 0
 if filereadable("/home/kreitmann/.myConfig/vim_custom_google")
     source /home/kreitmann/.myConfig/vim_custom_google
 endif
+
