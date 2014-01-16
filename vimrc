@@ -16,12 +16,15 @@ filetype indent plugin on
 filetype off  " It is set back to 'indent plugin on' at the end.
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-Bundle 'EnhCommentify.vim'
+" Bundle 'EnhCommentify.vim'
+Bundle 'The-NERD-Commenter'
 Bundle 'ctrlp.vim'
 Bundle 'fugitive.vim'
 Bundle 'gmarik/vundle'
 Bundle 'SuperTab-continued.'
 Bundle 'snipMate'
+Bundle 'Cpp11-Syntax-Support'
+Bundle 'Tabular'
 " Bundle 'UltiSnips'
 " Bundle 'Valloric/YouCompleteMe'
 " Bundle 'Valloric/syntastic'
@@ -157,14 +160,17 @@ augroup JumpCursorOnEdit
 augroup END
 
 " EnhCommentify options
-let g:EnhCommentifyRespectIndent = 'Yes'
-let g:EnhCommentifyPretty = 'Yes'
+" let g:EnhCommentifyRespectIndent = 'Yes'
+" let g:EnhCommentifyPretty = 'Yes'
 
 function! EnhCommentifyCallback(ft)
-    if a:ft == 'asm' || a:ft == 'gas'
-        let b:ECcommentOpen = '#'
-        let b:ECcommentClose = ''
-    endif
+  if a:ft == 'asm' || a:ft == 'gas'
+    let b:ECcommentOpen = '#'
+    let b:ECcommentClose = ''
+  endif
+  if a:ft == 'cpp'
+    let b:ECcommentOpen = '//'
+  endif
 endfunction
 let g:EnhCommentifyCallbackExists = 'Yes'
 
@@ -192,6 +198,7 @@ au BufRead,BufNewFile *.xul set ft=xml
 au BufRead,BufNewFile *.hrf set ft=prolog
 au BufRead,BufNewFile *.plot set ft=gnuplot
 au BufRead,BufNewFile *.rdf setfiletype xml
+" au BufRead,BufNewFile *.cc set ft=cpp11
 
 " This will look in the current directory for "tags", and work up the tree towards root until one is found.
 set tags=tags;/
@@ -213,7 +220,8 @@ map <F8> :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
 " Ctrl P settings:
 let g:ctrlp_map = '<leader>e' "Changes the mapping
-let g:ctrlp_working_path_mode = '2'
+" let g:ctrlp_working_path_mode = '2'
+let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_dotfiles = 0
 " let g:ctrlp_follow_symlinks = 1
 " let g:ctrlp_use_caching = 1
@@ -329,18 +337,25 @@ nnoremap <c-l> <c-w>l
 nnoremap <leader><space> :noh<cr>
 nnoremap <space> :set<space>hls<cr>:let @/='\C\V\<'.escape(expand('<cword>'), '\').'\>'<cr>
 vnoremap <space> "xy:set<space>hls<cr>:let<space>@/='\V<c-r>x'<cr>
-nnoremap <leader>= mx=i{'x
+vnoremap <leader>= :ClangFormat<cr>
+nnoremap <leader>= Vi{:ClangFormat<cr>
 nnoremap <leader>n I}  // <esc>f{xj
 nnoremap <leader>! :redraw!<cr>
 nnoremap <leader>) A<backspace>,<esc>jA<backspace>)<esc>
-nnoremap <leader>sp vip!LC_ALL=C sort<cr>
-vnoremap <leader>sp !LC_ALL=C sort<cr>
+nnoremap <leader>sp vip!LC_ALL=C sort \| uniq<cr>
+vnoremap <leader>sp !LC_ALL=C sort \| uniq<cr>
 " Copies the #include line that includes the current file in the Yank buffer.
 nnoremap <leader>i I<cr><esc>ki#include "<c-r>=substitute(substitute(expand("%:p"), ".*google3/", "", ""), "\.proto$", ".pb.h", "")<cr>"<esc>yyu
 nnoremap <leader>w :s/"$//e<cr>j:s/^\s*"//e<cr>^v$hdk$p079li"<cr>"<esc>:noh<cr>
 nnoremap <leader>o f,a<cr><esc>
 nnoremap <leader>; ,
+nnoremap <leader>up Iunique_ptr<<esc>f*r>f=hc2w(<esc>$F)a)<esc>^
+nnoremap zC :set foldlevel=2<cr>
+map <leader>c <plug>NERDCommenterTogglej
 
+let NERDCreateDefaultMappings=0
+let NERDSpaceDelims=1
+let NERDDefaultNesting=0
 " Always keep 3 lines of context visible.
 set scrolloff=3
 
@@ -352,3 +367,13 @@ if filereadable("/home/kreitmann/.myConfig/vim_custom_google")
     source /home/kreitmann/.myConfig/vim_custom_google
 endif
 
+au BufRead,BufNewFile *.go set tabstop=2
+au BufRead,BufNewFile *.go set softtabstop=0
+au BufRead,BufNewFile *.go set shiftwidth=2
+au BufRead,BufNewFile *.proto set foldmethod=indent
+" set listchars=tab:ll
+set encoding=utf-8
+
+augroup SetCMS
+  autocmd FileType borg let &l:commentstring='//%s'
+augroup END
