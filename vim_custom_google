@@ -18,13 +18,13 @@ if !exists("s:includes_are_sourced")
   source /usr/share/vim/google/gtags.vim
 
   " Google3-custom find function (go to file, etc.)
-  source /usr/share/vim/google/runtime/findinc.vim
+  " source /usr/share/vim/google/runtime/findinc.vim
 
   " Blaze integration
   " The original script is at: /home/williasr/.vim.d/blaze.vim. Mine is modified
   " to work in subfolders of the google3 directory.
   " source ~/.vim/blaze.vim
-  source /usr/share/vim/google/runtime/blaze.vim
+  " source /usr/share/vim/google/runtime/blaze.vim
 
   " Grok support, provides the following commands:
   "   - :Grok.        The "Grok" command looks up the identifier under the
@@ -50,10 +50,6 @@ if !exists("s:includes_are_sourced")
   " G :     track the directory with g4 / git5 (doesn't apply to citc)
   " source /usr/share/vim/google/runtime/mru.vim
 endif
-
-set expandtab
-set shiftwidth=2
-set softtabstop=2
 
 " Two bindings for GTags: the first one jumps to the word under the cursor, the
 " second one also highlights it.
@@ -92,8 +88,30 @@ nmap gc) :!google-chrome --new-window https://cs.corp.google.com/'<cword>'<CR><C
 " Automatically run Buildifier on BUILD files
 let g:auto_buildifier = 1
 
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+" let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 " nnoremap ,mr :GoogleMruWindow<CR>
 
 "Teach VIM about spitfire templates
 autocmd BufNewFile,BufRead *.spt set filetype=cheetah
+
+" Glug autogen
+Glug blaze
+Glug codefmt do/commands
+" Glug critique
+Glug easygoogle
+Glug findinc
+Glug g4
+" Glug git5
+" Glug golang
+" Glug googlepaths
+" Glug googler
+" Glug googlestyle
+" Glug grok
+" Glug python
+" Glug whitespace
+" Glug youcompleteme-google
+"
+" set expandtab
+" set shiftwidth=2
+set tabstop=2
+

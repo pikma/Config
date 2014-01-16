@@ -14,8 +14,8 @@
 
 export P4CONFIG=.p4config
 # export P4DIFF="/home/build/google3/devtools/scripts/p4diff -w"
-# export P4DIFF="vimdiff"
-export P4DIFF="meld"
+export P4DIFF="vimdiff"
+# export P4DIFF="meld"
 export P4MERGE=/home/build/eng/perforce/mergep4.tcl
 
 # GTags: jumps to function declaration etc. in vim
@@ -42,5 +42,6 @@ alias fixdeps="/home/build/devtools/blazeutils/fixdeps_main.par"
 alias bb="blaze build ..."
 alias btest="blaze test ..."
 alias glaze=/google/src/head/depot/google3/third_party/go/bin/glaze
-alias gg='if [[ "$(pwd)" =~ google3 ]]; then while [[  "$(pwd)" != "/" && ! "$(basename $(pwd))" = google3 ]]; do cd ..; done; fi'
+alias gg='if [[ "$(pwd)" =~ google3 ]]; then while [[  "$(pwd)" != "/" && ! "$(basename $(pwd))" = google3 ]]; do cd ..; done; else echo "You must be in a google3 directory"; fi'
 
+alias g5='/google/data/ro/projects/shelltoys/g5.sar'
