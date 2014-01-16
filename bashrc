@@ -66,4 +66,8 @@ HISTIGNORE="&:[ ]*:exit"
 # Vim super-power mode
 set -o vi
 
+# Otherwise the sorting order can be wrong when sorting numbers.
+export LC_ALL=C
+
 # f(){ if [ "$PWD" != "$LPWD" ];then LPWD="$PWD"; tmux rename-window ${PWD//*\//}; fi }; export PROMPT_COMMAND=f;
+
