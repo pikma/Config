@@ -46,6 +46,8 @@ PATH=~/bin:$PATH:$CONFIG_DIR/scripts
 # alias for doing a recursive grep in C source
 alias cgr="find . -name '*.h' -or -name '*.c' -or -name '*.cpp' -or -name '*.cc' | xargs grep --color "
 
+alias h?="history | grep"
+
 # Source highlighting in less
 alias source-hilight="source-hilight --style-file=/usr/share/source-ghighlight/esc.style"
 export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
@@ -55,9 +57,8 @@ export LESS=' -R '
 export EDITOR=vim
 
 # other files
-other_bash_files=$(ls ~/.myConfig/ | grep bash_custom)
-for f in  $other_bash_files; do
-  source "$f"
+for f in  $(ls ~/.myConfig/bash_custom*); do
+  source $f
 done
 
 # Size of the history
