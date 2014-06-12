@@ -7,3 +7,5 @@
 	ui = true
 [diff]
 	tool = vimdiff
+[push]
+	default = simple

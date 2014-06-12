@@ -1,0 +1,2 @@
+gconftool-2 --dump '/apps/gnome-terminal' > gnome_terminal_conf.xml
+gconftool-2 --load gnome_terminal_conf.xml
