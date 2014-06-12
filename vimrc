@@ -2,11 +2,10 @@
 filetype off  " It is set back to 'indent plugin on' at the end.
 set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
-" Plugin 'EnhCommentify.vim'
+Plugin 'gmarik/Vundle.vim'  " Required
 Plugin 'The-NERD-Commenter'
 Plugin 'ctrlp.vim'
 Plugin 'fugitive.vim'
-Plugin 'gmarik/vundle'
 Plugin 'SuperTab-continued.'
 Plugin 'snipMate'
 Plugin 'Cpp11-Syntax-Support'
@@ -15,6 +14,7 @@ Plugin 'elzr/vim-json'
 call vundle#end()
 
 filetype indent plugin on
+syntax on
 
 " Necessary  for lots of cool vim things
 set nocompatible
