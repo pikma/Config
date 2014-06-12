@@ -28,11 +28,6 @@ fi
 # Set the prompt
 PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]$(mpwd | shorten_dir_name)\[\033[00m\]\$ '
 
-# Load aliases
-if [ -f "$CONFIG_DIR/bash_aliases" ]; then
-   . "$CONFIG_DIR/bash_aliases"
-fi
-
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
