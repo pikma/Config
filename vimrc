@@ -1,35 +1,19 @@
-"Les deux premières lignes activent la coloration syntaxique. La troisième
-"active l'indentation et les plugins relatifs au language (par exemple la
-"complétion des fonctions php quand vous éditez un fichier php).
-syn on
-set syntax =on
-filetype indent plugin on
-
-" Pathogen magic.
-" if !exists("s:pathogen_loaded")
-"   let s:pathogen_loaded = 1
-"   call pathogen#runtime_append_all_bundles()
-"   call pathogen#helptags()
-" endi
-
 " Vundle magic.
 filetype off  " It is set back to 'indent plugin on' at the end.
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-" Bundle 'EnhCommentify.vim'
-Bundle 'The-NERD-Commenter'
-Bundle 'ctrlp.vim'
-Bundle 'fugitive.vim'
-Bundle 'gmarik/vundle'
-Bundle 'SuperTab-continued.'
-Bundle 'snipMate'
-Bundle 'Cpp11-Syntax-Support'
-Bundle 'Tabular'
-Bundle 'elzr/vim-json'
-" Bundle 'UltiSnips'
-" Bundle 'Valloric/YouCompleteMe'
-" Bundle 'Valloric/syntastic'
-" Bundle 'Syntastic'
+set rtp+=~/.vim/bundle/Vundle.vim/
+call vundle#begin()
+" Plugin 'EnhCommentify.vim'
+Plugin 'The-NERD-Commenter'
+Plugin 'ctrlp.vim'
+Plugin 'fugitive.vim'
+Plugin 'gmarik/vundle'
+Plugin 'SuperTab-continued.'
+Plugin 'snipMate'
+Plugin 'Cpp11-Syntax-Support'
+Plugin 'Tabular'
+Plugin 'elzr/vim-json'
+call vundle#end()
+
 filetype indent plugin on
 
 " Necessary  for lots of cool vim things
@@ -190,7 +174,6 @@ autocmd FileType python set foldmethod=indent
 "SuperTab Completion
 " let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabDefaultCompletionType = "<c-x><c-u>"
-let g:EclimCompletionMethod = 'omnifunc'
 
 au BufRead,BufNewFile *.txt set fo=tcoq
 au BufRead,BufNewFile *.tex set fo=tcoq
@@ -368,7 +351,6 @@ set showmatch
 " Disable matching parenthesis
 let loaded_matchparen = 0
 
-
 let google_options_file = expand("<sfile>:p:h") . "/.myConfig/vim_custom_google"
 if filereadable(google_options_file)
   exec "source " . google_options_file
@@ -384,4 +366,3 @@ set encoding=utf-8
 augroup SetCMS
   autocmd FileType borg let &l:commentstring='//%s'
 augroup END
-
