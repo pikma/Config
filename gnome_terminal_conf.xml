@@ -575,7 +575,7 @@
     <entry>
       <key>profiles/Profile0/background_color</key>
       <value>
-        <string>#212121212121</string>
+        <string>#111110191019</string>
       </value>
     </entry>
     <entry>
@@ -683,7 +683,7 @@
     <entry>
       <key>profiles/Profile0/palette</key>
       <value>
-        <string>#212121212121:#EFEF29292929:#8A8AE2E23434:#FCFCE9E94F4F:#ADCBCCE6EE13:#ADAD7F7FA8A8:#3434E2E2E2E2:#EEEEEEEEECEC:#555557575353:#C1B400000000:#8A8AE2E23434:#FCFCE9E94F4F:#9CDAC010E58B:#ADAD7F7FA8A8:#3434E2E2E2E2:#EEEEEEEEECEC</string>
+        <string>#111110191019:#EFEF29292929:#8A8AE2E23434:#FCFCE9E94F4F:#ADCBCCE6EE13:#ADAD7F7FA8A8:#3434E2E2E2E2:#EEEEEEEEECEC:#555557575353:#C1B400000000:#8A8AE2E23434:#FCFCE9E94F4F:#9CDAC010E58B:#ADAD7F7FA8A8:#3434E2E2E2E2:#EEEEEEEEECEC</string>
       </value>
     </entry>
     <entry>
@@ -767,7 +767,7 @@
     <entry>
       <key>profiles/Profile0/use_system_font</key>
       <value>
-        <bool>false</bool>
+        <bool>true</bool>
       </value>
     </entry>
     <entry>
