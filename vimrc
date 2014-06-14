@@ -57,18 +57,6 @@ set showcmd
 "Remplace la touche Leader par la touche virgule ','
 let mapleader = ","
 
-" Who doesn't like autoindent?
-set autoindent
-
-" Spaces are better than a tab character
-set expandtab
-set smarttab
-
-" Who wants an 8 character tab?  Not me!
-set tabstop =2
-set shiftwidth=2
-set softtabstop=2
-
 " Cool tab completion stuff
 set wildmenu
 set wildmode=longest,list,full
@@ -121,50 +109,6 @@ set completeopt=longest,menuone,menu,preview
 " Remove any trailing whitespace that is in the file
 autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 
-" Restore cursor position to where it was before
-augroup JumpCursorOnEdit
-   au!
-   autocmd BufReadPost *
-            \ if expand("<afile>:p:h") !=? $TEMP |
-            \   if line("'\"") > 1 && line("'\"") <= line("$") |
-            \     let JumpCursorOnEdit_foo = line("'\"") |
-            \     let b:doopenfold = 1 |
-            \     if (foldlevel(JumpCursorOnEdit_foo) > foldlevel(JumpCursorOnEdit_foo - 1)) |
-            \        let JumpCursorOnEdit_foo = JumpCursorOnEdit_foo - 1 |
-            \        let b:doopenfold = 2 |
-            \     endif |
-            \     exe JumpCursorOnEdit_foo |
-            \   endif |
-            \ endif
-   " Need to postpone using "zv" until after reading the modelines.
-   autocmd BufWinEnter *
-            \ if exists("b:doopenfold") |
-            \   exe "normal zv" |
-            \   if(b:doopenfold > 1) |
-            \       exe  "+".1 |
-            \   endif |
-            \   unlet b:doopenfold |
-            \ endif
-augroup END
-
-" EnhCommentify options
-" let g:EnhCommentifyRespectIndent = 'Yes'
-" let g:EnhCommentifyPretty = 'Yes'
-
-function! EnhCommentifyCallback(ft)
-  if a:ft == 'asm' || a:ft == 'gas'
-    let b:ECcommentOpen = '#'
-    let b:ECcommentClose = ''
-  endif
-  if a:ft == 'cpp'
-    let b:ECcommentOpen = '//'
-  endif
-endfunction
-let g:EnhCommentifyCallbackExists = 'Yes'
-
-" map <F9> :call g:ClangUpdateQuickFix() <CR>
-" map <S-F9> :let g:clang_periodic_quickfix = 1 - g:clang_periodic_quickfix <bar> echo "Periodic :" g:clang_periodic_quickfix <CR>
-
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
@@ -187,24 +131,6 @@ au BufRead,BufNewFile *.hrf set ft=prolog
 au BufRead,BufNewFile *.plot set ft=gnuplot
 au BufRead,BufNewFile *.rdf setfiletype xml
 " au BufRead,BufNewFile *.cc set ft=cpp11
-
-" This will look in the current directory for "tags", and work up the tree towards root until one is found.
-set tags=tags;/
-map <F8> :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-
-
-"makes Vim insert these preprocessor gates automatically, when a new header file is created:
-" function! s:insert_gates()
-  " let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
-  " execute "normal! i#ifndef " . gatename
-  " execute "normal! o#define " . gatename . " "
-  " execute "normal! Go#endif /* " . gatename . " */"
-  " normal! kk
-" endfunction
-" autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
-
-" au BufRead,BufNewFile *.cpp set formatprg=uncrustify\ --frag\ -l\ CPP\ -q
-" map <F7> myggVG!uncrustify -l cpp<CR>dd'y
 
 " Ctrl P settings:
 let g:ctrlp_map = '<leader>e' "Changes the mapping
@@ -365,3 +291,10 @@ set encoding=utf-8
 augroup SetCMS
   autocmd FileType borg let &l:commentstring='//%s'
 augroup END
+
+set smartindent
+set expandtab
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+
