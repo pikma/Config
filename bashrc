@@ -57,8 +57,8 @@ for f in  $(ls ~/.myConfig/bash_custom*); do
 done
 
 # Size of the history
-HISTFILESIZE=20000000
-HISTSIZE=20000000
+HISTFILESIZE=2000000000
+HISTSIZE=2000000000
 # Ignore commands that start with a space and duplicate commands in the history
 HISTIGNORE="&:[ ]*:exit"
 
@@ -67,6 +67,4 @@ set -o vi
 
 # Otherwise the sorting order can be wrong when sorting numbers.
 export LC_ALL=C
-
-# f(){ if [ "$PWD" != "$LPWD" ];then LPWD="$PWD"; tmux rename-window ${PWD//*\//}; fi }; export PROMPT_COMMAND=f;
 

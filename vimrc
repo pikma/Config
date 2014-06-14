@@ -2,22 +2,19 @@
 filetype off  " It is set back to 'indent plugin on' at the end.
 set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
-" Plugin 'EnhCommentify.vim'
+Plugin 'gmarik/Vundle.vim'  " Required
 Plugin 'The-NERD-Commenter'
 Plugin 'ctrlp.vim'
 Plugin 'fugitive.vim'
-Plugin 'gmarik/vundle'
 Plugin 'SuperTab-continued.'
 Plugin 'snipMate'
 Plugin 'Cpp11-Syntax-Support'
 Plugin 'Tabular'
-" Plugin 'UltiSnips'
-" Plugin 'Valloric/YouCompleteMe'
-" Plugin 'Valloric/syntastic'
-" Plugin 'Syntastic'
+Plugin 'elzr/vim-json'
 call vundle#end()
 
 filetype indent plugin on
+syntax on
 
 " Necessary  for lots of cool vim things
 set nocompatible
@@ -116,6 +113,7 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
+autocmd FileType python set foldmethod=indent
 
 "SuperTab Completion
 " let g:SuperTabDefaultCompletionType = "context"
@@ -135,7 +133,7 @@ au BufRead,BufNewFile *.rdf setfiletype xml
 " Ctrl P settings:
 let g:ctrlp_map = '<leader>e' "Changes the mapping
 " let g:ctrlp_working_path_mode = '2'
-let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_working_path_mode = 'r'
 let g:ctrlp_dotfiles = 0
 " let g:ctrlp_follow_symlinks = 1
 " let g:ctrlp_use_caching = 1
@@ -263,9 +261,11 @@ nnoremap <leader>i I<cr><esc>ki#include "<c-r>=substitute(substitute(expand("%:p
 nnoremap <leader>w :s/"$//e<cr>j:s/^\s*"//e<cr>^v$hdk$p079li"<cr>"<esc>:noh<cr>
 nnoremap <leader>o f,a<cr><esc>
 nnoremap <leader>; ,
-nnoremap <leader>up Iunique_ptr<<esc>f*r>f=hc2w(<esc>$F)a)<esc>^
+nnoremap <leader>up ebiunique_ptr<<esc>f*r>
 nnoremap zC :set foldlevel=2<cr>
 map <leader>c <plug>NERDCommenterTogglej
+" nnoremap <leader>gd :YcmCompleter GoTo<CR>
+nnoremap gd :YcmCompleter GoToImprecise<CR>
 
 let NERDCreateDefaultMappings=0
 let NERDSpaceDelims=1
@@ -277,8 +277,9 @@ set showmatch
 " Disable matching parenthesis
 let loaded_matchparen = 0
 
-if filereadable("/home/kreitmann/.myConfig/vim_custom_google")
-    source /home/kreitmann/.myConfig/vim_custom_google
+let google_options_file = expand("<sfile>:p:h") . "/.myConfig/vim_custom_google"
+if filereadable(google_options_file)
+  exec "source " . google_options_file
 endif
 
 au BufRead,BufNewFile *.go set tabstop=2
