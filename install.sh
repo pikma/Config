@@ -3,6 +3,7 @@ sudo apt-get install \
   clang-format-3.5 \
   compiz-config-settings-manager \
   compiz-plugins-default \
+  gnome-tweak-tool \
   haskell-platform \
   r-base-core \
   synaptic \
