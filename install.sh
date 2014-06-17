@@ -1,1 +1,12 @@
-sudo apt-get install vim-gnome tmux haskell-platform r-base-core clang-format-3.5 clang-3.5
+sudo apt-get install \
+  clang-3.5 \
+  clang-format-3.5 \
+  compiz-config-settings-manager \
+  compiz-plugins-default \
+  haskell-platform \
+  r-base-core \
+  synaptic \
+  tmux \
+  vim-gnome \
+echo "Google Chrome: http://google.com/chrome"
+echo "RStudio: http://rstudio.com/products/rstudio/download/"
