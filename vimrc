@@ -340,6 +340,7 @@ nnoremap zC :set foldlevel=2<cr>
 map <leader>c <plug>NERDCommenterTogglej
 " nnoremap <leader>gd :YcmCompleter GoTo<CR>
 nnoremap gd :YcmCompleter GoToImprecise<CR>
+nnoremap <leader>ge :botright cwindow<cr>
 
 let NERDCreateDefaultMappings=0
 let NERDSpaceDelims=1
