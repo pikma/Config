@@ -30,7 +30,7 @@ if version >= 703
 endif
 
 " Code Folding, everything folded by default
-" set foldmethod=indent
+set foldmethod=syntax
 set foldlevel=99
 set foldenable
 
@@ -199,6 +199,7 @@ nnoremap H ^
 nnoremap L $
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
+
 vnoremap <leader>" <esc>a"<esc>`<i"<esc>lel
 vnoremap <leader>' <esc>a'<esc>`<i'<esc>lel
 inoremap :w<cr> <esc>:w<cr>
@@ -259,3 +260,5 @@ set expandtab
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
+
+command! -nargs=+ Vim execute 'silent vim <args>' | botright cwindow
