@@ -13,13 +13,15 @@ Plugin 'snipMate'
 Plugin 'Cpp11-Syntax-Support'
 Plugin 'Tabular'
 Plugin 'elzr/vim-json'
+Plugin 'nsf/gocode', {'rtp': 'vim/'}
+Plugin 'mileszs/ack.vim'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'rking/ag.vim'
+
 call vundle#end()
 
 filetype indent plugin on
 syntax on
-
-" Convince Vim it can use 256 colors inside Gnome Terminal.
-set t_Co=256
 
 set ttyfast
 
@@ -60,8 +62,9 @@ set number
 set ignorecase
 set smartcase
 
-set incsearch
-set hlsearch
+set incsearch  " Jump to the first search match as you type.
+set hlsearch   " Highlight the search results.
+" set nowrapscan  " Do not jump to the beginning of the file when at the end.
 
 set nohidden
 
@@ -75,6 +78,7 @@ set completeopt=longest,menuone,menu,preview
 autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 
 autocmd FileType python set foldmethod=indent
+autocmd FileType conf set foldmethod=indent
 
 "SuperTab Completion
 " let g:SuperTabDefaultCompletionType = "context"
@@ -85,6 +89,7 @@ set fo=croq
 au BufRead,BufNewFile *.go set shiftwidth=2
 au BufRead,BufNewFile *.go set softtabstop=0
 au BufRead,BufNewFile *.go set tabstop=2
+au BufRead,BufNewFile *.go set textwidth=100
 au BufRead,BufNewFile *.hrf set ft=prolog
 au BufRead,BufNewFile *.owl set ft=xml
 au BufRead,BufNewFile *.plot set ft=gnuplot
@@ -105,8 +110,17 @@ let g:ctrlp_dotfiles = 0
 " let g:ctrlp_clear_cache_on_exit = 0
 " let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
 
+" Convince Vim it can use 256 colors inside Gnome Terminal.
+set t_Co=256
+
 set background=dark
-colorscheme lucius256
+if has("gui_running")
+  colorscheme solarized
+else
+  colorscheme lucius256
+  hi Normal guifg=#d7d7d7 guibg=#212121 ctermfg=darkcyan ctermbg=black gui=none cterm=none
+endif
+
 
 " Display a dark grey line on the right margin
 set colorcolumn=+1
@@ -228,6 +242,7 @@ map <leader>c <plug>NERDCommenterTogglej
 " nnoremap <leader>gd :YcmCompleter GoTo<CR>
 nnoremap gd :YcmCompleter GoToImprecise<CR>
 nnoremap <leader>ge :botright cwindow<cr>
+nnoremap <leader>fd :BlazeDepsUpdate<cr>
 
 let NERDCreateDefaultMappings=0
 let NERDSpaceDelims=1
@@ -262,3 +277,22 @@ set shiftwidth=2
 set softtabstop=2
 
 command! -nargs=+ Vim execute 'silent vim <args>' | botright cwindow
+
+nmap <C-S-P> :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+
+let @b='V$h%y$%pcwbrowsejk'
+
+set guifont=Monospace\ 9
+set guioptions-=m  "remove menu bar
+set guioptions-=T  "remove toolbar
+set guioptions-=r  "remove right-hand scroll bar
+set guioptions-=L  "remove left-hand scroll bar
+
+" On Mac, alt-space inserts a weird space, disable this.
+:map!  <Char-0xA0>  <Space>

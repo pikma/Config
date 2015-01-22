@@ -66,5 +66,5 @@ HISTIGNORE="&:[ ]*:exit"
 set -o vi
 
 # Otherwise the sorting order can be wrong when sorting numbers.
-export LC_ALL=C
+# export LC_ALL=C
 
