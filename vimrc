@@ -100,6 +100,7 @@ au BufRead,BufNewFile *.tex set fo=tcoq
 au BufRead,BufNewFile *.tex set spell
 au BufRead,BufNewFile *.txt set fo=tcoq
 au BufRead,BufNewFile *.xul set ft=xml
+au BufRead,BufNewFile *.md set ft=markdown
 
 let g:ctrlp_map = '<leader>e' "Changes the mapping
 " let g:ctrlp_working_path_mode = '2'
