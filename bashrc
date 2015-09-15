@@ -68,3 +68,6 @@ set -o vi
 # Otherwise the sorting order can be wrong when sorting numbers.
 # export LC_ALL=C
 
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
