@@ -42,7 +42,7 @@ let mapleader = ","
 
 set wildmenu
 set wildmode=longest,list,full
-set wildignore=*.o,*.r,*.so,*.sl,*.tar,*.tgz,*.class
+set wildignore=*.o,*.r,*.so,*.sl,*.tar,*.tgz,*.class,*.pyc
 
 if version >= 700
    set spl=en spell
