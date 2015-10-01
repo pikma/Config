@@ -42,7 +42,7 @@ let mapleader = ","
 
 set wildmenu
 set wildmode=longest,list,full
-set wildignore=*.o,*.r,*.so,*.sl,*.tar,*.tgz,*.class
+set wildignore=*.o,*.r,*.so,*.sl,*.tar,*.tgz,*.class,*.pyc
 
 if version >= 700
    set spl=en spell
@@ -100,6 +100,7 @@ au BufRead,BufNewFile *.tex set fo=tcoq
 au BufRead,BufNewFile *.tex set spell
 au BufRead,BufNewFile *.txt set fo=tcoq
 au BufRead,BufNewFile *.xul set ft=xml
+au BufRead,BufNewFile *.md set ft=markdown
 
 let g:ctrlp_map = '<leader>e' "Changes the mapping
 " let g:ctrlp_working_path_mode = '2'
@@ -109,6 +110,10 @@ let g:ctrlp_dotfiles = 0
 " let g:ctrlp_use_caching = 1
 " let g:ctrlp_clear_cache_on_exit = 0
 " let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
+let g:ctrlp_custom_ignore = 'venv/.*'
+
+" Convince Vim it can use 256 colors inside Gnome Terminal.
+set t_Co=256
 
 " Convince Vim it can use 256 colors inside Gnome Terminal.
 set t_Co=256
