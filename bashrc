@@ -53,7 +53,11 @@ export EDITOR=vim
 
 # other files
 for f in  $(ls ~/.myConfig/bash_custom*); do
-  source $f
+  if [[ -r $f ]]; then
+    source $f
+  else
+    echo "Cannot source $f: file is not readable."
+  fi
 done
 
 # Size of the history
