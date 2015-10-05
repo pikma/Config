@@ -53,7 +53,11 @@ export EDITOR=vim
 
 # other files
 for f in  $(ls ~/.myConfig/bash_custom*); do
-  source $f
+  if [[ -r $f ]]; then
+    source $f
+  else
+    echo "Cannot source $f: file is not readable."
+  fi
 done
 
 # Size of the history
@@ -68,3 +72,5 @@ set -o vi
 # Otherwise the sorting order can be wrong when sorting numbers.
 # export LC_ALL=C
 
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
