@@ -51,6 +51,10 @@ endif
 
 set mouse=a
 
+if has("gui_running")
+  set lines=70 columns=100
+endif
+
 " Disable click (leaves only scrolling)
 map <LeftMouse>  <Nop>
 imap <LeftMouse> <Nop>
@@ -230,8 +234,8 @@ nnoremap <leader>= Vi{:ClangFormat<cr>
 nnoremap <leader>n I}  // <esc>f{xj
 nnoremap <leader>! :redraw!<cr>
 nnoremap <leader>) A<backspace>,<esc>jA<backspace>)<esc>
-nnoremap <leader>sp vip!LC_ALL=C sort \| uniq<cr>
-vnoremap <leader>sp !LC_ALL=C sort \| uniq<cr>
+nnoremap <leader>sp vip!LC_ALL=C sort -u<cr>
+vnoremap <leader>sp !LC_ALL=C sort -u<cr>
 " Copies the #include line that includes the current file in the Yank buffer.
 nnoremap <leader>i I<cr><esc>ki#include "<c-r>=substitute(substitute(expand("%:p"), ".*google3/", "", ""), "\.proto$", ".pb.h", "")<cr>"<esc>yyu
 nnoremap <leader>w :s/"$//e<cr>j:s/^\s*"//e<cr>^v$hdk$p079li"<cr>"<esc>:noh<cr>
