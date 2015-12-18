@@ -3,21 +3,23 @@ set nocompatible
 " Vundle magic.
 filetype off  " It is set back to 'indent plugin on' at the end.
 set rtp+=~/.vim/bundle/Vundle.vim/
+
 call vundle#begin()
-Plugin 'gmarik/Vundle.vim'  " Required
-Plugin 'The-NERD-Commenter'
-Plugin 'ctrlp.vim'
-Plugin 'fugitive.vim'
-Plugin 'SuperTab-continued.'
-Plugin 'snipMate'
 Plugin 'Cpp11-Syntax-Support'
 Plugin 'Tabular'
-Plugin 'elzr/vim-json'
-Plugin 'nsf/gocode', {'rtp': 'vim/'}
-Plugin 'mileszs/ack.vim'
+Plugin 'The-NERD-Commenter'
+Plugin 'VundleVim/Vundle.vim'  " Required
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'ctrlp.vim'
+Plugin 'elzr/vim-json'
+Plugin 'ervandew/supertab'
+Plugin 'fugitive.vim'
+Plugin 'mileszs/ack.vim'
+Plugin 'mxw/vim-jsx'
+Plugin 'nsf/gocode', {'rtp': 'vim/'}
+Plugin 'pangloss/vim-javascript'
 Plugin 'rking/ag.vim'
-
+Plugin 'snipMate'
 call vundle#end()
 
 filetype indent plugin on
@@ -110,7 +112,7 @@ let g:ctrlp_dotfiles = 0
 " let g:ctrlp_use_caching = 1
 " let g:ctrlp_clear_cache_on_exit = 0
 " let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
-let g:ctrlp_custom_ignore = 'venv/.*'
+let g:ctrlp_custom_ignore = '\(venv\|node_modules\)/.*'
 
 " Convince Vim it can use 256 colors inside Gnome Terminal.
 set t_Co=256
@@ -120,7 +122,7 @@ if has("gui_running")
   colorscheme solarized
 else
   colorscheme lucius256
-  hi Normal guifg=#d7d7d7 guibg=#212121 ctermfg=darkcyan ctermbg=black gui=none cterm=none
+  " hi Normal guifg=#d7d7d7 guibg=#212121 ctermfg=darkcyan ctermbg=black gui=none cterm=none
 endif
 
 
