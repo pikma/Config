@@ -12,7 +12,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # some more ls aliases
-alias ll='ls -lh'
+alias ll='ls -Glh'
 alias la='ls -A'
 alias l='ls -CF'
 alias ..='cd ..'
@@ -35,3 +35,6 @@ alias ..................='cd ../../../../../../../../../../../../../../../../..'
 
 # This forces tmux to use 256 colors.
 alias tmux="tmux -2"
+
+alias npm_exec='PATH=$(npm bin):$PATH'
+
