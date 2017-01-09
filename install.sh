@@ -1,7 +1,8 @@
+sudo apt-get update && \
 sudo apt-get install \
   clang-3.5 \
   clang-format-3.5 \
-  compiz-config-settings-manager \
+  compizconfig-settings-manager \
   compiz-plugins-default \
   gnome-tweak-tool \
   haskell-platform \
@@ -9,5 +10,14 @@ sudo apt-get install \
   synaptic \
   tmux \
   vim-gnome \
-echo "Google Chrome: http://google.com/chrome"
-echo "RStudio: http://rstudio.com/products/rstudio/download/"
+  git \
+  ipython \
+  texlive-latex-base \
+  texlive-science \
+  texlive-latex-recommended \
+  synaptic \
+  pgpgpg
+echo "\n\n===================================="
+echo "Need to manually install:"
+echo "  Google Chrome: http://google.com/chrome"
+echo "  Anaconda (Jupyter Notebook): https://www.continuum.io/downloads"
