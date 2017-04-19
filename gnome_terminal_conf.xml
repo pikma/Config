@@ -638,13 +638,13 @@
     <entry>
       <key>profiles/Profile1/default_size_columns</key>
       <value>
-        <int>80</int>
+        <int>90</int>
       </value>
     </entry>
     <entry>
       <key>profiles/Profile1/default_size_rows</key>
       <value>
-        <int>24</int>
+        <int>60</int>
       </value>
     </entry>
     <entry>
@@ -747,6 +747,12 @@
       <key>profiles/Profile1/use_custom_command</key>
       <value>
         <bool>false</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>profiles/Profile1/use_custom_default_size</key>
+      <value>
+        <bool>true</bool>
       </value>
     </entry>
     <entry>
