@@ -51,9 +51,10 @@ if version >= 700
    set nospell
 endif
 
-set mouse=a
+set mouse=n  " Only in normal mode.
 
 if has("gui_running")
+  set mouse=a  " Normal, visual, insert, and command-line mode.
   set lines=70 columns=100
 endif
 
@@ -117,9 +118,15 @@ let g:ctrlp_dotfiles = 0
 " let g:ctrlp_clear_cache_on_exit = 0
 " let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
 let g:ctrlp_custom_ignore = '\(venv\|node_modules\)/.*'
-
-" Convince Vim it can use 256 colors inside Gnome Terminal.
-set t_Co=256
+let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+      \ --ignore .git
+      \ --ignore .svn
+      \ --ignore .hg
+      \ --ignore .DS_Store
+      \ --ignore "**/*.pyc"
+      \ --ignore .git5_specs
+      \ --ignore review
+      \ -g ""'
 
 " Convince Vim it can use 256 colors inside Gnome Terminal.
 set t_Co=256
@@ -254,6 +261,11 @@ map <leader>c <plug>NERDCommenterTogglej
 nnoremap gd :YcmCompleter GoToImprecise<CR>
 nnoremap <leader>ge :botright cwindow<cr>
 nnoremap <leader>fd :BlazeDepsUpdate<cr>
+" Aligns the next line so that the first non-space character is under the
+" current cursor. And moves to the next line.
+nnoremap <leader>j iù<esc>j^0d^kvtùyj^Pv0r kfùxj
+" Extracts an expression, and make it a named variable, in C++.
+vnoremap <leader>xe cRENAME_ME<esc>Oauto RENAME_ME = <esc>pa;<esc>j^
 
 let NERDCreateDefaultMappings=0
 let NERDSpaceDelims=1
@@ -307,3 +319,33 @@ set guioptions-=L  "remove left-hand scroll bar
 
 " On Mac, alt-space inserts a weird space, disable this.
 :map!  <Char-0xA0>  <Space>
+
+" file is large from 10mb
+let g:LargeFile = 1024 * 1024 * 10
+augroup LargeFile
+ autocmd BufReadPre * let f=getfsize(expand("<afile>")) | if f > g:LargeFile || f == -2 | call LargeFile() | endif
+augroup END
+
+function LargeFile()
+ " no syntax highlighting etc
+ set eventignore+=FileType
+ " save memory when other file is viewed
+ setlocal bufhidden=unload
+ " is read-only (write with :w new_filename)
+ setlocal buftype=nowrite
+ " no undo possible
+ setlocal undolevels=-1
+ " display message
+ autocmd VimEnter *  echo "The file is larger than " . (g:LargeFile / 1024 / 1024) . " MB, so some options are changed (see .vimrc for details)."
+endfunction
+
+" Populates the args list with all the files listed in the quickfix list.
+command! -nargs=0 -bar Qargs execute 'args ' . QuickfixFilenames()
+function! QuickfixFilenames()
+  " Building a hash ensures we get each buffer only once
+  let buffer_numbers = {}
+  for quickfix_item in getqflist()
+    let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
+  endfor
+  return join(values(buffer_numbers))
+endfunction
