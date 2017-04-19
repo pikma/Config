@@ -241,7 +241,7 @@ nnoremap <c-l> <c-w>l
 nnoremap <leader><space> :noh<cr>
 nnoremap <space> :set<space>hls<cr>:let @/='\C\V\<'.escape(expand('<cword>'), '\').'\>'<cr>
 vnoremap <space> "xy:set<space>hls<cr>:let<space>@/='\V<c-r>x'<cr>
-vnoremap <leader>= :ClangFormat<cr>
+vnoremap <leader>= :ClanggFormat<cr>
 nnoremap <leader>= Vi{:ClangFormat<cr>
 nnoremap <leader>n I}  // <esc>f{xj
 nnoremap <leader>! :redraw!<cr>
@@ -325,7 +325,7 @@ augroup LargeFile
  autocmd BufReadPre * let f=getfsize(expand("<afile>")) | if f > g:LargeFile || f == -2 | call LargeFile() | endif
 augroup END
 
-function LargeFile()
+function! LargeFile()
  " no syntax highlighting etc
  set eventignore+=FileType
  " save memory when other file is viewed
@@ -348,3 +348,5 @@ function! QuickfixFilenames()
   endfor
   return join(values(buffer_numbers))
 endfunction
+
+set modeline
