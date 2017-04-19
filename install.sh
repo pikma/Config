@@ -1,7 +1,3 @@
-echo $(dirname $0)
-
-exit
-
 sudo apt-get update && \
 sudo apt-get install \
   clang-3.5 \
@@ -16,12 +12,15 @@ sudo apt-get install \
   vim-gnome \
   git \
   ipython \
+  silversearcher-ag \
   texlive-latex-base \
   texlive-science \
   texlive-latex-recommended \
   synaptic \
   pgpgpg
-echo "\n\n===================================="
+echo
+echo
+echo "===================================="
 echo "Need to manually install:"
 echo "  Google Chrome: http://google.com/chrome"
 echo "  Anaconda (Jupyter Notebook): https://www.continuum.io/downloads"

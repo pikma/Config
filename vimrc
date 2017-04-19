@@ -5,21 +5,20 @@ filetype off  " It is set back to 'indent plugin on' at the end.
 set rtp+=~/.vim/bundle/Vundle.vim/
 
 call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'  " Required
 Plugin 'Cpp11-Syntax-Support'
 Plugin 'Tabular'
 Plugin 'The-NERD-Commenter'
-Plugin 'VundleVim/Vundle.vim'  " Required
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'ctrlp.vim'
 Plugin 'elzr/vim-json'
-Plugin 'ervandew/supertab'
+" Plugin 'ervandew/supertab'
 Plugin 'fugitive.vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'mxw/vim-jsx'
 Plugin 'nsf/gocode', {'rtp': 'vim/'}
 Plugin 'pangloss/vim-javascript'
 Plugin 'rking/ag.vim'
-Plugin 'snipMate'
 call vundle#end()
 
 filetype indent plugin on
@@ -89,7 +88,7 @@ autocmd FileType conf set foldmethod=indent
 
 "SuperTab Completion
 " let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabDefaultCompletionType = "<c-x><c-u>"
+" let g:SuperTabDefaultCompletionType = "<c-x><c-u>"
 
 set fo=croq
 
