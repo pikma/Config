@@ -6,19 +6,22 @@ set rtp+=~/.vim/bundle/Vundle.vim/
 
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'  " Required
+
 Plugin 'Cpp11-Syntax-Support'
 Plugin 'Tabular'
 Plugin 'The-NERD-Commenter'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'benmills/vimux'
+Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'ctrlp.vim'
 Plugin 'elzr/vim-json'
-" Plugin 'ervandew/supertab'
 Plugin 'fugitive.vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'mxw/vim-jsx'
 Plugin 'nsf/gocode', {'rtp': 'vim/'}
 Plugin 'pangloss/vim-javascript'
 Plugin 'rking/ag.vim'
+
 call vundle#end()
 
 filetype indent plugin on
@@ -224,47 +227,64 @@ nnoremap <F4> :execute ApplyCommandToHeaderCc(':vs')<CR>
 inoremap jk <esc>
 inoremap <esc> <nop>
 
+" Access and sourcing .vimrc.
 nnoremap <leader>ve :split $MYVIMRC<cr>G
 nnoremap <leader>vs :source $MYVIMRC<cr>
 nnoremap H ^
 nnoremap L $
+
+" Wrap in quotes.
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
-
 vnoremap <leader>" <esc>a"<esc>`<i"<esc>lel
 vnoremap <leader>' <esc>a'<esc>`<i'<esc>lel
+
+" Save file in insert mode.
 inoremap :w<cr> <esc>:w<cr>
-nnoremap <c-h> <c-w>h
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-l> <c-w>l
-nnoremap <leader><space> :noh<cr>
+
+" The Mighty Space Macro.
 nnoremap <space> :set<space>hls<cr>:let @/='\C\V\<'.escape(expand('<cword>'), '\').'\>'<cr>
 vnoremap <space> "xy:set<space>hls<cr>:let<space>@/='\V<c-r>x'<cr>
+nnoremap <leader><space> :noh<cr>
+
+" Code formating.
 vnoremap <leader>= :ClanggFormat<cr>
 nnoremap <leader>= Vi{:ClangFormat<cr>
+
+" Misc code formatting.
 nnoremap <leader>n I}  // <esc>f{xj
-nnoremap <leader>! :redraw!<cr>
 nnoremap <leader>) A<backspace>,<esc>jA<backspace>)<esc>
+
+" Utils
+nnoremap <leader>! :redraw!<cr>
+
+" Sorting.
 nnoremap <leader>sp vip!LC_ALL=C sort -u<cr>
 vnoremap <leader>sp !LC_ALL=C sort -u<cr>
+
 " Copies the #include line that includes the current file in the Yank buffer.
 nnoremap <leader>i I<cr><esc>ki#include "<c-r>=substitute(substitute(expand("%:p"), ".*google3/", "", ""), "\.proto$", ".proto.h", "")<cr>"<esc>yyu
-nnoremap <leader>w :s/"$//e<cr>j:s/^\s*"//e<cr>^v$hdk$p079li"<cr>"<esc>:noh<cr>
-nnoremap <leader>o f,a<cr><esc>
+
 nnoremap <leader>; ,
-nnoremap <leader>up ebiunique_ptr<<esc>f*r>
+
 nnoremap zC :set foldlevel=2<cr>
 map <leader>c <plug>NERDCommenterTogglej
 " nnoremap <leader>gd :YcmCompleter GoTo<CR>
 nnoremap gd :YcmCompleter GoToImprecise<CR>
+
+" Load errors in a window that spans all vertical panes.
 nnoremap <leader>ge :botright cwindow<cr>
-nnoremap <leader>fd :BlazeDepsUpdate<cr>
+
 " Aligns the next line so that the first non-space character is under the
 " current cursor. And moves to the next line.
 nnoremap <leader>j iù<esc>j^0d^kvtùyj^Pv0r kfùxj
+
 " Extracts an expression, and make it a named variable, in C++.
 vnoremap <leader>xe cRENAME_ME<esc>Oauto RENAME_ME = <esc>pa;<esc>j^
+
+nnoremap <leader>sh :VimuxPromptCommand<cr>
+nnoremap <leader>sl :VimuxRunLastCommand<cr>
+nnoremap <leader>sz :VimuxZoomRunner<cr>
 
 let NERDCreateDefaultMappings=0
 let NERDSpaceDelims=1
@@ -350,3 +370,5 @@ function! QuickfixFilenames()
 endfunction
 
 set modeline
+
+let g:VimuxOrientation = "h"
