@@ -5,23 +5,26 @@ filetype off  " It is set back to 'indent plugin on' at the end.
 set rtp+=~/.vim/bundle/Vundle.vim/
 
 call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'  " Required
+
 Plugin 'Cpp11-Syntax-Support'
 Plugin 'Tabular'
 Plugin 'The-NERD-Commenter'
-Plugin 'VundleVim/Vundle.vim'  " Required
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'benmills/vimux'
+Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'ctrlp.vim'
 Plugin 'elzr/vim-json'
-Plugin 'ervandew/supertab'
 Plugin 'fugitive.vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'mxw/vim-jsx'
 Plugin 'nsf/gocode', {'rtp': 'vim/'}
 Plugin 'pangloss/vim-javascript'
 Plugin 'rking/ag.vim'
-Plugin 'snipMate'
 Plugin 'rust-lang/rust.vim'
+Plugin 'snipMate'
 Plugin 'valloric/YouCompleteMe'
+
 call vundle#end()
 
 filetype indent plugin on
@@ -56,9 +59,10 @@ if version >= 700
    set nospell
 endif
 
-set mouse=a
+set mouse=n  " Only in normal mode.
 
 if has("gui_running")
+  set mouse=a  " Normal, visual, insert, and command-line mode.
   set lines=70 columns=100
 endif
 
@@ -93,7 +97,7 @@ autocmd FileType conf set foldmethod=indent
 
 "SuperTab Completion
 " let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabDefaultCompletionType = "<c-x><c-u>"
+" let g:SuperTabDefaultCompletionType = "<c-x><c-u>"
 
 set fo=croq
 
@@ -122,9 +126,15 @@ let g:ctrlp_dotfiles = 0
 " let g:ctrlp_clear_cache_on_exit = 0
 " let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
 let g:ctrlp_custom_ignore = '\(venv\|node_modules\)/.*'
-
-" Convince Vim it can use 256 colors inside Gnome Terminal.
-set t_Co=256
+let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+      \ --ignore .git
+      \ --ignore .svn
+      \ --ignore .hg
+      \ --ignore .DS_Store
+      \ --ignore "**/*.pyc"
+      \ --ignore .git5_specs
+      \ --ignore review
+      \ -g ""'
 
 " Convince Vim it can use 256 colors inside Gnome Terminal.
 set t_Co=256
@@ -223,42 +233,64 @@ nnoremap <F4> :execute ApplyCommandToHeaderCc(':vs')<CR>
 inoremap jk <esc>
 inoremap <esc> <nop>
 
+" Access and sourcing .vimrc.
 nnoremap <leader>ve :split $MYVIMRC<cr>G
 nnoremap <leader>vs :source $MYVIMRC<cr>
 nnoremap H ^
 nnoremap L $
+
+" Wrap in quotes.
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
-
 vnoremap <leader>" <esc>a"<esc>`<i"<esc>lel
 vnoremap <leader>' <esc>a'<esc>`<i'<esc>lel
+
+" Save file in insert mode.
 inoremap :w<cr> <esc>:w<cr>
-nnoremap <c-h> <c-w>h
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-l> <c-w>l
-nnoremap <leader><space> :noh<cr>
+
+" The Mighty Space Macro.
 nnoremap <space> :set<space>hls<cr>:let @/='\C\V\<'.escape(expand('<cword>'), '\').'\>'<cr>
 vnoremap <space> "xy:set<space>hls<cr>:let<space>@/='\V<c-r>x'<cr>
-vnoremap <leader>= :ClangFormat<cr>
+nnoremap <leader><space> :noh<cr>
+
+" Code formating.
+vnoremap <leader>= :ClanggFormat<cr>
 nnoremap <leader>= Vi{:ClangFormat<cr>
+
+" Misc code formatting.
 nnoremap <leader>n I}  // <esc>f{xj
-nnoremap <leader>! :redraw!<cr>
 nnoremap <leader>) A<backspace>,<esc>jA<backspace>)<esc>
+
+" Utils
+nnoremap <leader>! :redraw!<cr>
+
+" Sorting.
 nnoremap <leader>sp vip!LC_ALL=C sort -u<cr>
 vnoremap <leader>sp !LC_ALL=C sort -u<cr>
+
 " Copies the #include line that includes the current file in the Yank buffer.
 nnoremap <leader>i I<cr><esc>ki#include "<c-r>=substitute(substitute(expand("%:p"), ".*google3/", "", ""), "\.proto$", ".proto.h", "")<cr>"<esc>yyu
-nnoremap <leader>w :s/"$//e<cr>j:s/^\s*"//e<cr>^v$hdk$p079li"<cr>"<esc>:noh<cr>
-nnoremap <leader>o f,a<cr><esc>
+
 nnoremap <leader>; ,
-nnoremap <leader>up ebiunique_ptr<<esc>f*r>
+
 nnoremap zC :set foldlevel=2<cr>
 map <leader>c <plug>NERDCommenterTogglej
 " nnoremap <leader>gd :YcmCompleter GoTo<CR>
 nnoremap gd :YcmCompleter GoToImprecise<CR>
+
+" Load errors in a window that spans all vertical panes.
 nnoremap <leader>ge :botright cwindow<cr>
-nnoremap <leader>fd :BlazeDepsUpdate<cr>
+
+" Aligns the next line so that the first non-space character is under the
+" current cursor. And moves to the next line.
+nnoremap <leader>j iù<esc>j^0d^kvtùyj^Pv0r kfùxj
+
+" Extracts an expression, and make it a named variable, in C++.
+vnoremap <leader>xe cRENAME_ME<esc>Oauto RENAME_ME = <esc>pa;<esc>j^
+
+nnoremap <leader>sh :VimuxPromptCommand<cr>
+nnoremap <leader>sl :VimuxRunLastCommand<cr>
+nnoremap <leader>sz :VimuxZoomRunner<cr>
 
 let NERDCreateDefaultMappings=0
 let NERDSpaceDelims=1
@@ -312,3 +344,37 @@ set guioptions-=L  "remove left-hand scroll bar
 
 " On Mac, alt-space inserts a weird space, disable this.
 :map!  <Char-0xA0>  <Space>
+
+" file is large from 10mb
+let g:LargeFile = 1024 * 1024 * 10
+augroup LargeFile
+ autocmd BufReadPre * let f=getfsize(expand("<afile>")) | if f > g:LargeFile || f == -2 | call LargeFile() | endif
+augroup END
+
+function! LargeFile()
+ " no syntax highlighting etc
+ set eventignore+=FileType
+ " save memory when other file is viewed
+ setlocal bufhidden=unload
+ " is read-only (write with :w new_filename)
+ setlocal buftype=nowrite
+ " no undo possible
+ setlocal undolevels=-1
+ " display message
+ autocmd VimEnter *  echo "The file is larger than " . (g:LargeFile / 1024 / 1024) . " MB, so some options are changed (see .vimrc for details)."
+endfunction
+
+" Populates the args list with all the files listed in the quickfix list.
+command! -nargs=0 -bar Qargs execute 'args ' . QuickfixFilenames()
+function! QuickfixFilenames()
+  " Building a hash ensures we get each buffer only once
+  let buffer_numbers = {}
+  for quickfix_item in getqflist()
+    let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
+  endfor
+  return join(values(buffer_numbers))
+endfunction
+
+set modeline
+
+let g:VimuxOrientation = "h"

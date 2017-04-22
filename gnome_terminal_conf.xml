@@ -25,7 +25,7 @@
       <key>global/default_profile</key>
       <schema_key>/schemas/apps/gnome-terminal/global/default_profile</schema_key>
       <value>
-        <string>Profile0</string>
+        <string>Profile1</string>
       </value>
     </entry>
     <entry>
@@ -34,13 +34,10 @@
       <value>
         <list type="string">
             <value>
-              <string>Default</string>
-            </value>
-            <value>
-              <string>Profile0</string>
-            </value>
-            <value>
               <string>Profile1</string>
+            </value>
+            <value>
+              <string>Default</string>
             </value>
         </list>
       </value>
@@ -561,240 +558,6 @@
       </value>
     </entry>
     <entry>
-      <key>profiles/Profile0/allow_bold</key>
-      <value>
-        <bool>false</bool>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/alternate_screen_scroll</key>
-      <value>
-        <bool>true</bool>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/background_color</key>
-      <value>
-        <string>#111110191019</string>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/background_darkness</key>
-      <value>
-        <float>0.94394599999999995</float>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/background_image</key>
-      <value>
-        <string></string>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/background_type</key>
-      <value>
-        <string>solid</string>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/backspace_binding</key>
-      <value>
-        <string>ascii-del</string>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/bold_color</key>
-      <value>
-        <string>#000000000000</string>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/bold_color_same_as_fg</key>
-      <value>
-        <bool>true</bool>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/cursor_blink_mode</key>
-      <value>
-        <string>system</string>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/cursor_shape</key>
-      <value>
-        <string>block</string>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/custom_command</key>
-      <value>
-        <string>zsh</string>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/default_show_menubar</key>
-      <value>
-        <bool>false</bool>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/default_size_columns</key>
-      <value>
-        <int>80</int>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/default_size_rows</key>
-      <value>
-        <int>40</int>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/delete_binding</key>
-      <value>
-        <string>escape-sequence</string>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/exit_action</key>
-      <value>
-        <string>close</string>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/font</key>
-      <value>
-        <string>DejaVu Sans Mono 9</string>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/foreground_color</key>
-      <value>
-        <string>#EEEEEEEEECEC</string>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/login_shell</key>
-      <value>
-        <bool>false</bool>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/palette</key>
-      <value>
-        <string>#111110191019:#EFEF29292929:#8A8AE2E23434:#FCFCE9E94F4F:#ADCBCCE6EE13:#ADAD7F7FA8A8:#3434E2E2E2E2:#EEEEEEEEECEC:#555557575353:#C1B400000000:#8A8AE2E23434:#FCFCE9E94F4F:#9CDAC010E58B:#ADAD7F7FA8A8:#3434E2E2E2E2:#EEEEEEEEECEC</string>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/scroll_background</key>
-      <value>
-        <bool>true</bool>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/scroll_on_keystroke</key>
-      <value>
-        <bool>true</bool>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/scroll_on_output</key>
-      <value>
-        <bool>false</bool>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/scrollback_lines</key>
-      <value>
-        <int>512</int>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/scrollback_unlimited</key>
-      <value>
-        <bool>true</bool>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/scrollbar_position</key>
-      <value>
-        <string>hidden</string>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/silent_bell</key>
-      <value>
-        <bool>false</bool>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/title</key>
-      <value>
-        <string>Terminal</string>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/title_mode</key>
-      <value>
-        <string>replace</string>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/update_records</key>
-      <value>
-        <bool>true</bool>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/use_custom_command</key>
-      <value>
-        <bool>false</bool>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/use_custom_default_size</key>
-      <value>
-        <bool>true</bool>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/use_skey</key>
-      <value>
-        <bool>true</bool>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/use_system_font</key>
-      <value>
-        <bool>true</bool>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/use_theme_background</key>
-      <value>
-        <bool>false</bool>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/use_theme_colors</key>
-      <value>
-        <bool>false</bool>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/visible_name</key>
-      <value>
-        <string>Black</string>
-      </value>
-    </entry>
-    <entry>
-      <key>profiles/Profile0/word_chars</key>
-      <value>
-        <string>-A-Za-z0-9,./?%&amp;#:_=+@~</string>
-      </value>
-    </entry>
-    <entry>
       <key>profiles/Profile1/allow_bold</key>
       <value>
         <bool>true</bool>
@@ -869,19 +632,19 @@
     <entry>
       <key>profiles/Profile1/default_show_menubar</key>
       <value>
-        <bool>false</bool>
+        <bool>true</bool>
       </value>
     </entry>
     <entry>
       <key>profiles/Profile1/default_size_columns</key>
       <value>
-        <int>80</int>
+        <int>90</int>
       </value>
     </entry>
     <entry>
       <key>profiles/Profile1/default_size_rows</key>
       <value>
-        <int>24</int>
+        <int>60</int>
       </value>
     </entry>
     <entry>
@@ -899,7 +662,7 @@
     <entry>
       <key>profiles/Profile1/font</key>
       <value>
-        <string>Monospace 12</string>
+        <string>Monospace 9</string>
       </value>
     </entry>
     <entry>
@@ -953,7 +716,7 @@
     <entry>
       <key>profiles/Profile1/scrollbar_position</key>
       <value>
-        <string>right</string>
+        <string>hidden</string>
       </value>
     </entry>
     <entry>
@@ -987,6 +750,12 @@
       </value>
     </entry>
     <entry>
+      <key>profiles/Profile1/use_custom_default_size</key>
+      <value>
+        <bool>true</bool>
+      </value>
+    </entry>
+    <entry>
       <key>profiles/Profile1/use_skey</key>
       <value>
         <bool>true</bool>
@@ -995,7 +764,7 @@
     <entry>
       <key>profiles/Profile1/use_system_font</key>
       <value>
-        <bool>true</bool>
+        <bool>false</bool>
       </value>
     </entry>
     <entry>
