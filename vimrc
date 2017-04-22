@@ -20,10 +20,15 @@ Plugin 'nsf/gocode', {'rtp': 'vim/'}
 Plugin 'pangloss/vim-javascript'
 Plugin 'rking/ag.vim'
 Plugin 'snipMate'
+Plugin 'rust-lang/rust.vim'
+Plugin 'valloric/YouCompleteMe'
 call vundle#end()
 
 filetype indent plugin on
 syntax on
+
+let g:ycm_rust_src_path = '/home/pierre/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
+let g:ycm_path_to_python_interpreter = '/usr/bin/python'
 
 set ttyfast
 

@@ -77,3 +77,18 @@ export PATH="/usr/local/heroku/bin:$PATH"
 
 # added by Anaconda3 4.2.0 installer
 export PATH="/home/pierre/bin/anaconda3/bin:$PATH"
+
+# For CUDA
+# (http://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html)
+export PATH=/usr/local/cuda-8.0/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cudnn/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+# This was necessary to build the cuda samples, but it might be a problem with
+# the samples themselves, I'm not sure it's needed for other programs.
+# export LIBRARY_PATH=/usr/lib/nvidia-375:$LIBRARY_PATH
+# This one is not supposed to be needed, it's only for the installation that
+# uses a run.sh file instead of the .deb file (I used the .deb).
+# export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+# To ensure that iPython works in a virtualenv:
+alias ipy="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
