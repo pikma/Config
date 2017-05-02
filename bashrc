@@ -36,7 +36,7 @@ if [ -f /etc/bash_completion ]; then
 fi
 
 # PS1="${debian_chroot:+($debian_chroot)}\u@\h:\$(~/Documents/Programmation/Scripts/mpwd.sh | ~/Documents/Programmation/Scripts/shortPwd)\$ "
-PATH=~/bin:$PATH:$CONFIG_DIR/scripts
+PATH=~/.local/bin:~/bin:$PATH:$CONFIG_DIR/scripts
 
 # alias for doing a recursive grep in C source
 alias cgr="find . -name '*.h' -or -name '*.c' -or -name '*.cpp' -or -name '*.cc' | xargs grep --color "

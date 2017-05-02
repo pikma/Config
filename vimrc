@@ -24,7 +24,7 @@ Plugin 'rking/ag.vim'
 
 call vundle#end()
 
-filetype indent plugin on
+filetype plugin indent on
 syntax on
 
 set ttyfast
@@ -228,7 +228,7 @@ inoremap jk <esc>
 inoremap <esc> <nop>
 
 " Access and sourcing .vimrc.
-nnoremap <leader>ve :split $MYVIMRC<cr>G
+nnoremap <leader>ve :vsplit $MYVIMRC<cr>G
 nnoremap <leader>vs :source $MYVIMRC<cr>
 nnoremap H ^
 nnoremap L $
@@ -248,8 +248,8 @@ vnoremap <space> "xy:set<space>hls<cr>:let<space>@/='\V<c-r>x'<cr>
 nnoremap <leader><space> :noh<cr>
 
 " Code formating.
-vnoremap <leader>= :ClanggFormat<cr>
-nnoremap <leader>= Vi{:ClangFormat<cr>
+" vnoremap <leader>= :ClangFormat<cr>
+" nnoremap <leader>= Vi{:ClangFormat<cr>
 
 " Misc code formatting.
 nnoremap <leader>n I}  // <esc>f{xj
@@ -297,7 +297,9 @@ set showmatch
 " Disable matching parenthesis
 let loaded_matchparen = 0
 
-let google_options_file = expand("<sfile>:p:h") . "/.myConfig/vim_custom_google"
+let current_dir = expand("<sfile>:p")
+let config_dir = strpart(current_dir, 0, strridx(current_dir, "/.myConfig/")) . "/.myConfig"
+let google_options_file = config_dir . "/vim_custom_google"
 if filereadable(google_options_file)
   exec "source " . google_options_file
 endif
@@ -372,3 +374,7 @@ endfunction
 set modeline
 
 let g:VimuxOrientation = "h"
+
+if exists(':tnoremap')
+  tnoremap jk <C-\><C-n>
+endif
