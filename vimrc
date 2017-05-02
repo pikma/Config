@@ -1,5 +1,9 @@
 set nocompatible
 
+let current_dir = expand("<sfile>:p")
+let config_dir = strpart(current_dir, 0, strridx(current_dir, "/.myConfig/")) . "/.myConfig"
+let google_options_file = config_dir . "/vim_custom_google"
+
 " Vundle magic.
 filetype off  " It is set back to 'indent plugin on' at the end.
 set rtp+=~/.vim/bundle/Vundle.vim/
@@ -24,7 +28,9 @@ Plugin 'pikma/space-macro'
 Plugin 'rking/ag.vim'
 Plugin 'rust-lang/rust.vim'
 Plugin 'snipMate'
-Plugin 'valloric/YouCompleteMe'
+if !filereadable(google_options_file)
+  Plugin 'valloric/YouCompleteMe'
+endif
 
 call vundle#end()
 
@@ -250,8 +256,10 @@ vnoremap <leader>' <esc>a'<esc>`<i'<esc>lel
 inoremap :w<cr> <esc>:w<cr>
 
 " Code formating.
-" vnoremap <leader>= :ClangFormat<cr>
-" nnoremap <leader>= Vi{:ClangFormat<cr>
+if !filereadable(google_options_file)
+  vnoremap <leader>= :ClangFormat<cr>
+  nnoremap <leader>= Vi{:ClangFormat<cr>
+endif
 
 " Misc code formatting.
 nnoremap <leader>n I}  // <esc>f{xj
@@ -299,9 +307,6 @@ set showmatch
 " Disable matching parenthesis
 let loaded_matchparen = 0
 
-let current_dir = expand("<sfile>:p")
-let config_dir = strpart(current_dir, 0, strridx(current_dir, "/.myConfig/")) . "/.myConfig"
-let google_options_file = config_dir . "/vim_custom_google"
 if filereadable(google_options_file)
   exec "source " . google_options_file
 endif
