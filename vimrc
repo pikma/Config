@@ -20,12 +20,19 @@ Plugin 'mileszs/ack.vim'
 Plugin 'mxw/vim-jsx'
 Plugin 'nsf/gocode', {'rtp': 'vim/'}
 Plugin 'pangloss/vim-javascript'
+Plugin 'pikma/space-macro'
 Plugin 'rking/ag.vim'
+Plugin 'rust-lang/rust.vim'
+Plugin 'snipMate'
+Plugin 'valloric/YouCompleteMe'
 
 call vundle#end()
 
 filetype plugin indent on
 syntax on
+
+let g:ycm_rust_src_path = '/home/pierre/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
+let g:ycm_path_to_python_interpreter = '/usr/bin/python'
 
 set ttyfast
 
@@ -241,11 +248,6 @@ vnoremap <leader>' <esc>a'<esc>`<i'<esc>lel
 
 " Save file in insert mode.
 inoremap :w<cr> <esc>:w<cr>
-
-" The Mighty Space Macro.
-nnoremap <space> :set<space>hls<cr>:let @/='\C\V\<'.escape(expand('<cword>'), '\').'\>'<cr>
-vnoremap <space> "xy:set<space>hls<cr>:let<space>@/='\V<c-r>x'<cr>
-nnoremap <leader><space> :noh<cr>
 
 " Code formating.
 " vnoremap <leader>= :ClangFormat<cr>
