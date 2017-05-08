@@ -79,14 +79,13 @@ imap <LeftMouse> <Nop>
 
 set backspace=indent,eol,start
 
-set number
+set number  " Show line numbers
 
 set ignorecase
 set smartcase
 
 set incsearch  " Jump to the first search match as you type.
 set hlsearch   " Highlight the search results.
-" set nowrapscan  " Do not jump to the beginning of the file when at the end.
 
 set nohidden
 
@@ -147,17 +146,16 @@ let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
 set t_Co=256
 
 set background=dark
-if has("gui_running")
-  colorscheme solarized
-else
+" if has("gui_running")
+  " colorscheme solarized
+" else
   colorscheme lucius256
-  " hi Normal guifg=#d7d7d7 guibg=#212121 ctermfg=darkcyan ctermbg=black gui=none cterm=none
-endif
+" endif
 
 
 " Display a dark grey line on the right margin
 set colorcolumn=+1
-hi ColorColumn ctermbg=238
+" hi ColorColumn ctermbg=238
 
 " Functions to switch between header and implementation, across public /
 " internal directories.
@@ -336,8 +334,6 @@ function! <SID>SynStack()
   endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
-
-let @b='V$h%y$%pcwbrowsejk'
 
 set guifont=Monospace\ 9
 set guioptions-=m  "remove menu bar
