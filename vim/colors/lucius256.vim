@@ -157,9 +157,8 @@ if g:lucius_style == "dark"
     hi Question     guifg=fg        guibg=NONE      ctermfg=fg     ctermbg=NONE      gui=none      cterm=none
     hi WarningMsg   guifg=#d7875f   guibg=NONE      ctermfg=173    ctermbg=NONE      gui=none      cterm=none
     hi WildMenu     guifg=fg        guibg=#005f87   ctermfg=fg     ctermbg=24        gui=none      cterm=none
-    hi ColorColumn  guifg=NONE      guibg=#87875f   ctermfg=NONE   ctermbg=101       gui=none      cterm=none
+    hi ColorColumn  guifg=NONE      guibg=#87875f   ctermfg=NONE   ctermbg=235       gui=none      cterm=none
     hi Ignore       guifg=bg                        ctermfg=bg
-
 
 elseif g:lucius_style == "dark_dim"
 

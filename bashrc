@@ -92,3 +92,12 @@ export LD_LIBRARY_PATH=/usr/local/cudnn/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PA
 
 # To ensure that iPython works in a virtualenv:
 alias ipy="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
+
+# Set the default values for the text of the hi prompt. Change these if you like. #!>>HI<<!#
+__hi_on_prompt="[hi on] " #!>>HI<<!#
+__hi_off_prompt="[hi off]" #!>>HI<<!#
+# Set the Hi status to be displayed as part of the prompt. #!>>HI<<!#
+PS1="\[\${__hi_prompt_color}\]\${__hi_prompt_text}\[${__hi_NOCOLOR}\]${PS1}" #!>>HI<<!#
+
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

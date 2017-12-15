@@ -2,7 +2,8 @@ set nocompatible
 
 let current_dir = expand("<sfile>:p")
 let config_dir = strpart(current_dir, 0, strridx(current_dir, "/.myConfig/")) . "/.myConfig"
-let google_options_file = config_dir . "/vim_custom_google"
+" let google_options_file = config_dir . "/vim_custom_google"
+let google_options_file = expand("~/.myConfig/vim_custom_google")
 
 " Vundle magic.
 filetype off  " It is set back to 'indent plugin on' at the end.
@@ -17,9 +18,10 @@ Plugin 'The-NERD-Commenter'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'benmills/vimux'
 Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'ctrlp.vim'
+" Plugin 'ctrlp.vim'  " TODO: delete.
 Plugin 'elzr/vim-json'
 Plugin 'fugitive.vim'
+Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'mileszs/ack.vim'
 Plugin 'mxw/vim-jsx'
 Plugin 'nsf/gocode', {'rtp': 'vim/'}
@@ -28,6 +30,7 @@ Plugin 'pikma/space-macro'
 Plugin 'rking/ag.vim'
 Plugin 'rust-lang/rust.vim'
 Plugin 'snipMate'
+
 if !filereadable(google_options_file)
   Plugin 'valloric/YouCompleteMe'
 endif
@@ -125,6 +128,7 @@ au BufRead,BufNewFile *.xul set ft=xml
 au BufRead,BufNewFile *.md set ft=markdown
 
 let g:ctrlp_map = '<leader>e' "Changes the mapping
+nnoremap <leader>e :FZF<cr>
 " let g:ctrlp_working_path_mode = '2'
 let g:ctrlp_working_path_mode = 'r'
 let g:ctrlp_dotfiles = 0
@@ -296,6 +300,10 @@ nnoremap <leader>sh :VimuxPromptCommand<cr>
 nnoremap <leader>sl :VimuxRunLastCommand<cr>
 nnoremap <leader>sz :VimuxZoomRunner<cr>
 
+" Remap ctrl-c for this issue:
+" https://github.com/Shougo/deoplete.nvim/issues/460
+inoremap <C-c> <Esc>
+
 let NERDCreateDefaultMappings=0
 let NERDSpaceDelims=1
 let NERDDefaultNesting=0
@@ -383,5 +391,5 @@ set modeline
 let g:VimuxOrientation = "h"
 
 if exists(':tnoremap')
-  tnoremap jk <C-\><C-n>
+  tnoremap JK <C-\><C-n>
 endif
