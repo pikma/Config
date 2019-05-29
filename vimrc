@@ -14,11 +14,10 @@ Plugin 'VundleVim/Vundle.vim'  " Required
 
 Plugin 'Cpp11-Syntax-Support'
 Plugin 'Tabular'
-Plugin 'The-NERD-Commenter'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'benmills/vimux'
 Plugin 'christoomey/vim-tmux-navigator'
-" Plugin 'ctrlp.vim'  " TODO: delete.
+Plugin 'easymotion/vim-easymotion'
 Plugin 'elzr/vim-json'
 Plugin 'fugitive.vim'
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -29,6 +28,7 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'pikma/space-macro'
 Plugin 'rking/ag.vim'
 Plugin 'rust-lang/rust.vim'
+Plugin 'scrooloose/nerdcommenter'
 Plugin 'snipMate'
 
 if !filereadable(google_options_file)
@@ -42,6 +42,7 @@ syntax on
 
 let g:ycm_rust_src_path = '/home/pierre/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
 let g:ycm_path_to_python_interpreter = '/usr/bin/python'
+let g:ycm_min_num_of_chars_for_completion = 4
 
 set ttyfast
 
@@ -260,7 +261,7 @@ inoremap :w<cr> <esc>:w<cr>
 " Code formating.
 if !filereadable(google_options_file)
   vnoremap <leader>= :ClangFormat<cr>
-  nnoremap <leader>= Vi{:ClangFormat<cr>
+  nnoremap <leader>= Vip:ClangFormat<cr>
 endif
 
 " Misc code formatting.
@@ -281,6 +282,7 @@ nnoremap <leader>; ,
 
 nnoremap zC :set foldlevel=2<cr>
 map <leader>c <plug>NERDCommenterTogglej
+
 " nnoremap <leader>gd :YcmCompleter GoTo<CR>
 nnoremap gd :YcmCompleter GoToImprecise<CR>
 
@@ -305,6 +307,7 @@ inoremap <C-c> <Esc>
 let NERDCreateDefaultMappings=0
 let NERDSpaceDelims=1
 let NERDDefaultNesting=0
+let g:NERDCustomDelimiters = { 'textpb': { 'left': '#' } }
 
 " Always keep 3 lines of context visible.
 set scrolloff=3
