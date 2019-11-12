@@ -1,44 +1,45 @@
 set nocompatible
 
+filetype plugin indent on
+syntax on
+
 let current_dir = expand("<sfile>:p")
 let config_dir = strpart(current_dir, 0, strridx(current_dir, "/.myConfig/")) . "/.myConfig"
 " let google_options_file = config_dir . "/vim_custom_google"
 let google_options_file = expand("~/.myConfig/vim_custom_google")
 
-" Vundle magic.
-filetype off  " It is set back to 'indent plugin on' at the end.
-set rtp+=~/.vim/bundle/Vundle.vim/
-
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'  " Required
-
-Plugin 'Cpp11-Syntax-Support'
-Plugin 'Tabular'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'benmills/vimux'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'elzr/vim-json'
-Plugin 'fugitive.vim'
-Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plugin 'mileszs/ack.vim'
-Plugin 'mxw/vim-jsx'
-Plugin 'nsf/gocode', {'rtp': 'vim/'}
-Plugin 'pangloss/vim-javascript'
-Plugin 'pikma/space-macro'
-Plugin 'rking/ag.vim'
-Plugin 'rust-lang/rust.vim'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'snipMate'
-
-if !filereadable(google_options_file)
-  Plugin 'valloric/YouCompleteMe'
+" Automatic installation of vim-plug.
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+      \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-call vundle#end()
+call plug#begin('~/.vim/bundle')
 
-filetype plugin indent on
-syntax on
+Plug 'altercation/vim-colors-solarized'
+Plug 'benmills/vimux'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'easymotion/vim-easymotion'
+Plug 'elzr/vim-json'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'mileszs/ack.vim'
+Plug 'mxw/vim-jsx'
+Plug 'nsf/gocode', {'rtp': 'vim/'}
+Plug 'pangloss/vim-javascript'
+Plug 'pikma/space-macro'
+Plug 'rking/ag.vim'
+Plug 'rust-lang/rust.vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'stefandtw/quickfix-reflector.vim'
+
+if !filereadable(google_options_file)
+  Plug 'valloric/YouCompleteMe'
+endif
+
+call plug#end()
+
 
 let g:ycm_rust_src_path = '/home/pierre/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
 let g:ycm_path_to_python_interpreter = '/usr/bin/python'
