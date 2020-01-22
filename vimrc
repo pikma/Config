@@ -1,48 +1,50 @@
 set nocompatible
 
+filetype plugin indent on
+syntax on
+
 let current_dir = expand("<sfile>:p")
 let config_dir = strpart(current_dir, 0, strridx(current_dir, "/.myConfig/")) . "/.myConfig"
 " let google_options_file = config_dir . "/vim_custom_google"
 let google_options_file = expand("~/.myConfig/vim_custom_google")
 
-" Vundle magic.
-filetype off  " It is set back to 'indent plugin on' at the end.
-set rtp+=~/.vim/bundle/Vundle.vim/
-
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'  " Required
-
-Plugin 'Cpp11-Syntax-Support'
-Plugin 'Tabular'
-Plugin 'The-NERD-Commenter'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'benmills/vimux'
-Plugin 'christoomey/vim-tmux-navigator'
-" Plugin 'ctrlp.vim'  " TODO: delete.
-Plugin 'elzr/vim-json'
-Plugin 'fugitive.vim'
-Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plugin 'mileszs/ack.vim'
-Plugin 'mxw/vim-jsx'
-Plugin 'nsf/gocode', {'rtp': 'vim/'}
-Plugin 'pangloss/vim-javascript'
-Plugin 'pikma/space-macro'
-Plugin 'rking/ag.vim'
-Plugin 'rust-lang/rust.vim'
-Plugin 'snipMate'
-
-if !filereadable(google_options_file)
-  Plugin 'valloric/YouCompleteMe'
-  Plugin 'rhysd/vim-clang-format'
+" Automatic installation of vim-plug.
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+      \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-call vundle#end()
+call plug#begin('~/.vim/bundle')
 
-filetype plugin indent on
-syntax on
+Plug 'altercation/vim-colors-solarized'
+Plug 'benmills/vimux'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'easymotion/vim-easymotion'
+Plug 'elzr/vim-json'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'mileszs/ack.vim'
+Plug 'mxw/vim-jsx'
+Plug 'nsf/gocode', {'rtp': 'vim/'}
+Plug 'pangloss/vim-javascript'
+Plug 'pikma/space-macro'
+Plug 'rking/ag.vim'
+Plug 'rust-lang/rust.vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'stefandtw/quickfix-reflector.vim'
+
+if !filereadable(google_options_file)
+  Plug 'valloric/YouCompleteMe'
+  Plug 'rhysd/vim-clang-format'
+endif
+
+call plug#end()
+
 
 let g:ycm_rust_src_path = '/home/pierre/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
 let g:ycm_path_to_python_interpreter = '/usr/bin/python'
+let g:ycm_min_num_of_chars_for_completion = 4
 
 set ttyfast
 
@@ -261,7 +263,7 @@ inoremap :w<cr> <esc>:w<cr>
 " Code formating.
 if !filereadable(google_options_file)
   vnoremap <leader>= :ClangFormat<cr>
-  nnoremap <leader>= Vi{:ClangFormat<cr>
+  nnoremap <leader>= Vip:ClangFormat<cr>
 endif
 
 " Misc code formatting.
@@ -282,6 +284,7 @@ nnoremap <leader>; ,
 
 nnoremap zC :set foldlevel=2<cr>
 map <leader>c <plug>NERDCommenterTogglej
+
 " nnoremap <leader>gd :YcmCompleter GoTo<CR>
 nnoremap gd :YcmCompleter GoToImprecise<CR>
 
@@ -306,6 +309,7 @@ inoremap <C-c> <Esc>
 let NERDCreateDefaultMappings=0
 let NERDSpaceDelims=1
 let NERDDefaultNesting=0
+let g:NERDCustomDelimiters = { 'textpb': { 'left': '#' } }
 
 " Always keep 3 lines of context visible.
 set scrolloff=3
