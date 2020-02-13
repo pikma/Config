@@ -1,1 +1,1 @@
-/home/pierre/.myConfig/vimrc
+../vimrc
