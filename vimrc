@@ -5,8 +5,7 @@ syntax on
 
 let current_dir = expand("<sfile>:p")
 let config_dir = strpart(current_dir, 0, strridx(current_dir, "/.myConfig/")) . "/.myConfig"
-" let google_options_file = config_dir . "/vim_custom_google"
-let google_options_file = expand("~/.myConfig/vim_custom_google")
+let google_options_file = expand("~/.myConfig/vim_custom_google.vim")
 
 " Automatic installation of vim-plug.
 if empty(glob('~/.vim/autoload/plug.vim'))
