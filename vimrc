@@ -406,7 +406,7 @@ let pipenv_venv_path = system('pipenv --venv')
 " Remember, that 'pipenv --venv' only points to the root directory
 " of the virtual environment, so we have to append a full path to
 " the python executable.
-if shell_error == 0
+if v:shell_error == 0
   let venv_path = substitute(pipenv_venv_path, '\n', '', '')
   let g:ycm_python_binary_path = venv_path . '/bin/python'
 else
