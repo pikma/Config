@@ -82,6 +82,7 @@ export PATH="/home/pierre/bin/anaconda3/bin:$PATH"
 # (http://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html)
 export PATH=/usr/local/cuda-8.0/bin${PATH:+:${PATH}}
 export LD_LIBRARY_PATH=/usr/local/cudnn/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda/extras/CUPTI/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
 # This was necessary to build the cuda samples, but it might be a problem with
 # the samples themselves, I'm not sure it's needed for other programs.
