@@ -36,7 +36,6 @@ Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'vim-airline/vim-airline'
 
 if !filereadable(google_options_file)
-  Plug 'dense-analysis/ale'
   Plug 'valloric/YouCompleteMe'
   Plug 'rhysd/vim-clang-format'
 endif
