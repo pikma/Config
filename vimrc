@@ -324,16 +324,8 @@ set showmatch
 " Disable matching parenthesis
 let loaded_matchparen = 0
 
-if filereadable(google_options_file)
-  exec "source " . google_options_file
-endif
-
 " set listchars=tab:ll
 set encoding=utf-8
-
-augroup SetCMS
-  autocmd FileType borg let &l:commentstring='//%s'
-augroup END
 
 " Jump to the last position when opening a file.
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -344,13 +336,18 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 
-au BufNewFile,BufRead *.py set tabstop=4
-au BufNewFile,BufRead *.py set softtabstop=4
-au BufNewFile,BufRead *.py set shiftwidth=4
-au BufNewFile,BufRead *.py set textwidth=79
-au BufNewFile,BufRead *.py set expandtab
-au BufNewFile,BufRead *.py set autoindent
-au BufNewFile,BufRead *.py set fileformat=unix
+if filereadable(google_options_file)
+  exec "source " . google_options_file
+else
+  au BufNewFile,BufRead *.py set tabstop=4
+  au BufNewFile,BufRead *.py set softtabstop=4
+  au BufNewFile,BufRead *.py set shiftwidth=4
+  au BufNewFile,BufRead *.py set textwidth=79
+  au BufNewFile,BufRead *.py set expandtab
+  au BufNewFile,BufRead *.py set autoindent
+  " au BufNewFile,BufRead *.py set fileformat=unix
+endif
+
 
 command! -nargs=+ Vim execute 'silent vim <args>' | botright cwindow
 
