@@ -33,14 +33,20 @@ Plug 'rking/ag.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'stefandtw/quickfix-reflector.vim'
+Plug 'vim-airline/vim-airline'
 
 if !filereadable(google_options_file)
+  Plug 'dense-analysis/ale'
   Plug 'valloric/YouCompleteMe'
   Plug 'rhysd/vim-clang-format'
 endif
 
 call plug#end()
 
+
+let g:ale_python_auto_pipenv = 1
+let g:ale_fixers = {'python': ['yapf']}
+nmap <F7> <Plug>(ale_fix)
 
 let g:ycm_rust_src_path = '/home/pierre/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
 let g:ycm_path_to_python_interpreter = '/usr/bin/python'
@@ -128,6 +134,7 @@ au BufRead,BufNewFile *.tex set spell
 au BufRead,BufNewFile *.txt set fo=tcoq
 au BufRead,BufNewFile *.xul set ft=xml
 au BufRead,BufNewFile *.md set ft=markdown
+
 
 let g:ctrlp_map = '<leader>e' "Changes the mapping
 nnoremap <leader>e :FZF<cr>
@@ -338,6 +345,14 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 
+au BufNewFile,BufRead *.py set tabstop=4
+au BufNewFile,BufRead *.py set softtabstop=4
+au BufNewFile,BufRead *.py set shiftwidth=4
+au BufNewFile,BufRead *.py set textwidth=79
+au BufNewFile,BufRead *.py set expandtab
+au BufNewFile,BufRead *.py set autoindent
+au BufNewFile,BufRead *.py set fileformat=unix
+
 command! -nargs=+ Vim execute 'silent vim <args>' | botright cwindow
 
 nmap <C-S-P> :call <SID>SynStack()<CR>
@@ -409,6 +424,8 @@ let pipenv_venv_path = system('pipenv --venv')
 if v:shell_error == 0
   let venv_path = substitute(pipenv_venv_path, '\n', '', '')
   let g:ycm_python_binary_path = venv_path . '/bin/python'
+  let g:ale_python_yapf_executable = venv_path . '/bin/yapf'
 else
   let g:ycm_python_binary_path = 'python'
 endif
+
