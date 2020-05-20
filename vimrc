@@ -254,10 +254,6 @@ set showmatch
 " Disable matching parenthesis
 " let loaded_matchparen = 0  " TODO: remove
 
-if filereadable(google_options_file)
-  exec "source " . google_options_file
-endif
-
 " set listchars=tab:ll
 set encoding=utf-8
 
@@ -292,5 +288,6 @@ if exists(':tnoremap')
   tnoremap JK <C-\><C-n>
 endif
 
-
-
+if filereadable(google_options_file)
+  exec "source " . google_options_file
+endif
