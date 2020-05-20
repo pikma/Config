@@ -251,8 +251,6 @@ let g:NERDCustomDelimiters = { 'textpb': { 'left': '#' } }
 set scrolloff=3
 
 set showmatch
-" Disable matching parenthesis
-" let loaded_matchparen = 0  " TODO: remove
 
 " set listchars=tab:ll
 set encoding=utf-8
