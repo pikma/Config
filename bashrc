@@ -75,9 +75,6 @@ set -o vi
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
-# added by Anaconda3 4.2.0 installer
-export PATH="/home/pierre/bin/anaconda3/bin:$PATH"
-
 # For CUDA
 # (http://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html)
 export PATH=/usr/local/cuda-8.0/bin${PATH:+:${PATH}}

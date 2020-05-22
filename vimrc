@@ -404,7 +404,7 @@ endfunction
 
 set modeline
 
-let g:VimuxOrientation = "h"
+let g:VimuxOrientation = "v"
 
 if exists(':tnoremap')
   tnoremap JK <C-\><C-n>
