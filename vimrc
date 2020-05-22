@@ -28,7 +28,7 @@ Plug 'mxw/vim-jsx'
 Plug 'nsf/gocode', {'rtp': 'vim/'}
 Plug 'pangloss/vim-javascript'
 Plug 'pikma/space-macro'
-Plug 'rking/ag.vim'
+Plug 'mileszs/ack.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'stefandtw/quickfix-reflector.vim'
@@ -242,6 +242,8 @@ nnoremap <leader>sz :VimuxZoomRunner<cr>
 " https://github.com/Shougo/deoplete.nvim/issues/460
 inoremap <C-c> <Esc>
 
+nnoremap <leader>e :FZF<cr>
+
 let NERDCreateDefaultMappings=0
 let NERDSpaceDelims=1
 let NERDDefaultNesting=0
@@ -286,6 +288,15 @@ if exists(':tnoremap')
   tnoremap JK <C-\><C-n>
 endif
 
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" KEEP THIS AT THE END.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if filereadable(google_options_file)
   exec "source " . google_options_file
 endif
