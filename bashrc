@@ -101,6 +101,6 @@ PS1="\[\${__hi_prompt_color}\]\${__hi_prompt_text}\[${__hi_NOCOLOR}\]${PS1}" #!>
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # Use neovim if installed.
-if type nvim > /dev/null 2>&1; then
-    alias vim='nvim'
-fi
+# if type nvim > /dev/null 2>&1; then
+    # alias vim='nvim'
+# fi

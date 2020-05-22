@@ -24,7 +24,6 @@ Plug 'easymotion/vim-easymotion'
 Plug 'elzr/vim-json'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'mileszs/ack.vim'
 Plug 'mxw/vim-jsx'
 Plug 'nsf/gocode', {'rtp': 'vim/'}
 Plug 'pangloss/vim-javascript'
@@ -35,8 +34,12 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'vim-airline/vim-airline'
 
-if !filereadable(google_options_file)
-  Plug 'dense-analysis/ale'
+if filereadable(google_options_file)
+  Plug 'prabirshrestha/async.vim'
+  Plug 'prabirshrestha/asyncomplete-lsp.vim'
+  Plug 'prabirshrestha/asyncomplete.vim'
+  Plug 'prabirshrestha/vim-lsp'
+else
   Plug 'valloric/YouCompleteMe'
   Plug 'rhysd/vim-clang-format'
 endif
@@ -48,8 +51,26 @@ let g:ale_python_auto_pipenv = 1
 let g:ale_fixers = {'python': ['yapf']}
 nmap <F7> <Plug>(ale_fix)
 
+" Point YCM to the Pipenv created virtualenv, if possible
+" At first, get the output of 'pipenv --venv' command.
+let pipenv_venv_path = system('pipenv --venv')
+" The above system() call produces a non zero exit code whenever
+" a proper virtual environment has not been found.
+" So, second, we only point YCM to the virtual environment when
+" the call to 'pipenv --venv' was successful.
+" Remember, that 'pipenv --venv' only points to the root directory
+" of the virtual environment, so we have to append a full path to
+" the python executable.
+if v:shell_error == 0
+  let venv_path = substitute(pipenv_venv_path, '\n', '', '')
+  let g:ycm_python_binary_path = venv_path . '/bin/python'
+  let g:ale_python_yapf_executable = venv_path . '/bin/yapf'
+else
+  let g:ycm_python_binary_path = 'python'
+endif
+
 let g:ycm_rust_src_path = '/home/pierre/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
-let g:ycm_path_to_python_interpreter = '/usr/bin/python'
+" let g:ycm_path_to_python_interpreter = '/usr/bin/python'  " TODO: remove
 let g:ycm_min_num_of_chars_for_completion = 4
 
 set ttyfast
@@ -69,6 +90,7 @@ set showcmd
 
 let mapleader = ","
 
+" Command line completion.
 set wildmenu
 set wildmode=longest,list,full
 set wildignore=*.o,*.r,*.so,*.sl,*.tar,*.tgz,*.class,*.pyc
@@ -84,6 +106,11 @@ if has("gui_running")
   set mouse=a  " Normal, visual, insert, and command-line mode.
   set lines=70 columns=100
 endif
+set guifont=Monospace\ 9
+set guioptions-=m  "remove menu bar
+set guioptions-=T  "remove toolbar
+set guioptions-=r  "remove right-hand scroll bar
+set guioptions-=L  "remove left-hand scroll bar
 
 " Disable click (leaves only scrolling)
 map <LeftMouse>  <Nop>
@@ -95,14 +122,10 @@ set number  " Show line numbers
 
 set ignorecase
 set smartcase
-
 set incsearch  " Jump to the first search match as you type.
 set hlsearch   " Highlight the search results.
 
 set nohidden
-
-set textwidth=80
-
 
 " automatically open and close the popup menu / preview window
 set completeopt=longest,menuone,menu,preview
@@ -113,11 +136,9 @@ autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 autocmd FileType python set foldmethod=indent
 autocmd FileType conf set foldmethod=indent
 
-"SuperTab Completion
-" let g:SuperTabDefaultCompletionType = "context"
-" let g:SuperTabDefaultCompletionType = "<c-x><c-u>"
-
 set fo=croq
+
+set textwidth=80
 
 au BufRead,BufNewFile *.go set shiftwidth=2
 au BufRead,BufNewFile *.go set softtabstop=0
@@ -135,118 +156,26 @@ au BufRead,BufNewFile *.txt set fo=tcoq
 au BufRead,BufNewFile *.xul set ft=xml
 au BufRead,BufNewFile *.md set ft=markdown
 
+set smartindent
+set expandtab
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 
-let g:ctrlp_map = '<leader>e' "Changes the mapping
-nnoremap <leader>e :FZF<cr>
-" let g:ctrlp_working_path_mode = '2'
-let g:ctrlp_working_path_mode = 'r'
-let g:ctrlp_dotfiles = 0
-" let g:ctrlp_follow_symlinks = 1
-" let g:ctrlp_use_caching = 1
-" let g:ctrlp_clear_cache_on_exit = 0
-" let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
-let g:ctrlp_custom_ignore = '\(venv\|node_modules\)/.*'
-let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
-      \ --ignore .git
-      \ --ignore .svn
-      \ --ignore .hg
-      \ --ignore .DS_Store
-      \ --ignore "**/*.pyc"
-      \ --ignore .git5_specs
-      \ --ignore review
-      \ -g ""'
+au BufNewFile,BufRead *.py set tabstop=4
+au BufNewFile,BufRead *.py set softtabstop=4
+au BufNewFile,BufRead *.py set shiftwidth=4
+au BufNewFile,BufRead *.py set textwidth=80
+au BufNewFile,BufRead *.py set expandtab
+au BufNewFile,BufRead *.py set autoindent
+au BufNewFile,BufRead *.py set fileformat=unix
+
 
 " Convince Vim it can use 256 colors inside Gnome Terminal.
 set t_Co=256
-
 set background=dark
-" if has("gui_running")
-  " colorscheme solarized
-" else
-  colorscheme lucius256
-" endif
-
-
-" Display a dark grey line on the right margin
-set colorcolumn=+1
-" hi ColorColumn ctermbg=238
-
-" Functions to switch between header and implementation, across public /
-" internal directories.
-function! OtherExt(ext)
-  if a:ext == 'h'
-    return 'cc'
-  elseif a:ext == 'cc'
-    return 'h'
-  endif
-  return '-1'
-endfunction
-
-function! OtherDir(dir_name)
-  if a:dir_name == 'public'
-    return 'internal'
-  elseif a:dir_name == 'internal'
-    return 'public'
-  endif
-  return '-1'
-endfunction
-
-" Returns the header file if the current file is the implementation, and
-" vice-versa.
-fu! HeaderCcOtherFile()
-  " The extension, e.g. 'cc'.
-  let ext = expand('%:e')
-  " The filename, without extension, e.g. 'foo_test'
-  let root = expand('%:t:r')
-  " The path of the current file, e.g. '.'.
-  let path = expand('%:h')
-  " The directory name, e.g. 'public'.
-  let dir_name = expand('%:p:h:t')
-
-  let other_ext = OtherExt(ext)
-  if other_ext == '-1'
-    return '-1'
-  endif
-
-  let same_dir_file = simplify(path . '/' . root . '.' . other_ext)
-
-  " If there exists a file in the same directory, then we use it.
-  if filereadable(same_dir_file)
-    return same_dir_file
-  endif
-
-  " If this is an internal header, the .cc file should be in the same directory.
-  if ext == 'h' && dir_name == 'internal'
-    return same_dir_file
-  endif
-
-  let other_dir = OtherDir(dir_name)
-  if other_dir == '-1'
-    return simplify(same_dir_file)
-  endif
-
-  let other_path = path . '/../' . other_dir
-  let other_dir_file = other_path . '/' . root . '.' . other_ext
-  if filereadable(other_dir_file)
-    return simplify(other_dir_file)
-  endif
-
-  return simplify(other_dir_file)
-endfunction
-
-fu! ApplyCommandToHeaderCc(command)
-  " Command is the command to apply to the file, e.g. ':e' or ':vs'.
-  let other_file = HeaderCcOtherFile()
-  if other_file == '-1'
-    return ''
-  endif
-
-  return a:command . ' ' . other_file
-endfunction
-
-" Switch between header and source file.
-nnoremap <F3> :execute ApplyCommandToHeaderCc(':e')<CR>
-nnoremap <F4> :execute ApplyCommandToHeaderCc(':vs')<CR>
+colorscheme lucius256
+set colorcolumn=+1  " Display a dark grey line on the right margin
 
 " Replace the Escape key with the combination 'jk'
 inoremap jk <esc>
@@ -322,52 +251,12 @@ let g:NERDCustomDelimiters = { 'textpb': { 'left': '#' } }
 set scrolloff=3
 
 set showmatch
-" Disable matching parenthesis
-let loaded_matchparen = 0
-
-if filereadable(google_options_file)
-  exec "source " . google_options_file
-endif
 
 " set listchars=tab:ll
 set encoding=utf-8
 
-augroup SetCMS
-  autocmd FileType borg let &l:commentstring='//%s'
-augroup END
-
 " Jump to the last position when opening a file.
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
-set smartindent
-set expandtab
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-
-au BufNewFile,BufRead *.py set tabstop=4
-au BufNewFile,BufRead *.py set softtabstop=4
-au BufNewFile,BufRead *.py set shiftwidth=4
-au BufNewFile,BufRead *.py set textwidth=79
-au BufNewFile,BufRead *.py set expandtab
-au BufNewFile,BufRead *.py set autoindent
-au BufNewFile,BufRead *.py set fileformat=unix
-
-command! -nargs=+ Vim execute 'silent vim <args>' | botright cwindow
-
-nmap <C-S-P> :call <SID>SynStack()<CR>
-function! <SID>SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
-
-set guifont=Monospace\ 9
-set guioptions-=m  "remove menu bar
-set guioptions-=T  "remove toolbar
-set guioptions-=r  "remove right-hand scroll bar
-set guioptions-=L  "remove left-hand scroll bar
 
 " On Mac, alt-space inserts a weird space, disable this.
 :map!  <Char-0xA0>  <Space>
@@ -388,44 +277,15 @@ function! LargeFile()
  " no undo possible
  setlocal undolevels=-1
  " display message
- autocmd VimEnter *  echo "The file is larger than " . (g:LargeFile / 1024 / 1024) . " MB, so some options are changed (see .vimrc for details)."
+ autocmd VimEnter *  echo "The file is larger than " . (g:LargeFile / 1024 / 1024) . " MB, so some options are changed (see .vimrc for details, search for 'LargeFile()')."
 endfunction
 
-" Populates the args list with all the files listed in the quickfix list.
-command! -nargs=0 -bar Qargs execute 'args ' . QuickfixFilenames()
-function! QuickfixFilenames()
-  " Building a hash ensures we get each buffer only once
-  let buffer_numbers = {}
-  for quickfix_item in getqflist()
-    let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
-  endfor
-  return join(values(buffer_numbers))
-endfunction
-
-set modeline
-
-let g:VimuxOrientation = "v"
+let g:VimuxOrientation = "h"
 
 if exists(':tnoremap')
   tnoremap JK <C-\><C-n>
 endif
 
-
-" Point YCM to the Pipenv created virtualenv, if possible
-" At first, get the output of 'pipenv --venv' command.
-let pipenv_venv_path = system('pipenv --venv')
-" The above system() call produces a non zero exit code whenever
-" a proper virtual environment has not been found.
-" So, second, we only point YCM to the virtual environment when
-" the call to 'pipenv --venv' was successful.
-" Remember, that 'pipenv --venv' only points to the root directory
-" of the virtual environment, so we have to append a full path to
-" the python executable.
-if v:shell_error == 0
-  let venv_path = substitute(pipenv_venv_path, '\n', '', '')
-  let g:ycm_python_binary_path = venv_path . '/bin/python'
-  let g:ale_python_yapf_executable = venv_path . '/bin/yapf'
-else
-  let g:ycm_python_binary_path = 'python'
+if filereadable(google_options_file)
+  exec "source " . google_options_file
 endif
-
