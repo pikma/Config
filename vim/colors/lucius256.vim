@@ -74,12 +74,10 @@ else
     let g:lucius_style = "dark"
 endif
 
-" set colorcolumn=21,37,53,68,86,100
-
 if g:lucius_style == "dark"
 
 
-    hi Normal       guifg=#d7d7d7   guibg=#212121   ctermfg=188    ctermbg=black     gui=none      cterm=none
+    hi Normal       guifg=#d7d7d7   guibg=#303030   ctermfg=188    ctermbg=black     gui=none      cterm=none
 
     hi Comment      guifg=#808080   guibg=NONE      ctermfg=244    ctermbg=NONE      gui=none      cterm=none
 
@@ -156,14 +154,14 @@ if g:lucius_style == "dark"
     hi Directory    guifg=#afd7af   guibg=NONE      ctermfg=151    ctermbg=NONE      gui=none      cterm=none
     hi ErrorMsg     guifg=#ff5f5f   guibg=NONE      ctermfg=203    ctermbg=NONE      gui=none      cterm=none
     hi SignColumn   guifg=#b2b2b2   guibg=#4e4e4e   ctermfg=249    ctermbg=239       gui=none      cterm=none
-    hi LineNr       guifg=#626262   guibg=#212121   ctermfg=241    ctermbg=black     gui=none      cterm=none
+    hi LineNr       guifg=#626262   guibg=#303030   ctermfg=241    ctermbg=black     gui=none      cterm=none
     hi CursorLineNr guifg=#626262   guibg=#444444   ctermfg=241    ctermbg=238       gui=none      cterm=none
     hi MoreMsg      guifg=#5fd7d7   guibg=NONE      ctermfg=80     ctermbg=NONE      gui=none      cterm=none
     hi ModeMsg      guifg=fg        guibg=NONE      ctermfg=fg     ctermbg=NONE      gui=none      cterm=none
     hi Question     guifg=fg        guibg=NONE      ctermfg=fg     ctermbg=NONE      gui=none      cterm=none
     hi WarningMsg   guifg=#d7875f   guibg=NONE      ctermfg=173    ctermbg=NONE      gui=none      cterm=none
     hi WildMenu     guifg=fg        guibg=#005f87   ctermfg=fg     ctermbg=24        gui=none      cterm=none
-    hi ColorColumn  guifg=NONE      guibg=#87875f   ctermfg=NONE   ctermbg=235       gui=none      cterm=none
+    hi ColorColumn  guifg=NONE      guibg=#2b2b2b   ctermfg=NONE   ctermbg=235       gui=none      cterm=none
     hi Ignore       guifg=bg                        ctermfg=bg
 
 elseif g:lucius_style == "dark_dim"
