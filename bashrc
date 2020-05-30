@@ -38,6 +38,13 @@ fi
 # PS1="${debian_chroot:+($debian_chroot)}\u@\h:\$(~/Documents/Programmation/Scripts/mpwd.sh | ~/Documents/Programmation/Scripts/shortPwd)\$ "
 PATH=~/.local/bin:~/bin:$PATH:$CONFIG_DIR/scripts
 
+# Homebrew stuff
+export PATH=$HOME/homebrew/bin:$PATH
+export LD_LIBRARY_PATH=$HOME/homebrew/lib:$LD_LIBRARY_PATH
+
+# Mac OS stuff
+export PATH=$HOME/Library/Python/3.6/bin:$PATH
+
 # alias for doing a recursive grep in C source
 alias cgr="find . -name '*.h' -or -name '*.c' -or -name '*.cpp' -or -name '*.cc' | xargs grep --color "
 
