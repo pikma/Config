@@ -1,4 +1,3 @@
-# vim: ft=sh
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     eval "`dircolors -b`"

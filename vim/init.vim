@@ -1,1 +1,1 @@
-/usr/local/google/home/kreitmann/.vimrc
+../vimrc
