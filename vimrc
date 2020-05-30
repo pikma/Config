@@ -177,7 +177,7 @@ colorscheme lucius256
 
 " Use the gui colors, not the terminal colors.
 set termguicolors
-if !has('nvim') && $TERM ==# 'tmux-256color'
+if !has('nvim') && ($TERM ==# 'screen-256color' || $TERM ==# 'tmux-256color')
   " See :h xterm-true-color.
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
