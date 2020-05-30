@@ -16,7 +16,6 @@ endif
 
 call plug#begin('~/.vim/bundle')
 
-Plug 'altercation/vim-colors-solarized'
 Plug 'benmills/vimux'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'dense-analysis/ale'
@@ -175,6 +174,16 @@ au BufNewFile,BufRead *.py set fileformat=unix
 set t_Co=256
 set background=dark
 colorscheme lucius256
+
+" Use the gui colors, not the terminal colors.
+set termguicolors
+if !has('nvim') && $TERM ==# 'tmux-256color'
+  " See :h xterm-true-color.
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+
+
 set colorcolumn=+1  " Display a dark grey line on the right margin
 
 " Replace the Escape key with the combination 'jk'
@@ -288,9 +297,13 @@ if exists(':tnoremap')
   tnoremap JK <C-\><C-n>
 endif
 
+" Use ag instead of ack.
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
+
+" Disables highlighting the matching parenthesis.
+let g:loaded_matchparen=1
 
 
 
