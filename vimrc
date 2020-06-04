@@ -23,15 +23,16 @@ Plug 'easymotion/vim-easymotion'
 Plug 'elzr/vim-json'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'mileszs/ack.vim'
 Plug 'mxw/vim-jsx'
 Plug 'nsf/gocode', {'rtp': 'vim/'}
 Plug 'pangloss/vim-javascript'
 Plug 'pikma/space-macro'
-Plug 'mileszs/ack.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'vim-airline/vim-airline'
+Plug 'vimwiki/vimwiki'
 
 if filereadable(google_options_file)
   Plug 'prabirshrestha/async.vim'
