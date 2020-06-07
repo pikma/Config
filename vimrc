@@ -48,6 +48,7 @@ call plug#end()
 
 let g:ale_python_auto_pipenv = 1
 let g:ale_fixers = {'python': ['yapf']}
+let g:ale_linters = {'python': ['flake8', 'mypy']}
 nmap <F7> <Plug>(ale_fix)
 
 " Point YCM to the Pipenv created virtualenv, if possible
