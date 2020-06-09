@@ -174,7 +174,6 @@ au BufNewFile,BufRead *.py set fileformat=unix
 " Convince Vim it can use 256 colors inside Gnome Terminal.
 set t_Co=256
 set background=dark
-colorscheme lucius256
 
 " Use the gui colors, not the terminal colors.
 set termguicolors
@@ -184,6 +183,7 @@ if !has('nvim') && ($TERM ==# 'screen-256color' || $TERM ==# 'tmux-256color')
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
+colorscheme lucius
 
 set colorcolumn=+1  " Display a dark grey line on the right margin
 
@@ -305,6 +305,14 @@ endif
 
 " Disables highlighting the matching parenthesis.
 let g:loaded_matchparen=1
+
+
+
+
+
+
+
+
 
 
 
