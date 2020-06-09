@@ -38,6 +38,13 @@ fi
 # PS1="${debian_chroot:+($debian_chroot)}\u@\h:\$(~/Documents/Programmation/Scripts/mpwd.sh | ~/Documents/Programmation/Scripts/shortPwd)\$ "
 PATH=~/.local/bin:~/bin:$PATH:$CONFIG_DIR/scripts
 
+# Homebrew stuff
+export PATH=$HOME/homebrew/bin:$PATH
+export LD_LIBRARY_PATH=$HOME/homebrew/lib:$LD_LIBRARY_PATH
+
+# Mac OS stuff
+export PATH=$HOME/Library/Python/3.6/bin:$PATH
+
 # alias for doing a recursive grep in C source
 alias cgr="find . -name '*.h' -or -name '*.c' -or -name '*.cpp' -or -name '*.cc' | xargs grep --color "
 
@@ -75,9 +82,6 @@ set -o vi
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
-# added by Anaconda3 4.2.0 installer
-export PATH="/home/pierre/bin/anaconda3/bin:$PATH"
-
 # For CUDA
 # (http://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html)
 export PATH=/usr/local/cuda-8.0/bin${PATH:+:${PATH}}
@@ -104,6 +108,6 @@ PS1="\[\${__hi_prompt_color}\]\${__hi_prompt_text}\[${__hi_NOCOLOR}\]${PS1}" #!>
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # Use neovim if installed.
-if type nvim > /dev/null 2>&1; then
-    alias vim='nvim'
-fi
+# if type nvim > /dev/null 2>&1; then
+    # alias vim='nvim'
+# fi
