@@ -40,7 +40,11 @@ if filereadable(google_options_file)
   Plug 'prabirshrestha/asyncomplete.vim'
   Plug 'prabirshrestha/vim-lsp'
 else
-  Plug 'valloric/YouCompleteMe'
+  if has("python3")
+    Plug 'valloric/YouCompleteMe'
+  else
+    autocmd VimEnter *  echo 'Vim compiled without python3, disabling YouCompleteMe.'
+  endif
   Plug 'rhysd/vim-clang-format'
 endif
 
@@ -192,7 +196,7 @@ inoremap jk <esc>
 inoremap <esc> <nop>
 
 " Access and sourcing .vimrc.
-nnoremap <leader>ve :vsplit $MYVIMRC<cr>G
+nnoremap <leader>ve :e $MYVIMRC<cr>G
 nnoremap <leader>vs :source $MYVIMRC<cr>
 nnoremap H ^
 nnoremap L $
@@ -306,6 +310,8 @@ endif
 " Disables highlighting the matching parenthesis.
 let g:loaded_matchparen=1
 
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                     \ 'syntax': 'markdown', 'ext': '.md'}]
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
