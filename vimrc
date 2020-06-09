@@ -307,7 +307,8 @@ endif
 " Disables highlighting the matching parenthesis.
 let g:loaded_matchparen=1
 
-
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                     \ 'syntax': 'markdown', 'ext': '.md'}]
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " KEEP THIS AT THE END.
