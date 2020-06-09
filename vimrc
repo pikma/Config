@@ -301,16 +301,10 @@ nnoremap <leader>ge :botright cwindow<cr>
 " current cursor. And moves to the next line.
 nnoremap <leader>j iù<esc>j^0d^kvtùyj^Pv0r kfùxj
 
-" Extracts an expression, and make it a named variable, in C++.
-vnoremap <leader>xe cRENAME_ME<esc>Oauto RENAME_ME = <esc>pa;<esc>j^
 
 nnoremap <leader>sh :VimuxPromptCommand<cr>
 nnoremap <leader>sl :VimuxRunLastCommand<cr>
 nnoremap <leader>sz :VimuxZoomRunner<cr>
-
-" Remap ctrl-c for this issue:
-" https://github.com/Shougo/deoplete.nvim/issues/460
-inoremap <C-c> <Esc>
 
 let NERDCreateDefaultMappings=0
 let NERDSpaceDelims=1
@@ -350,14 +344,6 @@ endif
 
 
 command! -nargs=+ Vim execute 'silent vim <args>' | botright cwindow
-
-nmap <C-S-P> :call <SID>SynStack()<CR>
-function! <SID>SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
 
 set guifont=Monospace\ 9
 set guioptions-=m  "remove menu bar
