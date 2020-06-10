@@ -270,7 +270,7 @@ set encoding=utf-8
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 " On Mac, alt-space inserts a weird space, disable this.
-:map!  <Char-0xA0>  <Space>
+noremap  <Char-0xA0>  <Space>
 
 " file is large from 10mb
 let g:LargeFile = 1024 * 1024 * 10
