@@ -23,6 +23,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'elzr/vim-json'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'mhinz/vim-signify'
 Plug 'mileszs/ack.vim'
 Plug 'mxw/vim-jsx'
 Plug 'nsf/gocode', {'rtp': 'vim/'}
@@ -35,10 +36,13 @@ Plug 'vim-airline/vim-airline'
 Plug 'vimwiki/vimwiki'
 
 if filereadable(google_options_file)
+  " For language server support.
   Plug 'prabirshrestha/async.vim'
   Plug 'prabirshrestha/asyncomplete-lsp.vim'
   Plug 'prabirshrestha/asyncomplete.vim'
   Plug 'prabirshrestha/vim-lsp'
+  " For blame.
+  Plug 'vim-scripts/vcscommand.vim'
 else
   if has("python3")
     Plug 'valloric/YouCompleteMe'
@@ -308,6 +312,10 @@ let g:loaded_matchparen=1
 let g:vimwiki_list = [{'path': '~/vimwiki/',
                      \ 'syntax': 'markdown', 'ext': '.md'}]
 
+nnoremap <leader>we :Files ~/vimwiki<cr>
+
+" Disable capitalization checking in vimwiki.
+autocmd FileType vimwiki set spellcapcheck=''
 
 
 

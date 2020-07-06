@@ -34,6 +34,3 @@ alias ..................='cd ../../../../../../../../../../../../../../../../..'
 
 # This forces tmux to use 256 colors.
 alias tmux="tmux -2"
-
-alias npm_exec='PATH=$(npm bin):$PATH'
-
