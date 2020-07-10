@@ -311,6 +311,8 @@ let g:loaded_matchparen=1
 
 let g:vimwiki_list = [{'path': '~/vimwiki/',
                      \ 'syntax': 'markdown', 'ext': '.md'}]
+" Do not consider .md files outside of vimwiki_list to be vimwikis.
+let g:vimwiki_global_ext = 0
 
 nnoremap <leader>we :Files ~/vimwiki<cr>
 
