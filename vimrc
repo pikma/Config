@@ -21,7 +21,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'dense-analysis/ale'
 Plug 'easymotion/vim-easymotion'
 Plug 'elzr/vim-json'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-signify'
 Plug 'mileszs/ack.vim'
@@ -200,6 +200,7 @@ set colorcolumn=+1  " Display a dark grey line on the right margin
 inoremap jk <esc>
 inoremap <esc> <nop>
 
+inoremap \302\240 <space>
 " Access and sourcing .vimrc.
 nnoremap <leader>ve :e $MYVIMRC<cr>G
 nnoremap <leader>vs :source $MYVIMRC<cr>
@@ -256,6 +257,7 @@ nnoremap <leader>sl :VimuxRunLastCommand<cr>
 nnoremap <leader>sz :VimuxZoomRunner<cr>
 
 nnoremap <leader>e :FZF<cr>
+nnoremap <leader>,e :History<cr>
 
 let NERDCreateDefaultMappings=0
 let NERDSpaceDelims=1
@@ -318,8 +320,6 @@ nnoremap <leader>we :Files ~/vimwiki<cr>
 
 " Disable capitalization checking in vimwiki.
 autocmd FileType vimwiki set spellcapcheck=''
-
-
 
 
 
