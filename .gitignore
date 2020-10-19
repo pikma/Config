@@ -4,3 +4,4 @@ vim/bundle/*
 vim/cache/*
 *google*
 vim/undodir/*
+vim/spell
