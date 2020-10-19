@@ -68,8 +68,8 @@ for f in  $(ls ~/.myConfig/bash_custom*); do
 done
 
 # Size of the history
-HISTFILESIZE=2000000000
-HISTSIZE=2000000000
+HISTFILESIZE=5000000000
+HISTSIZE=5000000000
 # Ignore commands that start with a space and duplicate commands in the history
 HISTIGNORE="&:[ ]*:exit"
 

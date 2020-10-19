@@ -30,7 +30,7 @@ Plug 'nsf/gocode', {'rtp': 'vim/'}
 Plug 'pangloss/vim-javascript'
 Plug 'pikma/space-macro'
 Plug 'rust-lang/rust.vim'
-Plug 'scrooloose/nerdcommenter'
+Plug 'preservim/nerdcommenter'
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vimwiki/vimwiki'
@@ -42,7 +42,7 @@ if filereadable(google_options_file)
   Plug 'prabirshrestha/asyncomplete.vim'
   Plug 'prabirshrestha/vim-lsp'
   " For blame.
-  Plug 'vim-scripts/vcscommand.vim'
+  " Plug 'vim-scripts/vcscommand.vim'
 else
   if has("python3")
     Plug 'valloric/YouCompleteMe'
@@ -182,7 +182,7 @@ au BufNewFile,BufRead *.py set fileformat=unix
 
 " Convince Vim it can use 256 colors inside Gnome Terminal.
 set t_Co=256
-set background=dark
+set background=light
 
 " Use the gui colors, not the terminal colors.
 set termguicolors
@@ -192,7 +192,7 @@ if !has('nvim') && ($TERM ==# 'screen-256color' || $TERM ==# 'tmux-256color')
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
-colorscheme lucius
+colorscheme tango-morning
 
 set colorcolumn=+1  " Display a dark grey line on the right margin
 
@@ -259,10 +259,11 @@ nnoremap <leader>sz :VimuxZoomRunner<cr>
 nnoremap <leader>e :FZF<cr>
 nnoremap <leader>,e :History<cr>
 
-let NERDCreateDefaultMappings=0
-let NERDSpaceDelims=1
-let NERDDefaultNesting=0
+let g:NERDCreateDefaultMappings=0
+let g:NERDSpaceDelims=1
+let g:NERDDefaultNesting=0
 let g:NERDCustomDelimiters = { 'textpb': { 'left': '#' } }
+let g:NERDDefaultAlign='left'
 
 " Always keep 3 lines of context visible.
 set scrolloff=3
