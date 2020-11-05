@@ -18,7 +18,7 @@ call plug#begin('~/.vim/bundle')
 
 Plug 'benmills/vimux'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'dense-analysis/ale'
+" Plug 'dense-analysis/ale'
 Plug 'easymotion/vim-easymotion'
 Plug 'elzr/vim-json'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
@@ -38,9 +38,9 @@ Plug 'vimwiki/vimwiki'
 if filereadable(google_options_file)
   " For language server support.
   Plug 'prabirshrestha/async.vim'
+  Plug 'prabirshrestha/vim-lsp'
   Plug 'prabirshrestha/asyncomplete-lsp.vim'
   Plug 'prabirshrestha/asyncomplete.vim'
-  Plug 'prabirshrestha/vim-lsp'
   " For blame.
   " Plug 'vim-scripts/vcscommand.vim'
 else
