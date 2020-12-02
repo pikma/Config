@@ -198,7 +198,6 @@ set colorcolumn=+1  " Display a dark grey line on the right margin
 
 " Replace the Escape key with the combination 'jk'
 inoremap jk <esc>
-inoremap <esc> <nop>
 
 inoremap \302\240 <space>
 " Access and sourcing .vimrc.
