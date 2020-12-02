@@ -4,14 +4,16 @@
 # Set the location of the configuration folder
 CONFIG_DIR=$HOME/.myConfig
 
-# don't put duplicate lines in the history. See bash(1) for more options
-# don't overwrite GNU Midnight Commander's setting of `ignorespace'.
-export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
-# ... or force ignoredups and ignorespace
-export HISTCONTROL=ignoreboth
+# Do not write duplicates and commands starting with spaces to bash history.
+HISTCONTROL=ignoreboth
+# Size of the history
+HISTFILESIZE=5000000000
+HISTSIZE=5000000000
+# Ignore commands that start with a space and duplicate commands in the history
+HISTIGNORE="&*:exit"
 
 # append to the history file, don't overwrite it
-export PROMPT_COMMAND="history -a; history -r"
+export PROMPT_COMMAND="history -a; history -r; $PROMPT_COMMAND"
 shopt -s histappend
 
 # check the window size after each command and, if necessary,
@@ -26,7 +28,7 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 # Set the prompt
-PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]$(mpwd | shorten_dir_name)\[\033[00m\]\$ '
+PS1='\D{%m%d-%H%M}:${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]$(mpwd | shorten_dir_name)\[\033[00m\]\$ '
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -67,12 +69,6 @@ for f in  $(ls ~/.myConfig/bash_custom*); do
   fi
 done
 
-# Size of the history
-HISTFILESIZE=5000000000
-HISTSIZE=5000000000
-# Ignore commands that start with a space and duplicate commands in the history
-HISTIGNORE="&:[ ]*:exit"
-
 # Vim super-power mode
 set -o vi
 
@@ -97,13 +93,6 @@ export LD_LIBRARY_PATH=/usr/local/cuda/extras/CUPTI/lib64${LD_LIBRARY_PATH:+:${L
 
 # To ensure that iPython works in a virtualenv:
 alias ipy="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
-
-# Set the default values for the text of the hi prompt. Change these if you like. #!>>HI<<!#
-__hi_on_prompt="[hi on] " #!>>HI<<!#
-__hi_off_prompt="[hi off]" #!>>HI<<!#
-# Set the Hi status to be displayed as part of the prompt. #!>>HI<<!#
-PS1="\[\${__hi_prompt_color}\]\${__hi_prompt_text}\[${__hi_NOCOLOR}\]${PS1}" #!>>HI<<!#
-
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 

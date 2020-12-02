@@ -257,7 +257,7 @@ nnoremap <leader>sl :VimuxRunLastCommand<cr>
 nnoremap <leader>sz :VimuxZoomRunner<cr>
 
 nnoremap <leader>e :FZF<cr>
-nnoremap <leader>,e :History<cr>
+nnoremap <leader>,h :History<cr>
 
 let g:NERDCreateDefaultMappings=0
 let g:NERDSpaceDelims=1
@@ -322,7 +322,21 @@ nnoremap <leader>we :Files ~/vimwiki<cr>
 " Disable capitalization checking in vimwiki.
 autocmd FileType vimwiki set spellcapcheck=''
 
+" To remember more than 100 (the default) files in v:oldfiles.
+set viminfo='500,<50,s10,h
 
+" Uses FZF to select a file in the same directory as the currently opened file.
+function FzfSameDirectory()
+  let dir_path = expand('%:p:h')
+  let header = 'Directory: ' . expand('%:p:h:t')
+        " \   'source': 'find ' . dir_path ,
+  call fzf#run({
+        \   'sink': 'e',
+        \   'dir': dir_path,
+        \   'options': '--header="'.header.'"'
+        \ })
+endfunction
+nnoremap <leader>,d :call FzfSameDirectory()<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " KEEP THIS AT THE END.
