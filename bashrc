@@ -4,17 +4,15 @@
 # Set the location of the configuration folder
 CONFIG_DIR=$HOME/.myConfig
 
-# Do not write duplicates and commands starting with spaces to bash history.
-HISTCONTROL=ignoreboth
-# Size of the history
 HISTFILESIZE=5000000000
 HISTSIZE=5000000000
-# Ignore commands that start with a space and duplicate commands in the history
-HISTIGNORE="&*:exit"
-
-# append to the history file, don't overwrite it
-export PROMPT_COMMAND="history -a; history -r; $PROMPT_COMMAND"
+# Avoid duplicates
+HISTCONTROL=ignoredups:erasedups
+# When the shell exits, append to the history file instead of overwriting it
 shopt -s histappend
+
+# After each command, append to the history file and reread it
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.

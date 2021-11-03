@@ -217,8 +217,8 @@ inoremap :w<cr> <esc>:w<cr>
 
 " Code formating.
 if !filereadable(google_options_file)
-  vnoremap <leader>= :ClangFormat<cr>
-  nnoremap <leader>= Vip:ClangFormat<cr>
+  vnoremap <leader>fo :ClangFormat<cr>
+  nnoremap <leader>fo Vip:ClangFormat<cr>
 endif
 
 " Misc code formatting.
@@ -261,7 +261,7 @@ nnoremap <leader>,h :History<cr>
 let g:NERDCreateDefaultMappings=0
 let g:NERDSpaceDelims=1
 let g:NERDDefaultNesting=0
-let g:NERDCustomDelimiters = { 'textpb': { 'left': '#' } }
+let g:NERDCustomDelimiters = {'textpb': {'left': '#'}, 'gcl': {'left': '//'}}
 let g:NERDDefaultAlign='left'
 
 " Always keep 3 lines of context visible.
