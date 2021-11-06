@@ -35,22 +35,12 @@ Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vimwiki/vimwiki'
 
-if filereadable(google_options_file)
-  " For language server support.
-  Plug 'prabirshrestha/async.vim'
-  Plug 'prabirshrestha/vim-lsp'
-  Plug 'prabirshrestha/asyncomplete-lsp.vim'
-  Plug 'prabirshrestha/asyncomplete.vim'
-  " For blame.
-  " Plug 'vim-scripts/vcscommand.vim'
-else
-  if has("python3")
-    Plug 'valloric/YouCompleteMe'
-  else
-    autocmd VimEnter *  echo 'Vim compiled without python3, disabling YouCompleteMe.'
-  endif
-  Plug 'rhysd/vim-clang-format'
-endif
+" For language server support.
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
 
 call plug#end()
 
@@ -79,8 +69,21 @@ else
 endif
 
 let g:ycm_rust_src_path = '/home/pierre/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
-" let g:ycm_path_to_python_interpreter = '/usr/bin/python'  " TODO: remove
 let g:ycm_min_num_of_chars_for_completion = 4
+let g:ycm_auto_hover = ''
+
+let mapleader = ","
+
+" TODO: compare with work configuration and possibly gate by non-work setup.
+" TODO: clean up Ale and YCM once this is shown to work everywhere
+nnoremap <leader>h :LspHover<cr>
+nnoremap gd :LspDefinition<cr>
+vnoremap <leader>= :LspDocumentRangeFormat<cr>
+let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_document_highlight_enabled = 0
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 
 set ttyfast
 
@@ -97,7 +100,6 @@ set foldenable
 
 set showcmd
 
-let mapleader = ","
 
 " Command line completion.
 set wildmenu
@@ -137,7 +139,7 @@ set hlsearch   " Highlight the search results.
 set nohidden
 
 " automatically open and close the popup menu / preview window
-set completeopt=longest,menuone,menu,preview
+" set completeopt=longest,menuone,menu,preview
 
 " Remove trailing whitespace.
 autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
@@ -241,7 +243,7 @@ nnoremap zC :set foldlevel=2<cr>
 map <leader>c <plug>NERDCommenterTogglej
 
 " nnoremap <leader>gd :YcmCompleter GoTo<CR>
-nnoremap gd :YcmCompleter GoToImprecise<CR>
+" nnoremap gd :YcmCompleter GoToImprecise<CR>
 
 " Load errors in a window that spans all vertical panes.
 nnoremap <leader>ge :botright cwindow<cr>
