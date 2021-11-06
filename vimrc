@@ -34,53 +34,12 @@ Plug 'preservim/nerdcommenter'
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vimwiki/vimwiki'
-
-if filereadable(google_options_file)
-  " For language server support.
-  Plug 'prabirshrestha/async.vim'
-  Plug 'prabirshrestha/vim-lsp'
-  Plug 'prabirshrestha/asyncomplete-lsp.vim'
-  Plug 'prabirshrestha/asyncomplete.vim'
-  " For blame.
-  " Plug 'vim-scripts/vcscommand.vim'
-else
-  if has("python3")
-    Plug 'valloric/YouCompleteMe'
-  else
-    autocmd VimEnter *  echo 'Vim compiled without python3, disabling YouCompleteMe.'
-  endif
-  Plug 'rhysd/vim-clang-format'
-endif
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
 
 call plug#end()
-
-
-let g:ale_python_auto_pipenv = 1
-let g:ale_fixers = {'python': ['yapf']}
-let g:ale_linters = {'python': ['flake8', 'mypy']}
-nmap <F7> <Plug>(ale_fix)
-
-" Point YCM to the Pipenv created virtualenv, if possible
-" At first, get the output of 'pipenv --venv' command.
-let pipenv_venv_path = system('pipenv --venv')
-" The above system() call produces a non zero exit code whenever
-" a proper virtual environment has not been found.
-" So, second, we only point YCM to the virtual environment when
-" the call to 'pipenv --venv' was successful.
-" Remember, that 'pipenv --venv' only points to the root directory
-" of the virtual environment, so we have to append a full path to
-" the python executable.
-if v:shell_error == 0
-  let venv_path = substitute(pipenv_venv_path, '\n', '', '')
-  let g:ycm_python_binary_path = venv_path . '/bin/python'
-  let g:ale_python_yapf_executable = venv_path . '/bin/yapf'
-else
-  let g:ycm_python_binary_path = 'python'
-endif
-
-let g:ycm_rust_src_path = '/home/pierre/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
-" let g:ycm_path_to_python_interpreter = '/usr/bin/python'  " TODO: remove
-let g:ycm_min_num_of_chars_for_completion = 4
 
 set ttyfast
 
@@ -135,9 +94,6 @@ set incsearch  " Jump to the first search match as you type.
 set hlsearch   " Highlight the search results.
 
 set nohidden
-
-" automatically open and close the popup menu / preview window
-set completeopt=longest,menuone,menu,preview
 
 " Remove trailing whitespace.
 autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
@@ -215,12 +171,6 @@ vnoremap <leader>' <esc>a'<esc>`<i'<esc>lel
 " Save file in insert mode.
 inoremap :w<cr> <esc>:w<cr>
 
-" Code formating.
-if !filereadable(google_options_file)
-  vnoremap <leader>fo :ClangFormat<cr>
-  nnoremap <leader>fo Vip:ClangFormat<cr>
-endif
-
 " Misc code formatting.
 nnoremap <leader>n I}  // <esc>f{xj
 nnoremap <leader>) A<backspace>,<esc>jA<backspace>)<esc>
@@ -239,9 +189,6 @@ nnoremap <leader>; ,
 
 nnoremap zC :set foldlevel=2<cr>
 map <leader>c <plug>NERDCommenterTogglej
-
-" nnoremap <leader>gd :YcmCompleter GoTo<CR>
-nnoremap gd :YcmCompleter GoToImprecise<CR>
 
 " Load errors in a window that spans all vertical panes.
 nnoremap <leader>ge :botright cwindow<cr>
@@ -336,6 +283,36 @@ function FzfSameDirectory()
         \ })
 endfunction
 nnoremap <leader>,d :call FzfSameDirectory()<cr>
+
+" Send async completion requests.
+" WARNING: Might interfere with other completion plugins.
+let g:lsp_async_completion = 1
+
+" Enable UI for diagnostics
+let g:lsp_signs_enabled = 1           " enable diagnostics signs in the gutter
+let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
+
+" Automatically show completion options
+let g:asyncomplete_auto_popup = 1
+
+" Enable preview window. First allow modifying the completeopt variable, or it
+" will be overridden all the time
+" let g:asyncomplete_auto_completeopt = 0
+" set completeopt=menuone,noinsert,noselect,preview
+
+" Use tab for completion.
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? "\<C-y>" : "\<cr>"
+inoremap <c-space> <Plug>(asyncomplete_force_refresh)
+
+nnoremap <leader>h :LspHover<cr>
+nnoremap <leader>re :LspRename<cr>
+nnoremap <leader>fi :LspCodeAction<cr>
+vnoremap <leader>= :LspDocumentRangeFormat
+nnoremap <leader>= :LspDocumentFormat
+nnoremap gd :LspDefinition<CR>
+nnoremap gr :LspReferences<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " KEEP THIS AT THE END.
