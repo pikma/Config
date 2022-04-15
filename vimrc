@@ -235,7 +235,7 @@ nnoremap <leader>sl :VimuxRunLastCommand<cr>
 nnoremap <leader>sz :VimuxZoomRunner<cr>
 
 nnoremap <leader>e :FZF<cr>
-nnoremap <leader>,h :History<cr>
+nnoremap <leader>,e :History<cr>
 
 let g:NERDCreateDefaultMappings=0
 let g:NERDSpaceDelims=1
