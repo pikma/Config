@@ -124,6 +124,7 @@ au BufRead,BufNewFile *.tex set spell
 au BufRead,BufNewFile *.txt set fo=tcoq
 au BufRead,BufNewFile *.xul set ft=xml
 au BufRead,BufNewFile *.md set ft=markdown
+au BufRead,BufNewFile *.md set textwidth=100
 
 set smartindent
 set expandtab
