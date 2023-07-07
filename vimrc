@@ -322,8 +322,9 @@ nnoremap <leader>,d :call FzfSameDirectory()<cr>
 let g:lsp_async_completion = 1
 
 " Enable UI for diagnostics
-let g:lsp_signs_enabled = 1           " enable diagnostics signs in the gutter
+let g:lsp_diagnostics_signs_enabled = 1           " enable diagnostics signs in the gutter
 let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
+let g:lsp_diagnostics_virtual_text_enabled = 0
 let g:lsp_document_highlight_enabled = 0 " Do not highlight variable under cursor
 
 " Automatically show completion options
