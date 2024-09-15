@@ -34,6 +34,7 @@ Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'preservim/nerdcommenter'
 Plug 'rust-lang/rust.vim'
+Plug 'sillybun/vim-repl'
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vimwiki/vimwiki'
@@ -124,6 +125,7 @@ au BufRead,BufNewFile *.tex set spell
 au BufRead,BufNewFile *.txt set fo=tcoq
 au BufRead,BufNewFile *.xul set ft=xml
 au BufRead,BufNewFile *.md set ft=markdown
+au BufRead,BufNewFile *.sage set ft=python
 
 set smartindent
 set expandtab
@@ -131,10 +133,10 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 
-au BufNewFile,BufRead *.py set tabstop=4
-au BufNewFile,BufRead *.py set softtabstop=4
-au BufNewFile,BufRead *.py set shiftwidth=4
-au BufNewFile,BufRead *.py set textwidth=80
+" au BufNewFile,BufRead *.py set tabstop=4
+" au BufNewFile,BufRead *.py set softtabstop=4
+" au BufNewFile,BufRead *.py set shiftwidth=4
+au BufNewFile,BufRead *.py set textwidth=100
 au BufNewFile,BufRead *.py set expandtab
 au BufNewFile,BufRead *.py set autoindent
 au BufNewFile,BufRead *.py set fileformat=unix
@@ -318,6 +320,25 @@ vnoremap <leader>= :LspDocumentRangeFormat<cr>
 nnoremap <leader>= :LspDocumentFormat<cr>
 nnoremap gd :LspDefinition<CR>
 nnoremap gr :LspReferences<CR>
+
+let g:lsp_settings = {
+\   'pylsp-all': {
+\     'workspace_config': {
+\       'pylsp': {
+\         'plugins': {
+\           'pycodestyle': {
+\             'indentSize': 2,
+\             'maxLineLength': 100
+\           }
+\         }
+\       }
+\     }
+\   },
+\}
+
+" For sillybun/vim-repl.
+let g:sendtorepl_invoke_key = "<leader>a"
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " KEEP THIS AT THE END.
