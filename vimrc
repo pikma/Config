@@ -126,6 +126,7 @@ au BufRead,BufNewFile *.txt set fo=tcoq
 au BufRead,BufNewFile *.xul set ft=xml
 au BufRead,BufNewFile *.md set ft=markdown
 au BufRead,BufNewFile *.sage set ft=python
+au BufRead,BufNewFile *.md set textwidth=100
 
 set smartindent
 set expandtab
@@ -146,12 +147,40 @@ au BufNewFile,BufRead *.py set fileformat=unix
 set t_Co=256
 set background=light
 
-" Use the gui colors, not the terminal colors.
-set termguicolors
-if !has('nvim') && ($TERM ==# 'screen-256color' || $TERM ==# 'tmux-256color')
-  " See :h xterm-true-color.
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+" Use the gui colors, not the terminal colors. neovim 0.1.5+ / vim 7.4.1799+
+" Enable ONLY if TERM is set valid and it is NOT under mosh.
+" From
+" https://github.com/wookayin/dotfiles/blob/0d44f9c24328ccba5e21cf776b33bdef912fbdc6/vim/vimrc#L579-L609.
+function! IsMosh()
+  let output = system('is_mosh -v')
+  if v:shell_error
+    return 0
+  endif
+  return !empty(l:output)
+endfunction
+
+function! s:auto_termguicolors(...)
+  if !(has('termguicolors'))
+    return
+  endif
+
+  if (&term == 'xterm-256color' || &term == 'tmux-256-color' || &term == 'nvim') && !IsMosh()
+    set termguicolors
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  else
+    set notermguicolors
+  endif
+endfunction
+if has('termguicolors')
+  " by default, enable 24-bit color, but lazily disable if under mosh
+  set termguicolors
+
+  if exists('*timer_start')
+    call timer_start(0, function('s:auto_termguicolors'))
+  else
+    call s:auto_termguicolors()
+  endif
 endif
 
 colorscheme tango-morning
@@ -209,7 +238,7 @@ nnoremap <leader>sl :VimuxRunLastCommand<cr>
 nnoremap <leader>sz :VimuxZoomRunner<cr>
 
 nnoremap <leader>e :FZF<cr>
-nnoremap <leader>,h :History<cr>
+nnoremap <leader>,e :History<cr>
 
 let g:NERDCreateDefaultMappings=0
 let g:NERDSpaceDelims=1
@@ -295,8 +324,9 @@ nnoremap <leader>,d :call FzfSameDirectory()<cr>
 let g:lsp_async_completion = 1
 
 " Enable UI for diagnostics
-let g:lsp_signs_enabled = 1           " enable diagnostics signs in the gutter
+let g:lsp_diagnostics_signs_enabled = 1           " enable diagnostics signs in the gutter
 let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
+let g:lsp_diagnostics_virtual_text_enabled = 0
 let g:lsp_document_highlight_enabled = 0 " Do not highlight variable under cursor
 
 " Automatically show completion options
