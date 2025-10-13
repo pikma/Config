@@ -50,7 +50,7 @@ awk '
       beginningOfTerm = 1
     }
 
-    # A letter after a non-alphanumeric character (e.g. "v2.0").
+    # A letter after a non-alphanumeric character (for ex. the "b" in "f_bar").
     if (i > 1 && prev_c ~ /[^[:space:][:alpha:]]/ && is_alpha) {
       beginningOfTerm = 1
     }
