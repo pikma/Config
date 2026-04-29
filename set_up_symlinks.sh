@@ -7,3 +7,6 @@ done
 
 mkdir -p ~/.config
 ln -s ~/.myConfig/jj ~/.config/jj
+
+mkdir -p ~/.config/nvim
+ln -s ~/.myConfig/init.lua ~/.config/nvim/init.lua

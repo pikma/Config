@@ -37,7 +37,6 @@ Plug 'rust-lang/rust.vim'
 Plug 'sillybun/vim-repl'
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'vim-airline/vim-airline'
-Plug 'vimwiki/vimwiki'
 Plug 'will133/vim-dirdiff'
 
 if ! filereadable(google_options_file)
@@ -62,7 +61,6 @@ set foldlevel=99
 set foldenable
 
 set showcmd
-
 
 " Command line completion.
 set wildmenu
@@ -195,8 +193,6 @@ inoremap \302\240 <space>
 " Access and sourcing .vimrc.
 nnoremap <leader>ve :e $MYVIMRC<cr>G
 nnoremap <leader>vs :source $MYVIMRC<cr>
-nnoremap H ^
-nnoremap L $
 
 " Wrap in quotes.
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
@@ -209,7 +205,6 @@ inoremap :w<cr> <esc>:w<cr>
 
 " Misc code formatting.
 nnoremap <leader>n I}  // <esc>f{xj
-nnoremap <leader>) A<backspace>,<esc>jA<backspace>)<esc>
 
 " Utils
 nnoremap <leader>! :redraw!<cr>
@@ -293,16 +288,6 @@ endif
 
 " Disables highlighting the matching parenthesis.
 let g:loaded_matchparen=1
-
-let g:vimwiki_list = [{'path': '~/vimwiki/',
-                     \ 'syntax': 'markdown', 'ext': '.md'}]
-" Do not consider .md files outside of vimwiki_list to be vimwikis.
-let g:vimwiki_global_ext = 0
-
-nnoremap <leader>we :Files ~/vimwiki<cr>
-
-" Disable capitalization checking in vimwiki.
-autocmd FileType vimwiki set spellcapcheck=''
 
 " To remember more than 100 (the default) files in v:oldfiles.
 set viminfo='1000,<50,s10,h
