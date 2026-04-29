@@ -23,6 +23,12 @@ return {
 
 	-- Git signs in the gutter (replaces vim-signify)
 	{ "lewis6991/gitsigns.nvim", config = true },
+  {
+    'evanphx/jjsigns.nvim',
+    config = function()
+      require('jjsigns').setup()
+    end
+  },
 
 	-- Comments
 	-- padding=true mirrors NERDSpaceDelims=1; left-align is the default
