@@ -1,0 +1,4 @@
+#:schema https://docs.jj-vcs.dev/latest/config-schema.json
+
+[ui]
+diff-editor = ["vim", "-c", "DirDiff $left $right"]

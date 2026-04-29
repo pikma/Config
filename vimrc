@@ -38,6 +38,7 @@ Plug 'sillybun/vim-repl'
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vimwiki/vimwiki'
+Plug 'will133/vim-dirdiff'
 
 if ! filereadable(google_options_file)
   Plug 'mattn/vim-lsp-settings'
@@ -304,7 +305,7 @@ nnoremap <leader>we :Files ~/vimwiki<cr>
 autocmd FileType vimwiki set spellcapcheck=''
 
 " To remember more than 100 (the default) files in v:oldfiles.
-set viminfo='500,<50,s10,h
+set viminfo='1000,<50,s10,h
 
 " Uses FZF to select a file in the same directory as the currently opened file.
 function FzfSameDirectory()
@@ -319,10 +320,6 @@ function FzfSameDirectory()
 endfunction
 nnoremap <leader>,d :call FzfSameDirectory()<cr>
 
-" Send async completion requests.
-" WARNING: Might interfere with other completion plugins.
-let g:lsp_async_completion = 1
-
 " Enable UI for diagnostics
 let g:lsp_diagnostics_signs_enabled = 1           " enable diagnostics signs in the gutter
 let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
@@ -331,6 +328,7 @@ let g:lsp_document_highlight_enabled = 0 " Do not highlight variable under curso
 
 " Automatically show completion options
 let g:asyncomplete_auto_popup = 1
+let g:asyncomplete_popup_delay = 500
 
 " Enable preview window. First allow modifying the completeopt variable, or it
 " will be overridden all the time
@@ -350,6 +348,19 @@ vnoremap <leader>= :LspDocumentRangeFormat<cr>
 nnoremap <leader>= :LspDocumentFormat<cr>
 nnoremap gd :LspDefinition<CR>
 nnoremap gr :LspReferences<CR>
+nnoremap gt :LspTypeDefinition<CR>
+
+" To make following links work in help files using enter.
+autocmd FileType help nnoremap <buffer> <CR> <C-]>
+
+" Search within quicklist/location-list
+command! -nargs=1 Qgrep execute 'vimgrep /' . <q-args> . '/ `[v:val.fname for v:val in getqflist()]`' | copen
+command! -nargs=1 Lgrep execute 'lvimgrep /' . <q-args> . '/ `[v:val.fname for v:val in getloclist(0)]`' | lopen
+
+" List files in current file's dir
+command! Qdir call setqflist(map(glob(expand('%:p:h') . '/*', 0, 1), '{ "filename": v:val }')) | copen
+command! Ldir call setloclist(0, map(glob(expand('%:p:h') . '/*', 0, 1), '{ "filename": v:val }')) | lopen
+
 
 let g:lsp_settings = {
 \  'pylsp-all': {

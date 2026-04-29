@@ -5,3 +5,4 @@ vim/cache/*
 *google*
 vim/undodir/*
 vim/spell
+.DS_Store
