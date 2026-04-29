@@ -14,6 +14,13 @@ return {
         -- parser_dir = vim.fn.stdpath("data") .. "/site/parser",
         -- query_dir = vim.fn.stdpath("data") .. "/site/queries",
       })
+
+      vim.opt.foldmethod = "expr"
+      vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+
+      -- Recommended: Do not fold everything by default when opening a file
+      vim.opt.foldlevel = 99
+      vim.opt.foldlevelstart = 99
     end
   }
   ,

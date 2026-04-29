@@ -3,6 +3,7 @@ vim/bundle/*
 !vim/bundle/Vundle.vim
 vim/cache/*
 *google*
+ciderlsp.lua
 vim/undodir/*
 vim/spell
 .DS_Store

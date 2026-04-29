@@ -17,6 +17,10 @@ return {
         ensure_installed = is_google and {} or { "pylsp", "ts_ls", "gopls", "rust_analyzer" },
       })
 
+      if is_google then
+        vim.lsp.enable("ciderlsp")
+      end
+
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
       if not is_google then
@@ -70,9 +74,9 @@ return {
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
           vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
           vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts)
-          vim.keymap.set("n", "<leader>=", function()
-            vim.lsp.buf.format({ async = true })
-          end, opts)
+          -- vim.keymap.set("n", "<leader>=", function()
+            -- vim.lsp.buf.format({ async = true })
+          -- end, opts)
           vim.keymap.set("v", "<leader>=", function()
             vim.lsp.buf.format({
               async = false,
@@ -82,8 +86,20 @@ return {
               },
             })
           end, opts)
+
+          -- The "gq" command should use nvim's built-in formatter.
+          vim.bo[ev.buf].formatexpr = nil
         end,
       })
+
+      -- Disable backups. Neovim backups by default, deleting the original file
+      -- and copying the backup over it when saving (:help backupcopy). This
+      -- messes with iblaze and CiderLSP diagnostics. Another way to address
+      -- this is setting backupdir to a folder outside CitC, combined with
+      -- `vim.o.backupcopy = "yes"`.
+      vim.o.backup = false
+      vim.o.writebackup = false
+      vim.o.updatetime = 2000 -- Wait 2s to trigger CursorHold (highlighting).
     end,
   },
 }

@@ -54,6 +54,9 @@ vim.keymap.set("n", "<leader>sh", ":VimuxPromptCommand<CR>")
 vim.keymap.set("n", "<leader>sl", ":VimuxRunLastCommand<CR>")
 vim.keymap.set("n", "<leader>sz", ":VimuxZoomRunner<CR>")
 
+-- Show diagnostics in location list
+vim.keymap.set('n', '<leader>gd', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
 -- Search within quickfix / location list files
 vim.cmd([[command! -nargs=1 Qgrep execute 'vimgrep /' . <q-args> . '/ `[v:val.fname for v:val in getqflist()]`' | copen]])
 vim.cmd([[command! -nargs=1 Lgrep execute 'lvimgrep /' . <q-args> . '/ `[v:val.fname for v:val in getloclist(0)]`' | lopen]])

@@ -23,6 +23,21 @@ return {
     end,
   },
 
+  -- 3. The list of things that we want installed by default.
+  {
+  "WhoIsSethDaniel/mason-tool-installer.nvim",
+  dependencies = { "williamboman/mason.nvim" },
+  config = function()
+    require("mason-tool-installer").setup({
+      ensure_installed = {
+       -- Add your formatters here
+      },
+      auto_update = true,
+      run_on_start = true,
+    })
+  end,
+}
+
   -- 3. Treesitter Configuration
   -- {
   --   "nvim-treesitter/nvim-treesitter",
