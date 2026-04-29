@@ -15,7 +15,7 @@ return {
     config = function()
       require("mason-tool-installer").setup({
         ensure_installed = {
-          "tree-sitter-cli", -- This solves your "not found" error
+          "tree-sitter-cli",
         },
         auto_update = true,
         run_on_start = true,

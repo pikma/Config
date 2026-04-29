@@ -1,13 +1,8 @@
 return {
   {
     "romus204/tree-sitter-manager.nvim",
-    lazy = false,
-    dependencies = {}, -- tree-sitter CLI must be installed system-wide
+    dependencies = {}, -- tree-sitter CLI is installed by Mason.
     config = function()
-      -- Add Mason's bin directory to PATH so this plugin can find tree-sitter-cli
-      local mason_bin = vim.fn.stdpath("data") .. "/mason/bin"
-      vim.env.PATH = mason_bin .. ":" .. vim.env.PATH
-
       require("tree-sitter-manager").setup({
         auto_install = true, -- if enabled, install missing parsers when editing a new file
         highlight = true, -- treesitter highlighting is enabled by default
