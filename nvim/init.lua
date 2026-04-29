@@ -19,7 +19,3 @@ require("lazy").setup({ import = "plugins" }, {
   change_detection = { notify = false },
 })
 
-local google_options_file = vim.fn.expand("~/.myConfig/vim_custom_google.vim")
--- if vim.fn.filereadable(google_options_file) == 1 then
---   vim.cmd("source " .. google_options_file)
--- end
