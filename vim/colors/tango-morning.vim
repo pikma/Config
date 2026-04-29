@@ -17,7 +17,7 @@ endif
 
 let colors_name = "tango-morning"
 
-hi Normal ctermfg=Black ctermbg=LightGrey guifg=#2e3436 guibg=#eeeeec
+hi Normal ctermfg=Black ctermbg=253 guifg=#2e3436 guibg=#eeeeec
 
 " Groups used in the 'highlight' and 'guicursor' options default value.
 hi ErrorMsg term=standout ctermbg=DarkRed ctermfg=White guibg=#cc0000 guifg=#eeeeec
@@ -65,7 +65,7 @@ hi Special term=bold ctermfg=DarkMagenta guifg=#ce5c00 guibg=#eeeeec
 hi Underlined guifg=#204a87
 hi Ignore ctermfg=LightGrey guifg=#555753
 hi Error guibg=#cc0000 guifg=#eeeeec
-hi Todo guibg=#fce94f guifg=#204a87
+hi Todo ctermbg=220 ctermfg=NONE guibg=#ffd700 guifg=NONE
 
 " vim: sw=2
 

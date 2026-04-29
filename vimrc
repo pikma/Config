@@ -19,7 +19,7 @@ call plug#begin('~/.vim/bundle')
 Plug 'benmills/vimux'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'easymotion/vim-easymotion'
-Plug 'elzr/vim-json'
+" Plug 'elzr/vim-json'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'mhinz/vim-signify'
@@ -352,23 +352,34 @@ nnoremap gd :LspDefinition<CR>
 nnoremap gr :LspReferences<CR>
 
 let g:lsp_settings = {
-\   'pylsp-all': {
-\     'workspace_config': {
-\       'pylsp': {
-\         'plugins': {
-\           'pycodestyle': {
-\             'indentSize': 2,
-\             'maxLineLength': 100
-\           }
-\         }
-\       }
-\     }
-\   },
+\  'pylsp-all': {
+\    'workspace_config': {
+\      'pylsp': {
+\        'plugins': {
+\          'pycodestyle': {
+\            'indentSize': 2,
+\            'maxLineLength': 100
+\          }
+\        }
+\      }
+\    }
+\  },
+\  'typescript-language-server': {
+\    'settings': {
+\      'diagnosticOptions': {
+\        'enableExperimentalDiagnostics': 1
+\      }
+\    }
+\  }
 \}
+
+let g:lsp_log_file = '/tmp/lsp.log'
 
 " For sillybun/vim-repl.
 let g:sendtorepl_invoke_key = "<leader>a"
 
+" For hot-reloading in Parcel
+set backupcopy=yes
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " KEEP THIS AT THE END.
