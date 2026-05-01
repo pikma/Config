@@ -7,3 +7,4 @@ ciderlsp.lua
 vim/undodir/*
 vim/spell
 .DS_Store
+nvim/lazy-lock.json

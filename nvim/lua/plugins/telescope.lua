@@ -1,10 +1,13 @@
+local google_options_file = vim.fn.expand("~/.myConfig/vim_custom_google.vim")
+local is_google = vim.fn.filereadable(google_options_file) == 1
+
 return {
 	{
 		"nvim-telescope/telescope.nvim",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-      {
+      is_google and {
         "vintharas/telescope-codesearch.nvim",
         url = "sso://user/vintharas/telescope-codesearch.nvim",
         -- lazy.nvim relies on a declarative api (LazySpec) to configure your
@@ -27,7 +30,7 @@ return {
           -- the 'codesearch' picker available through the `Telescope` command.
           require("telescope").load_extension("codesearch")
         end,
-      },
+      } or {},
 		},
 		keys = {
 			{ "<leader>e" },
