@@ -92,14 +92,16 @@ return {
         end,
       })
 
-      -- Disable backups. Neovim backups by default, deleting the original file
-      -- and copying the backup over it when saving (:help backupcopy). This
-      -- messes with iblaze and CiderLSP diagnostics. Another way to address
-      -- this is setting backupdir to a folder outside CitC, combined with
-      -- `vim.o.backupcopy = "yes"`.
-      vim.o.backup = false
-      vim.o.writebackup = false
-      vim.o.updatetime = 2000 -- Wait 2s to trigger CursorHold (highlighting).
+      if is_google then
+        -- Disable backups. Neovim backups by default, deleting the original file
+        -- and copying the backup over it when saving (:help backupcopy). This
+        -- messes with iblaze and CiderLSP diagnostics. Another way to address
+        -- this is setting backupdir to a folder outside CitC, combined with
+        -- `vim.o.backupcopy = "yes"`.
+        vim.o.backup = false
+        vim.o.writebackup = false
+        vim.o.updatetime = 2000 -- Wait 2s to trigger CursorHold (highlighting).
+      end
     end,
   },
 }
