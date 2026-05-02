@@ -34,6 +34,7 @@ return {
 		},
 		keys = {
 			{ "<leader>e" },
+			{ "<leader>E" },
 			{ "<leader>,h" },
 			{ "<leader>,d" },
 			{ "<leader>,/" },
@@ -42,6 +43,7 @@ return {
 			{ "<leader>,c" },
 			{ "<leader>,j" },
 			{ "<leader>,J" },
+			{ "<leader>,m" },
 		},
 		config = function()
 			local telescope = require("telescope")
@@ -55,10 +57,17 @@ return {
 			local builtin = require("telescope.builtin")
 
 			vim.keymap.set("n", "<leader>e", builtin.find_files, { desc = "[E]dit file" })
+
+			vim.keymap.set("n", "<leader>E", function()
+        builtin.find_files({ no_ignore = true })
+      end, { desc = "[E]dit file (including .gitignore)" })
+
 			vim.keymap.set("n", "<leader>,h", builtin.oldfiles, { desc = "Find within [H]istory" })
+
 			vim.keymap.set("n", "<leader>,d", function()
-				builtin.find_files({ cwd = vim.fn.expand("%:p:h") })
+				builtin.find_files({ cwd = vim.fn.expand("%:p:h"), no_ignore = true })
 			end, { desc = "Find files in same [D]irectory" })
+
       vim.keymap.set(
         "n",
         "<leader>/", builtin.current_buffer_fuzzy_find,
@@ -80,6 +89,7 @@ return {
           find_command = { "jj", "diff", "--from", "main", "--name-only" }
         })
       end, { desc = "[J]j [C]hanged files" })
+      vim.keymap.set("n", "<leader>,m", builtin.keymaps, { desc = "Search key [M]amppings" })
     end,
   },
 }
