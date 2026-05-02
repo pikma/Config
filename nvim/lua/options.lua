@@ -78,7 +78,7 @@ autocmd("FileType", {
   group = ft,
   pattern = "python",
   callback = function()
-    vim.opt_local.foldmethod = "indent"
+    -- vim.opt_local.foldmethod = "indent"
     vim.opt_local.textwidth = 100
     vim.opt_local.expandtab = true
     vim.opt_local.autoindent = true
