@@ -18,7 +18,8 @@ return {
       vim.opt.foldmethod = "expr"
       vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
-      -- Recommended: Do not fold everything by default when opening a file
+      -- Do not fold everything by default when opening a file
+      vim.opt.foldenable = true
       vim.opt.foldlevel = 99
       vim.opt.foldlevelstart = 99
     end

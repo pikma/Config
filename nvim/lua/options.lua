@@ -4,10 +4,6 @@ vim.fn.mkdir(undodir, "p")
 vim.opt.undodir = undodir
 vim.opt.undofile = true
 
--- Folding defaults (treesitter.lua overrides foldmethod/foldexpr globally)
-vim.opt.foldlevel = 99
-vim.opt.foldenable = true
-
 vim.opt.showcmd = true
 
 vim.opt.wildmenu = true
@@ -140,12 +136,6 @@ autocmd({ "BufRead", "BufNewFile" }, {
   end,
 })
 
-autocmd({ "BufRead", "BufNewFile" }, {
-  group = ft,
-  pattern = "*.py",
-  callback = function() vim.opt_local.textwidth = 100 end,
-})
-
 -- Filetype overrides
 autocmd({ "BufRead", "BufNewFile" }, {
   group = ft,
@@ -168,7 +158,7 @@ autocmd({ "BufRead", "BufNewFile" }, {
   callback = function() vim.bo.filetype = "gnuplot" end,
 })
 
--- Help: follow links with Enter
+-- In help files, follow links with Enter
 autocmd("FileType", {
   group = ft,
   pattern = "help",
