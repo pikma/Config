@@ -120,3 +120,21 @@ export NVM_DIR="$HOME/.nvm"
 . "$HOME/.cargo/env"
 
 source <(COMPLETE=bash jj)
+
+update_tmux_window_git() {
+  if [ -n "$TMUX" ]; then
+    # Find the top-level directory of the working tree
+    local git_root
+    git_root=$(git rev-parse --show-toplevel 2>/dev/null)
+
+    if [ -n "$git_root" ]; then
+      tmux rename-window "$(basename "$git_root")"
+    else
+      # Fallback to current directory name if not in a git repo
+      tmux rename-window "$(basename "$PWD")"
+    fi
+  fi
+}
+if [ ! -f ~/.myConfig/bash_custom_google ]; then
+  PROMPT_COMMAND="update_tmux_window_git; $PROMPT_COMMAND"
+fi
