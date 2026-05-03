@@ -36,7 +36,7 @@ if [ -f /etc/bash_completion ]; then
 fi
 
 # PS1="${debian_chroot:+($debian_chroot)}\u@\h:\$(~/Documents/Programmation/Scripts/mpwd.sh | ~/Documents/Programmation/Scripts/shortPwd)\$ "
-PATH=~/.local/bin:~/bin:$PATH:$CONFIG_DIR/scripts
+PATH=~/.local/bin:~/bin:~/.cargo/bin:$PATH:$CONFIG_DIR/scripts
 
 # Homebrew stuff
 export PATH=$HOME/homebrew/bin:$PATH
