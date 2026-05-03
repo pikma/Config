@@ -33,8 +33,8 @@ return {
       } or {},
 		},
 		keys = {
-			{ "<leader>e" },
-			{ "<leader>E" },
+			{ "<leader>,e" },
+			{ "<leader>,E" },
 			{ "<leader>,h" },
 			{ "<leader>,d" },
 			{ "<leader>,/" },
@@ -58,11 +58,11 @@ return {
 
 			local builtin = require("telescope.builtin")
 
-			vim.keymap.set("n", "<leader>e", builtin.find_files,
+			vim.keymap.set("n", "<leader>,e", builtin.find_files,
         { desc = "Find Files" })
 
 	local title1 = "Find Files (including .gitignore)"
-	vim.keymap.set("n", "<leader>E", function()
+	vim.keymap.set("n", "<leader>,E", function()
 		builtin.find_files({ no_ignore = true, prompt_title = title1 })
 	end, { desc = title1 })
 
