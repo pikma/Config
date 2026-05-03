@@ -148,4 +148,13 @@ return {
 			-- vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 		end,
 	},
+
+  {
+    'andymass/vim-matchup',
+    opts = {
+      -- treesitter = {
+        -- stopline = 500,
+      -- }
+    }
+  }
 }
