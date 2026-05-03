@@ -2,4 +2,4 @@
 
 [ui]
 diff-editor = ["vim", "-c", "DirDiff $left $right"]
-default-command = "log"
+default-command = "status"
