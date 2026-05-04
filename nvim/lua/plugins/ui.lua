@@ -10,7 +10,6 @@ return {
 		end,
 	},
 
-	-- Status line (replaces vim-airline)
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons", "catppuccin" },
