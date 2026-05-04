@@ -137,6 +137,6 @@ update_tmux_window_git() {
     fi
   fi
 }
-if [ ! -f ~/.myConfig/bash_custom_google ]; then
+if [ ! -f ~/.myConfig/bash_custom_google.sh ]; then
   PROMPT_COMMAND="update_tmux_window_git; $PROMPT_COMMAND"
 fi
