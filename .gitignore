@@ -8,3 +8,4 @@ vim/undodir/*
 vim/spell
 .DS_Store
 nvim/lazy-lock.json
+jj/repos/
