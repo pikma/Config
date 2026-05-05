@@ -55,8 +55,11 @@ alias source-hilight="source-hilight --style-file=/usr/share/source-ghighlight/e
 export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
 export LESS=' -R '
 
-
-export EDITOR=vim
+if $(which nvim > /dev/null); then
+  export EDITOR=nvim
+else
+  export EDITOR=vim
+fi
 
 # other files
 for f in  $(ls ~/.myConfig/bash_custom*); do
