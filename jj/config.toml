@@ -1,5 +1,6 @@
 #:schema https://docs.jj-vcs.dev/latest/config-schema.json
 
 [ui]
+editor = "nvim"
 diff-editor = ["nvim", "-c", "DirDiff $left $right"]
 default-command = "status"
