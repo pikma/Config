@@ -128,15 +128,18 @@ source <(COMPLETE=bash jj)
 
 update_tmux_window_git() {
   if [ -n "$TMUX" ]; then
-    # Find the top-level directory of the working tree
-    local git_root
-    git_root=$(git rev-parse --show-toplevel 2>/dev/null)
+    local dir_name
+    dir_name="$(basename "$PWD")"
 
-    if [ -n "$git_root" ]; then
-      tmux rename-window "$(basename "$git_root")"
+    local git_repo
+    git_repo=$(git rev-parse --show-toplevel 2>/dev/null)
+    if [[ -n "$git_repo" ]]; then
+      git_repo=$(basename $git_repo)
+    fi
+    if [[ "$dir_name" == "$git_repo" || -z "$git_repo" ]]; then
+      tmux rename-window "$dir_name"
     else
-      # Fallback to current directory name if not in a git repo
-      tmux rename-window "$(basename "$PWD")"
+      tmux rename-window "$git_repo/$dir_name"
     fi
   fi
 }
