@@ -1,6 +1,27 @@
 local google_options_file = vim.fn.expand("~/.myConfig/vim_custom_google.vim")
 local is_google = vim.fn.filereadable(google_options_file) == 1
 
+local toggle_diagnostic_virtual_line = function(min_severity)
+  local config = vim.diagnostic.config();
+  -- print(config.virtual_text.severity.min, "  " , min_severity)
+  if config.virtual_text == false
+    -- Higher severities have lower numerical values, so the comparison is the
+    -- opposite of what you'd expect.
+    or config.virtual_text.severity.min < min_severity then
+    vim.diagnostic.config({
+      virtual_text = {
+        -- source = "if_many",
+        severity = { min = min_severity },
+      },
+    })
+  else
+    vim.diagnostic.config({
+      virtual_text = false
+    })
+  end
+end
+
+
 return {
   {
     "mason-org/mason-lspconfig.nvim",
@@ -34,24 +55,23 @@ return {
         severity_sort = true,
       })
 
-      vim.api.nvim_create_autocmd("CursorHold", {
-        callback = function()
-          vim.diagnostic.open_float(nil, { focus = false })
-        end,
-      })
+      vim.keymap.set('n', '<leader>sw', function()
+        toggle_diagnostic_virtual_line(vim.diagnostic.severity.WARN);
+        end)
+      vim.keymap.set('n', '<leader>se', function()
+        toggle_diagnostic_virtual_line(vim.diagnostic.severity.ERROR);
+        end)
+
+      -- vim.api.nvim_create_autocmd("CursorHold", {
+      --   callback = function()
+      --     vim.diagnostic.open_float(nil, { focus = false })
+      --   end,
+      -- })
 
       -- LSP keymaps active only when an LSP is attached to the buffer
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("UserLspKeymaps", {}),
         callback = function(ev)
-          --[[
-          local client = vim.lsp.get_client_by_id(ev.data.client_id)
-          if client then
-            local lsp_name = client.name
-            print("Attached LSP: " .. lsp_name)
-          end
-          ]]
-
           local opts = { buffer = ev.buf }
           vim.keymap.set("n", "<leader>h", vim.lsp.buf.hover, opts)
           vim.keymap.set("n", "<leader>re", vim.lsp.buf.rename, opts)
