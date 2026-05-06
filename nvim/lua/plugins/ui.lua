@@ -1,3 +1,6 @@
+local google_options_file = vim.fn.expand("~/.myConfig/vim_custom_google.vim")
+local is_google = vim.fn.filereadable(google_options_file) == 1
+
 return {
 	-- Colorscheme (replaces tango-morning)
 	{
@@ -100,7 +103,7 @@ return {
 
 	"christoomey/vim-tmux-navigator",
 
-	{
+	is_google and {
 		"stevearc/conform.nvim",
 		event = { "BufWritePre" },
 		cmd = { "ConformInfo" },
@@ -146,7 +149,7 @@ return {
 			-- If you want the formatexpr, here is the place to set it
 			-- vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 		end,
-	},
+	} or {},
 
   {
     'andymass/vim-matchup',
