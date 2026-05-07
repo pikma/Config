@@ -1,9 +1,8 @@
 local google_options_file = vim.fn.expand("~/.myConfig/vim_custom_google.vim")
 local is_google = vim.fn.filereadable(google_options_file) == 1
 
-local toggle_diagnostic_virtual_line = function(min_severity)
+local toggle_diagnostic_virtual_text = function(min_severity)
   local config = vim.diagnostic.config();
-  -- print(config.virtual_text.severity.min, "  " , min_severity)
   if config.virtual_text == false
     -- Higher severities have lower numerical values, so the comparison is the
     -- opposite of what you'd expect.
@@ -21,6 +20,11 @@ local toggle_diagnostic_virtual_line = function(min_severity)
   end
 end
 
+local toggle_diagnostic_virtual_lines = function()
+  local config = vim.diagnostic.config();
+  local new_value = not config.virtual_li nes;
+  vim.diagnostic.config({ virtual_lines = new_value });
+end
 
 return {
   {
@@ -56,11 +60,12 @@ return {
       })
 
       vim.keymap.set('n', '<leader>sw', function()
-        toggle_diagnostic_virtual_line(vim.diagnostic.severity.WARN);
+        toggle_diagnostic_virtual_text(vim.diagnostic.severity.WARN);
         end)
       vim.keymap.set('n', '<leader>se', function()
-        toggle_diagnostic_virtual_line(vim.diagnostic.severity.ERROR);
+        toggle_diagnostic_virtual_text(vim.diagnostic.severity.ERROR);
         end)
+      vim.keymap.set('n', '<leader>sd', toggle_diagnostic_virtual_lines);
 
       -- vim.api.nvim_create_autocmd("CursorHold", {
       --   callback = function()
