@@ -1,6 +1,15 @@
 local google_options_file = vim.fn.expand("~/.myConfig/vim_custom_google.vim")
 local is_google = vim.fn.filereadable(google_options_file) == 1
 
+local function add_google_conform_opts(opts)
+	local ok, google_utils = pcall(require, "google_utils")
+	if ok and google_utils.conform_opts then
+		return vim.tbl_deep_extend("force", opts, google_utils.conform_opts)
+	else
+		return opts
+	end
+end
+
 return {
 	-- Colorscheme (replaces tango-morning)
 	{
@@ -19,28 +28,33 @@ return {
 		config = function()
 			require("lualine").setup({
 				options = {
-          theme = "auto"
-        },
-        sections = {
-          lualine_a = {'mode'},
-          lualine_b = {'branch', 'diff', 'diagnostics'},
-          lualine_c = {'filename'},
-          lualine_x = {'lsp_status', 'encoding', 'fileformat', 'filetype'},
-          lualine_y = {'progress'},
-          lualine_z = {'location'}
-        },
+					theme = "auto",
+				},
+				sections = {
+					lualine_a = { "mode" },
+					lualine_b = { "branch", "diff", "diagnostics" },
+					lualine_c = { "filename" },
+					lualine_x = {
+						"lsp_status",
+						"encoding",
+						"fileformat",
+						"filetype",
+					},
+					lualine_y = { "progress" },
+					lualine_z = { "location" },
+				},
 			})
 		end,
 	},
 
 	-- Git signs in the gutter (replaces vim-signify)
 	{ "lewis6991/gitsigns.nvim", config = true },
-  (vim.fn.executable('jj') == 1) and {
-    'evanphx/jjsigns.nvim',
-    config = function()
-      require('jjsigns').setup()
-    end
-  } or {},
+	(vim.fn.executable("jj") == 1) and {
+		"evanphx/jjsigns.nvim",
+		config = function()
+			require("jjsigns").setup()
+		end,
+	} or {},
 
 	-- Comments
 	-- padding=true mirrors NERDSpaceDelims=1; left-align is the default
@@ -51,14 +65,19 @@ return {
 		},
 		config = function()
 			require("Comment").setup({ padding = true })
-			-- Normal mode: toggle comment on current line, then move down (mirrors original j suffix)
+			-- Normal mode: toggle comment on current line, then move down (mirrors
+			-- original j suffix).
 			vim.keymap.set("n", "<leader>c", function()
 				require("Comment.api").toggle.linewise.current()
 				vim.cmd("normal! j")
 			end)
 			-- Visual mode: toggle comment on selection
 			vim.keymap.set("x", "<leader>c", function()
-				vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<ESC>", true, false, true), "nx", false)
+				vim.api.nvim_feedkeys(
+					vim.api.nvim_replace_termcodes("<ESC>", true, false, true),
+					"nx",
+					false
+				)
 				require("Comment.api").toggle.linewise(vim.fn.visualmode())
 			end)
 		end,
@@ -67,15 +86,15 @@ return {
 	{
 		"folke/flash.nvim",
 		event = "VeryLazy",
-    opts = {
-      modes = {
-        char = {
-          highlight = {
-            backdrop = false,
-          },
-        },
-      },
-    },
+		opts = {
+			modes = {
+				char = {
+					highlight = {
+						backdrop = false,
+					},
+				},
+			},
+		},
 		keys = {
 			{
 				"<leader><leader>f",
@@ -103,7 +122,7 @@ return {
 
 	"christoomey/vim-tmux-navigator",
 
-	is_google and {
+	{
 		"stevearc/conform.nvim",
 		event = { "BufWritePre" },
 		cmd = { "ConformInfo" },
@@ -125,38 +144,49 @@ return {
 		-- This will provide type hinting with LuaLS
 		---@module "conform"
 		---@type conform.setupOpts
-		opts = {
+		opts = add_google_conform_opts({
 			-- Define your formatters
 			formatters_by_ft = {
 				lua = { "stylua" },
 				python = { "isort", "black" },
-				javascript = { "prettierd", "prettier", stop_after_first = true },
+				javascript = {
+					"prettierd",
+					"prettier",
+					stop_after_first = true,
+				},
 			},
 			-- Set default options
 			default_format_opts = {
 				lsp_format = "fallback",
 			},
-      -- Set up format-on-save
-      -- format_on_save = { timeout_ms = 500 },
-      -- Customize formatters
-      formatters = {
-        shfmt = {
-          append_args = { "-i", "2" },
-        },
-			},
-		},
-		init = function()
-			-- If you want the formatexpr, here is the place to set it
-			-- vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-		end,
-	} or {},
+			-- Set up format-on-save
+			format_on_save = { timeout_ms = 500 },
 
-  {
-    'andymass/vim-matchup',
-    opts = {
-      -- treesitter = {
-        -- stopline = 500,
-      -- }
-    }
-  }
+			-- Customize formatters
+			formatters = {
+				shfmt = {
+					append_args = { "-i", "2" },
+				},
+				stylua = {
+					-- Passes `--column-width 80` to the StyLua CLI execution
+					prepend_args = { "--column-width", "80" },
+				},
+			},
+		}),
+		-- We could set that to use conform for the "gq" command, but some
+		-- formatters don't wrap comments (stylua for example), and the default gq
+		-- command then becomes very useful for that.
+		-- init = function()
+		-- vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+		-- end,
+	},
+
+	{
+		"andymass/vim-matchup",
+		opts = {
+			-- treesitter = {
+			-- stopline = 500,
+			-- }
+		},
+	},
 }
