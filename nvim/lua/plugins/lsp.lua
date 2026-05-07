@@ -22,7 +22,7 @@ end
 
 local toggle_diagnostic_virtual_lines = function()
   local config = vim.diagnostic.config();
-  local new_value = not config.virtual_li nes;
+  local new_value = not config.virtual_lines;
   vim.diagnostic.config({ virtual_lines = new_value });
 end
 
