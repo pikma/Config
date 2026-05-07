@@ -66,7 +66,14 @@ return {
 		builtin.find_files({ no_ignore = true, prompt_title = title1 })
 	end, { desc = title1 })
 
-	vim.keymap.set("n", "<leader>,h", builtin.oldfiles, { desc = "Find within [H]istory" })
+	local oldfiles_func = builtin.oldfiles
+	if is_google then
+		local ok, google_utils = pcall(require, "google_utils")
+		if ok and google_utils.citc_oldfiles then
+			oldfiles_func = google_utils.citc_oldfiles
+		end
+	end
+	vim.keymap.set("n", "<leader>,h", oldfiles_func, { desc = "Find within [H]istory" })
 
 	local title2 = "Find files in same [D]irectory"
 	vim.keymap.set("n", "<leader>,d", function()
