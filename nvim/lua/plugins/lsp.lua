@@ -1,6 +1,3 @@
-local google_options_file = vim.fn.expand("~/.myConfig/vim_custom_google.vim")
-local is_google = vim.fn.filereadable(google_options_file) == 1
-
 local toggle_diagnostic_virtual_text = function(min_severity)
 	local config = vim.diagnostic.config()
 	if
@@ -84,7 +81,12 @@ return {
 					local opts = { buffer = ev.buf }
 					vim.keymap.set("n", "<leader>h", vim.lsp.buf.hover, opts)
 					vim.keymap.set("n", "<leader>re", vim.lsp.buf.rename, opts)
-					vim.keymap.set("n", "<leader>fi", vim.lsp.buf.code_action, opts)
+					vim.keymap.set(
+						"n",
+						"<leader>fi",
+						vim.lsp.buf.code_action,
+						opts
+					)
 					vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
 					vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
 					vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts)
