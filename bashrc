@@ -61,6 +61,188 @@ else
   export EDITOR=vim
 fi
 
+# Counts the number of directory components in a path.
+# e.g., "foo/bar" -> 2, "foo" -> 1, "." -> 0, "" -> 0.
+_tmux_count_path_components() {
+  local path="$1"
+  if [[ "$path" == "." || -z "$path" ]]; then
+    echo 0
+    return
+  fi
+  # Strip leading/trailing slashes to avoid empty parts
+  path=${path#/}
+  path=${path%/}
+  local IFS='/'
+  local -a parts
+  read -r -a parts <<< "$path"
+  echo "${#parts[@]}"
+}
+
+# Extracts the last N components from a path.
+# e.g., "/a/b/c/d" with N=2 -> "c/d".
+_tmux_extract_path_suffix() {
+  local path="$1"
+  local n="$2"
+  local suffix=""
+  while [[ $n -gt 0 ]]; do
+    local base
+    base=$(basename "$path")
+    path=$(dirname "$path")
+    if [[ -z "$suffix" ]]; then
+      suffix="$base"
+    else
+      suffix="$base/$suffix"
+    fi
+    ((n--))
+  done
+  echo "$suffix"
+}
+
+# Extracts the prefix of a path by removing the last N components.
+# e.g., "/a/b/c/d" with N=2 -> "/a/b".
+_tmux_extract_path_prefix() {
+  local path="$1"
+  local n="$2"
+  while [[ $n -gt 0 ]]; do
+    path=$(dirname "$path")
+    ((n--))
+  done
+  echo "$path"
+}
+
+# Helper to detect Git repository.
+# Args:
+#   $1: Absolute canonical directory path.
+# Outputs:
+#   Line 1: Git repo root path.
+#   Line 2: Git repo display name.
+_tmux_get_repo_git() {
+  local dir="$1"
+  local git_root
+  git_root=$(cd "$dir" && git rev-parse --show-toplevel 2>/dev/null)
+  if [[ -n "$git_root" ]]; then
+    echo "$git_root"
+    echo "$(basename "$git_root")"
+  fi
+}
+
+# Default repository detector (Git only for home).
+# Can be overridden by work configuration.
+# Output Format:
+#   Line 1: Absolute path to the repository root.
+#   Line 2: Display name of the repository.
+#   (Empty if not in a repository).
+_tmux_get_repo() {
+  _tmux_get_repo_git "$1"
+}
+
+# Calculates the tmux window name based on the current directory and repository status.
+# Preserves symlinks.
+# Args:
+#   $1: Optional unresolved PWD (defaults to $PWD).
+#   $2: Optional canonical PWD (defaults to realpath of $1).
+# Outputs:
+#   The calculated tmux window name.
+_tmux_get_window_name() {
+  local pwd_unresolved="${1:-$PWD}"
+  local pwd_canonical="${2:-$(realpath "$pwd_unresolved")}"
+
+  # Detect repository using the (possibly overridden) helper
+  local repo_info
+  repo_info=$(_tmux_get_repo "$pwd_canonical")
+
+  local repo_root=""
+  local repo_name=""
+  if [[ -n "$repo_info" ]]; then
+    local -a info_parts
+    mapfile -t info_parts <<< "$repo_info"
+    repo_root="${info_parts[0]}"
+    repo_name="${info_parts[1]}"
+  fi
+
+  local base_name=""
+  local relative_path=""
+  local repo_root_unresolved=""
+  local n=0
+
+  if [[ -n "$repo_root" ]]; then
+    # In repo
+    local relative_path_resolved
+    relative_path_resolved=$(realpath -m --relative-to="$repo_root" "$pwd_canonical")
+    n=$(_tmux_count_path_components "$relative_path_resolved")
+
+    if [[ $n -eq 0 ]]; then
+      repo_root_unresolved="$pwd_unresolved"
+      relative_path="."
+    else
+      relative_path=$(_tmux_extract_path_suffix "$pwd_unresolved" "$n")
+      repo_root_unresolved=$(_tmux_extract_path_prefix "$pwd_unresolved" "$n")
+    fi
+
+    # Determine base_name (unresolved repo name)
+    local resolved_root_basename
+    resolved_root_basename=$(basename "$repo_root")
+    if [[ "$resolved_root_basename" == "$repo_name" ]]; then
+      # Standard repo (Git/JJ): repo name is the root dir name
+      base_name=$(basename "$repo_root_unresolved")
+    else
+      # CitC (or similar): repo name is different from root dir name (e.g. client vs google3)
+      # We assume the repo name corresponds to the parent directory of the root
+      base_name=$(basename "$(dirname "$repo_root_unresolved")")
+    fi
+  else
+    # Not in a repo
+    local home_unresolved="$HOME"
+
+    if [[ "$pwd_unresolved" == "$home_unresolved" ]]; then
+      base_name="~"
+      relative_path="."
+    elif [[ "$pwd_unresolved" == "$home_unresolved"/* ]]; then
+      base_name="~"
+      relative_path="${pwd_unresolved#$home_unresolved/}"
+    else
+      # Root
+      if [[ "$pwd_unresolved" == "/" ]]; then
+        base_name="/"
+        relative_path="."
+      else
+        base_name=""
+        relative_path="${pwd_unresolved#/}"
+      fi
+    fi
+  fi
+
+  local window_name=""
+  if [[ "$relative_path" == "." ]]; then
+    window_name="$base_name"
+  else
+    local current_dir
+    current_dir=$(basename "$relative_path")
+    local intermediate_path
+    intermediate_path=$(dirname "$relative_path")
+
+    if [[ "$intermediate_path" == "." ]]; then
+      window_name="$base_name/$current_dir"
+    else
+      # Shorten intermediate path
+      local shortened_intermediate
+      shortened_intermediate=$(echo "$intermediate_path" | "$CONFIG_DIR/scripts/shorten_dir_name.sh")
+      window_name="$base_name/$shortened_intermediate/$current_dir"
+    fi
+  fi
+
+  echo "$window_name"
+}
+
+# Automatically renames the tmux window based on the current repo or directory.
+update_tmux_window() {
+  if [ -n "$TMUX" ]; then
+    local window_name
+    window_name=$(_tmux_get_window_name)
+    tmux rename-window "$window_name"
+  fi
+}
+
 # other files
 for f in  $(ls ~/.myConfig/bash_custom*); do
   if [[ -r $f ]]; then
@@ -126,23 +308,6 @@ fi
 
 source <(COMPLETE=bash jj)
 
-update_tmux_window_git() {
-  if [ -n "$TMUX" ]; then
-    local dir_name
-    dir_name="$(basename "$PWD")"
-
-    local git_repo
-    git_repo=$(git rev-parse --show-toplevel 2>/dev/null)
-    if [[ -n "$git_repo" ]]; then
-      git_repo=$(basename $git_repo)
-    fi
-    if [[ "$dir_name" == "$git_repo" || -z "$git_repo" ]]; then
-      tmux rename-window "$dir_name"
-    else
-      tmux rename-window "$git_repo/$dir_name"
-    fi
-  fi
-}
 if [ ! -f ~/.myConfig/bash_custom_google.sh ]; then
-  PROMPT_COMMAND="update_tmux_window_git; $PROMPT_COMMAND"
+  PROMPT_COMMAND="update_tmux_window; $PROMPT_COMMAND"
 fi
