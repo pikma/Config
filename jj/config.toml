@@ -4,3 +4,7 @@
 editor = "nvim"
 diff-editor = ["nvim", "-c", "DirDiff $left $right"]
 default-command = "status"
+
+[user]
+name = "Pierre Kreitmann"
+email = "pierre.kreitmann@gmail.com"

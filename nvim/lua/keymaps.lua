@@ -37,9 +37,6 @@ vim.keymap.set("v", "<leader>sp", "!LC_ALL=C sort -u<CR>")
 -- Insert proto #include for current file
 vim.cmd([[nnoremap <leader>i I<cr><esc>ki#include "<c-r>=substitute(substitute(expand("%:p"), ".*google3/", "", ""), "\.proto$", ".proto.h", "")<cr>"<esc>yyu]])
 
--- , motion workaround (leader is ,)
-vim.keymap.set("n", "<leader>;", ",")
-
 -- Fold level
 vim.keymap.set("n", "zC", ":set foldlevel=2<CR>")
 
