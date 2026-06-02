@@ -55,7 +55,7 @@ alias source-hilight="source-hilight --style-file=/usr/share/source-ghighlight/e
 export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
 export LESS=' -R '
 
-if $(which nvim > /dev/null); then
+if which nvim > /dev/null; then
   export EDITOR=nvim
 else
   export EDITOR=vim
@@ -306,7 +306,7 @@ if [ -f "$HOME/.cargo/env" ]; then
   . "$HOME/.cargo/env"
 fi
 
-if which jj; then
+if which jj > /dev/null ; then
   source <(COMPLETE=bash jj)
 fi
 
