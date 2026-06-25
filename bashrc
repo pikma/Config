@@ -306,7 +306,9 @@ if [ -f "$HOME/.cargo/env" ]; then
   . "$HOME/.cargo/env"
 fi
 
-source <(COMPLETE=bash jj)
+if which jj; then
+  source <(COMPLETE=bash jj)
+fi
 
 if [ ! -f ~/.myConfig/bash_custom_google.sh ]; then
   PROMPT_COMMAND="update_tmux_window; $PROMPT_COMMAND"
